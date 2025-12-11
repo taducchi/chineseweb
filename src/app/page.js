@@ -5,6 +5,7 @@ import Courses from './components/Courses'
 import Testimonials from './components/Testimonials'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
+import Roadmap from './components/Roadmap'
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <main>
         <Hero />
         <Features />
+        {/* <Roadmap /> */}
         <Courses />
         <Testimonials />
         <CTA />
