@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 const courses = [
   {
@@ -9,6 +10,7 @@ const courses = [
     title: 'Tiếng Trung cho người mới bắt đầu',
     description: 'Khóa học nền tảng toàn diện 4 kỹ năng Nghe - Nói - Đọc - Viết.',
     duration: '3 tháng',
+    slug: 'luyen-thi-hsk-3',
     students: '1.2k học viên',
     rating: 4.9
   },
@@ -17,6 +19,7 @@ const courses = [
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA2U3_Rbugs2x9MoUOh4CvP6oHnsP7N-Og1ZNoOpn0DvyYxpZj-XtANMPywx4w6oAm_duwJxxnmJNqCsLDNT2QFdo5agoLVQC505TDoxegxwGmzOkDzxY4pewM8-3AL7DRPvnxbxnmlnFtJZ9b8UBTSLNCo9Ms0tSgG2GXT1gxYJh7YWaC2O2AuKEzyGzKFKMiivuUx02t2DZvdxtlDmtOkKBFXI2MLeH04dJZS5D21qu3XreoPClnK6eJfLsyvenkBCDMs7wJtBT0',
     badge: 'Cơ bản',
     badgeColor: 'bg-green-500',
+    slug: 'luyen-thi-hsk-3',
     title: 'Nhập môn tiếng Trung',
     description: 'Làm quen với bảng chữ cái Pinyin và các bộ thủ cơ bản.',
     duration: '1 tháng',
@@ -27,12 +30,14 @@ const courses = [
     id: 3,
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDslZs4BxXtffiZC3tfoUxOFsPZEYTYaE6Ltpe3OMSGfNSKGq3j3CsBs8y27U-UIiS9ZkuVW2JZkRWsCDq7tceK-P6D6_bBWkcKsZQpjpCeT2h-JvVWvSxhCQtS0XFNB1KVrzHE5MycpCwDi0F6smqSiiSum7qyZ5ov7HRwom5YsrGJ2kuz-vXIRhlXLUYJqVtBTNnh_bZAvEZK5HcaLWp9FykzRi7zNXKra00o26rcJTPKRpdOkkZYgSPG2NMiVdwslNugDdIjAK8',
     badge: 'Giao tiếp',
+    slug: 'luyen-thi-hsk-3',
     badgeColor: 'bg-orange-500',
     title: 'Tiếng Trung giao tiếp cấp tốc',
     description: 'Tự tin nói chuyện với người bản xứ trong các tình huống hàng ngày.',
     duration: '2 tháng',
     students: '500+ học viên',
-    rating: 4.7
+    rating: 4.7,
+
   }
 ]
 
@@ -54,10 +59,10 @@ export default function Courses() {
             <span className="material-symbols-outlined">arrow_forward</span>
           </a>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {courses.map((course) => (
-            <div 
+            <div
               key={course.id}
               className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group course-card"
             >
@@ -93,9 +98,12 @@ export default function Courses() {
                     {course.rating}
                   </div>
                 </div>
-                <button className="w-full bg-primary hover:bg-primary-dark text-white py-3 rounded-lg font-semibold transition-colors">
-                  Xem chi tiết
-                </button>
+                <Link
+                  href={`/courses/${course.slug}`}
+                  className="flex-1 bg-primary hover:bg-primary-dark text-white font-bold py-2.5 rounded-lg text-sm transition-colors shadow-md shadow-blue-200 dark:shadow-none flex items-center justify-center"
+                >
+                  Chi tiết khoá học
+                </Link>
               </div>
             </div>
           ))}

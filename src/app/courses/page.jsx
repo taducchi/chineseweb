@@ -1,13 +1,17 @@
 // pages/courses.js
+
+
 import Head from 'next/head';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Link from 'next/link';
 
 export default function CoursesPage() {
         const courses = [
                 {
                         id: 1,
                         level: "HSK 1",
+                        slug: 'luyen-thi-hsk-3',
                         levelColor: "text-primary",
                         title: "Tiếng Trung Nhập Môn",
                         rating: 4.9,
@@ -20,6 +24,7 @@ export default function CoursesPage() {
                 {
                         id: 2,
                         level: "HSK 3",
+                         slug: 'luyen-thi-hsk-3',
                         levelColor: "text-emerald-600",
                         title: "Giao Tiếp Văn Phòng",
                         rating: 4.8,
@@ -32,6 +37,7 @@ export default function CoursesPage() {
                 {
                         id: 3,
                         level: "HSK 4",
+                        slug: 'luyen-thi-hsk-3',
                         levelColor: "text-orange-600",
                         title: "Luyện Thi HSK 4 Cấp Tốc",
                         rating: 5.0,
@@ -44,6 +50,7 @@ export default function CoursesPage() {
                 {
                         id: 4,
                         level: "HSK 2",
+                         slug: 'luyen-thi-hsk-3',
                         levelColor: "text-primary",
                         title: "Viết Chữ Hán Cơ Bản",
                         rating: 4.7,
@@ -56,6 +63,7 @@ export default function CoursesPage() {
                 {
                         id: 5,
                         level: "Giao Tiếp",
+                        slug: 'luyen-thi-hsk-3',
                         levelColor: "text-purple-600",
                         title: "Tiếng Trung Du Lịch",
                         rating: 4.9,
@@ -69,6 +77,7 @@ export default function CoursesPage() {
                         id: 6,
                         level: "HSK 6",
                         levelColor: "text-rose-600",
+                        slug: 'luyen-thi-hsk-3',
                         title: "Thành Ngữ & Văn Hóa",
                         rating: 5.0,
                         description: "Khám phá chiều sâu ngôn ngữ qua các câu thành ngữ và điển tích lịch sử nổi tiếng.",
@@ -90,15 +99,10 @@ export default function CoursesPage() {
 
         return (
                 <>
-                        <Head>
-                                <title>Danh sách khóa học - Chinese Learning</title>
-                                <meta name="description" content="Khám phá các khóa học tiếng Trung phù hợp với trình độ của bạn" />
-                                <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-                                <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-                        </Head>
+                        
 
                         <div className="min-h-screen bg-background-light dark:bg-background-dark">
-                                <Header /> 
+                                <Header />
                                 <main className="px-4 md:px-10 lg:px-2 py-8 max-w-[1200px] mx-auto">
                                         {/* Page Heading */}
                                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 p-4 mb-2">
@@ -221,10 +225,17 @@ export default function CoursesPage() {
                                                                         </div>
 
                                                                         <div className="flex gap-3 mt-auto">
-                                                                                <button className="flex-1 bg-primary hover:bg-primary-dark text-white font-bold py-2.5 rounded-lg text-sm transition-colors shadow-md shadow-blue-200 dark:shadow-none">
+                                                                                <Link
+                                                                                        href={`/courses/${course.slug}`}
+                                                                                        className="flex-1 bg-primary hover:bg-primary-dark text-white font-bold py-2.5 rounded-lg text-sm transition-colors shadow-md shadow-blue-200 dark:shadow-none flex items-center justify-center"
+                                                                                >
                                                                                         Đăng ký ngay
-                                                                                </button>
-                                                                                <button className="px-3 py-2.5 border border-slate-200 dark:border-slate-600 rounded-lg text-text-main dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors" title="Xem chi tiết">
+                                                                                </Link>
+
+                                                                                <button
+                                                                                        className="px-3 py-2.5 border border-slate-200 dark:border-slate-600 rounded-lg text-text-main dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                                                                                        title="Xem chi tiết"
+                                                                                >
                                                                                         <span className="material-symbols-outlined text-[20px]">visibility</span>
                                                                                 </button>
                                                                         </div>
