@@ -1,6 +1,7 @@
 // pages/courses.js
 import Head from 'next/head';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 export default function CoursesPage() {
         const courses = [
@@ -97,33 +98,7 @@ export default function CoursesPage() {
                         </Head>
 
                         <div className="min-h-screen bg-background-light dark:bg-background-dark">
-                                {/* Header */}
-                                <header className="sticky top-0 z-50 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark px-6 lg:px-10 py-3">
-                                        <div className="flex items-center gap-4">
-                                                <div className="size-8 text-primary">
-                                                        <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M6 6H42L36 24L42 42H6L12 24L6 6Z"></path>
-                                                        </svg>
-                                                </div>
-                                                <h2 className="text-lg font-bold text-text-main dark:text-white">Chinese Learning</h2>
-                                        </div>
-
-                                        <div className="flex flex-1 justify-end items-center gap-4 lg:gap-8">
-                                                <div className="hidden md:flex items-center gap-6 lg:gap-9">
-                                                        <a className="text-sm font-medium text-text-sub dark:text-slate-300 hover:text-primary transition-colors" href="#">Dashboard</a>
-                                                        <a className="text-sm font-bold text-primary leading-normal" href="#">Khóa học của tôi</a>
-                                                        <a className="text-sm font-medium text-text-sub dark:text-slate-300 hover:text-primary transition-colors" href="#">Cộng đồng</a>
-                                                </div>
-
-                                                <div className="flex items-center gap-4">
-                                                        <button className="flex min-w-[84px] h-9 px-4 items-center justify-center bg-primary hover:bg-primary-dark text-white text-sm font-bold rounded-lg transition-colors">
-                                                                <span>Đăng xuất</span>
-                                                        </button>
-                                                        <div className="size-10 rounded-full border-2 border-slate-100 dark:border-slate-700 bg-cover bg-center" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuD6AtWB6Vyqjq_JBgY-DPykw5-KAgchwuOaINdCp7QcL3hJdYxtGbfB4fJKSeX_xkIlaMlfpnFne0wJD5sqhFmrFMiMSdHIA8KttEGnN01SUWp_VlVRGYxEoY5ttAz5BVuZwfr4R3IluUjsI7O-Csu83ytcbZXc71N4Haio3Wtq7-V7r4ZlMPWNBwS0kYPRXlZydhnrHl-7ASk5rqU6RJaIiDmJ6OH9zDSbL9hEt34Sakf4tIHMEvl9VZHQz_W_D6BMzGGYcto0VrJB")' }}></div>
-                                                </div>
-                                        </div>
-                                </header>
-
+                                <Header /> 
                                 <main className="px-4 md:px-10 lg:px-2 py-8 max-w-[1200px] mx-auto">
                                         {/* Page Heading */}
                                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 p-4 mb-2">

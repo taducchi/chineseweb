@@ -16,7 +16,7 @@ export default function Header() {
 
       <nav className="hidden md:flex items-center gap-8">
         <a href="#features" className="text-text-main dark:text-white hover:text-primary transition-colors font-medium">Tính năng</a>
-        <a href="#courses" className="text-text-main dark:text-white hover:text-primary transition-colors font-medium">Khóa học</a>
+        <a href="/courses" className="text-text-main dark:text-white hover:text-primary transition-colors font-medium">Khóa học</a>
         <a href="#testimonials" className="text-text-main dark:text-white hover:text-primary transition-colors font-medium">Đánh giá</a>
         <a href="#planning" className="text-text-main dark:text-white hover:text-primary transition-colors font-medium">Lộ trình học</a>
 

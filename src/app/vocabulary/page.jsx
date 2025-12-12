@@ -26,7 +26,7 @@ export default function VocabularyPractice() {
       // Thay thế URL này bằng endpoint thực tế của bạn
       const response = await fetch('http://127.0.0.1:8000/api/vocabulary/');
       const data = await response.json();
-      
+
       if (data && data.results.length > 0) {
         setWords(data.results);
         setProgress(1);
@@ -63,11 +63,11 @@ export default function VocabularyPractice() {
 
   const handleCheck = () => {
     if (!words[currentIndex]) return;
-    
+
     const correct = userInput.trim() === words[currentIndex].chinese;
     setIsCorrect(correct);
     setShowResult(true);
-    
+
     // Tự động chuyển từ sau 2 giây
     setTimeout(() => {
       handleNext();
@@ -86,7 +86,7 @@ export default function VocabularyPractice() {
       setCurrentIndex(0);
       setProgress(1);
     }
-    
+
     // Reset state
     setUserInput('');
     setShowResult(false);
@@ -103,7 +103,7 @@ export default function VocabularyPractice() {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
     }
-    
+
     const audioUrl = words[currentIndex]?.audioLink;
     if (audioUrl) {
       const audio = new Audio(audioUrl);
@@ -116,7 +116,7 @@ export default function VocabularyPractice() {
     if (!hintUsed) {
       setShowHint(true);
       setHintUsed(true);
-      
+
       // Ẩn hint sau 3 giây
       setTimeout(() => {
         setShowHint(false);
@@ -162,7 +162,7 @@ export default function VocabularyPractice() {
   return (
     <>
       <Header />
-      
+
       <div className="min-h-screen bg-background-light dark:bg-background-dark transition-colors duration-300">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-8">
           {/* Progress Section */}
@@ -175,9 +175,9 @@ export default function VocabularyPractice() {
                 {progress}/{words.length}
               </div>
             </div>
-            
+
             <div className="h-3 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-800">
-              <div 
+              <div
                 className="h-full bg-primary rounded-full transition-all duration-500 ease-out shadow-glow"
                 style={{ width: `${(progress / words.length) * 100}%` }}
               ></div>
@@ -186,14 +186,12 @@ export default function VocabularyPractice() {
 
           {/* Result Overlay */}
           {showResult && (
-            <div className={`fixed inset-0 z-50 flex items-center justify-center ${
-              isCorrect ? 'bg-green-500/10' : 'bg-red-500/10'
-            } backdrop-blur-sm`}>
-              <div className={`p-8 rounded-2xl shadow-2xl ${
-                isCorrect 
-                  ? 'bg-gradient-to-br from-green-400 to-emerald-600' 
+            <div className={`fixed inset-0 z-50 flex items-center justify-center ${isCorrect ? 'bg-green-500/10' : 'bg-red-500/10'
+              } backdrop-blur-sm`}>
+              <div className={`p-8 rounded-2xl shadow-2xl ${isCorrect
+                  ? 'bg-gradient-to-br from-green-400 to-emerald-600'
                   : 'bg-gradient-to-br from-red-400 to-rose-600'
-              }`}>
+                }`}>
                 <div className="text-center text-white">
                   <span className="material-symbols-outlined text-6xl mb-4">
                     {isCorrect ? 'celebration' : 'sentiment_dissatisfied'}
@@ -229,7 +227,7 @@ export default function VocabularyPractice() {
                       </p>
                     </div>
                     <div className="flex gap-2">
-                      <button 
+                      <button
                         onClick={handleShowHint}
                         className="p-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
                         disabled={hintUsed}
@@ -238,8 +236,8 @@ export default function VocabularyPractice() {
                           lightbulb
                         </span>
                       </button>
-                      <button 
-                        onClick={() => {/* Implement bookmark */}}
+                      <button
+                        onClick={() => {/* Implement bookmark */ }}
                         className="p-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
                       >
                         <span className="material-symbols-outlined">
@@ -275,7 +273,7 @@ export default function VocabularyPractice() {
                           Phiên âm
                         </div>
                       </div>
-                      <button 
+                      <button
                         onClick={handlePlayAudio}
                         className="flex-shrink-0 flex items-center gap-2 px-4 py-3 rounded-xl bg-primary/10 hover:bg-primary/20 text-primary font-semibold transition-colors group"
                       >
@@ -358,7 +356,7 @@ export default function VocabularyPractice() {
                         </button>
                       )}
                     </div>
-                    
+
                     {/* Character Count */}
                     <div className="text-sm text-text-sub text-center">
                       {userInput.length} / {currentWord.chinese.length} ký tự
@@ -370,11 +368,10 @@ export default function VocabularyPractice() {
                     <button
                       onClick={handleCheck}
                       disabled={!userInput.trim()}
-                      className={`w-full group relative overflow-hidden rounded-xl font-bold py-4 md:py-5 text-lg shadow-lg transition-all duration-300 active:scale-[0.98] ${
-                        userInput.trim()
+                      className={`w-full group relative overflow-hidden rounded-xl font-bold py-4 md:py-5 text-lg shadow-lg transition-all duration-300 active:scale-[0.98] ${userInput.trim()
                           ? 'bg-primary hover:bg-primary-dark text-white shadow-glow'
                           : 'bg-gray-200 dark:bg-gray-800 text-gray-400 cursor-not-allowed'
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center justify-center gap-3">
                         <span>Kiểm tra</span>
@@ -397,11 +394,10 @@ export default function VocabularyPractice() {
                           setHintUsed(true);
                         }}
                         disabled={hintUsed}
-                        className={`flex-1 py-3 font-medium transition-colors rounded-lg ${
-                          hintUsed
+                        className={`flex-1 py-3 font-medium transition-colors rounded-lg ${hintUsed
                             ? 'bg-gray-100 dark:bg-gray-800 text-gray-400 cursor-not-allowed'
                             : 'bg-primary/10 text-primary hover:bg-primary/20'
-                        }`}
+                          }`}
                       >
                         Hiển thị đáp án
                       </button>

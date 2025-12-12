@@ -154,40 +154,10 @@ export default function ReadingLibrary() {
       <div className="min-h-screen bg-background-light dark:bg-background-dark flex flex-col">
         
         {/* Desktop/Tablet Header */}
-        <header className="hidden lg:block sticky top-0 z-50 bg-surface-light dark:bg-surface-dark border-b border-border-light dark:border-border-dark">
-          <div className="container mx-auto px-6 py-4">
-          </div>
-        </header>
+      
 
         {/* Mobile Header */}
-        <header className="lg:hidden sticky top-0 z-50 bg-surface-light dark:bg-surface-dark border-b border-border-light dark:border-border-dark">
-          <div className="container mx-auto px-4 py-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <button 
-                  onClick={() => setIsDrawerOpen(true)}
-                  className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-text-main dark:text-white"
-                >
-                  <span className="material-symbols-outlined text-xl">menu</span>
-                </button>
-                <div>
-                  <h1 className="text-lg font-bold font-display">Thư viện bài đọc</h1>
-                  <p className="text-xs text-text-sub hidden sm:block">Chọn bài phù hợp với trình độ</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center gap-2">
-                <button className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
-                  <span className="material-symbols-outlined">search</span>
-                </button>
-                <button className="relative p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
-                  <span className="material-symbols-outlined">notifications</span>
-                  <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-surface-dark"></span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </header>
+       
 
         {/* Main Content */}
         <main className="flex-1 flex overflow-hidden">
