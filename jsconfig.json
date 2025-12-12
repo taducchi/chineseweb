@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",  // Thêm dòng này
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./*"] // Thêm dòng này để dùng @/
     }
-  }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }
