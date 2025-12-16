@@ -24,7 +24,7 @@ export default function VocabularyPractice() {
     try {
       setIsLoading(true);
       // Thay thế URL này bằng endpoint thực tế của bạn
-      const response = await fetch('http://127.0.0.1:8000/api/vocabulary/');
+      const response = await fetch('http://192.168.137.1:8000/api/vocabulary/');
       const data = await response.json();
 
       if (data && data.results.length > 0) {
