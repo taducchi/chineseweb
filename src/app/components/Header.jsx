@@ -17,7 +17,7 @@ export default function Header() {
       <nav className="hidden md:flex items-center gap-8">
         <a href="/" className="text-text-main dark:text-white hover:text-primary transition-colors font-medium">Trang chủ</a>
         <a href="/courses" className="text-text-main dark:text-white hover:text-primary transition-colors font-medium">Khóa học</a>
-        <a href="#planning" className="text-text-main dark:text-white hover:text-primary transition-colors font-medium">Tài liệu</a>
+        <a href="/materials" className="text-text-main dark:text-white hover:text-primary transition-colors font-medium">Tài liệu</a>
 
         {/* Dropdown Navbar với CSS đã sửa */}
         <div className="relative group">
@@ -35,7 +35,7 @@ export default function Header() {
 
             <div className="py-1">
               <a
-                href="/vocabulary"
+                href="/vocabsetting"
                 className="flex items-center gap-2 px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-t-lg"
               >
                 <span className="material-symbols-outlined text-primary text-base">translate</span>
