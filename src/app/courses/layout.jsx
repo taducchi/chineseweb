@@ -14,9 +14,7 @@ export default function Layout({ children }) {
   return (
     <html lang="en" className="light">
       <body className={`${inter.className} antialiased`}>
-        <Header />
         {children}
-        <Footer />
       </body>
     </html>
   )

@@ -13,7 +13,7 @@ export default function Footer() {
                                                         <div className="bg-primary/20 text-primary p-2 rounded-lg">
                                                                 <span className="material-symbols-outlined">school</span>
                                                         </div>
-                                                        <h3 className="text-xl font-bold">Học Tiếng Trung</h3>
+                                                        <h3 className="text-xl font-bold">Zhoo中文</h3>
                                                 </div>
                                                 <p className="text-gray-400 mb-6">
                                                         Nền tảng học tiếng Trung trực tuyến hàng đầu Việt Nam, giúp bạn chinh phục tiếng Trung dễ dàng.
@@ -77,7 +77,7 @@ export default function Footer() {
                                 </div>
 
                                 <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                                        <p>© 2024 Học Tiếng Trung. Tất cả các quyền được bảo lưu.</p>
+                                        <p>© 2024 ZhooZhongWen.vn - Tất cả các quyền được bảo lưu.</p>
                                 </div>
                         </div>
                 </footer>

@@ -9,8 +9,8 @@ export default function Header() {
         <div className="bg-primary/10 text-primary p-2 rounded-lg flex items-center justify-center">
           <span className="material-symbols-outlined">school</span>
         </div>
-        <h1 className="text-lg font-bold leading-tight tracking-tight text-text-main dark:text-white md:text-xl">
-          Học Tiếng Trung
+        <h1 className="text-lg font-bold leading-tight tracking-tight text-primary dark:text-white md:text-xl ">
+          Zhoo中文
         </h1>
       </div>
 

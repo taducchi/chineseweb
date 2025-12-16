@@ -5,13 +5,21 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
         title: 'Học Tiếng Trung - Landing Page',
-        description: 'Nền tảng học tiếng Trung trực tuyến số 1 Việt Nam',
+        description: 'Nền tảng học tiếng Trung trực tuyến hàng đầu Việt Nam',
+        icons: {
+        icon: [
+        { media: '(prefers-color-scheme: light)', url: '/images/favicon.png', href: '/images/favicon.png' },
+        { media: '(prefers-color-scheme: dark)', url: '/images/favicon.png', href: '/images/favicon.png' },
+        ],
+        },
+
 }
 
 export default function RootLayout({ children }) {
         return (
                 <html lang="vi">
                         <head>
+                                <link rel="icon" href="/favicon.png" sizes="any" />
                                 <link
                                         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
                                         rel="stylesheet"
