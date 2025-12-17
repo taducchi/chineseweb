@@ -54,7 +54,7 @@ export default function SettingsPage() {
                         {/* Main Content */}
                         <main className="flex-1 pb-8 px-4 md:px-6 lg:px-8">
                                 {/* Hero Section - Responsive */}
-                                <div className="max-w-4xl mx-auto">
+                                <div className="layout-content-container flex flex-col max-w-[1200px] mx-auto w-full p-6 md:p-8 pb-32">
                                         <div className="relative overflow-hidden rounded-xl md:rounded-2xl lg:rounded-3xl bg-gradient-to-br from-blue-500 to-primary shadow-lg mt-4 md:mt-6 lg:mt-8 min-h-[160px] md:min-h-[180px] lg:min-h-[200px]">
                                                 <div
                                                         className="absolute inset-0 bg-center bg-cover bg-no-repeat opacity-90"
