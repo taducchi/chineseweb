@@ -19,10 +19,10 @@ export default function Footer() {
                                                         Nền tảng học tiếng Trung trực tuyến hàng đầu Việt Nam, giúp bạn chinh phục tiếng Trung dễ dàng.
                                                 </p>
                                                 <div className="flex gap-4">
-                                                        <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                                                        <a href="https://www.facebook.com/zhoozhongwen" target="_blank" className="text-gray-400 hover:text-white transition-colors">
                                                                 <span className="material-symbols-outlined">facebook</span>
                                                         </a>
-                                                        <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                                                        <a href="https://www.youtube.com/@zhoozhongwen" target="_blank" className="text-gray-400 hover:text-white transition-colors">
                                                                 <span className="material-symbols-outlined">youtube_activity</span>
                                                         </a>
                                                         <a href="#" className="text-gray-400 hover:text-white transition-colors">

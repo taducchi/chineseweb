@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }) => {
     Cookies.remove('token');
     localStorage.removeItem('user');
     setUser(null);
-    router.push('/login');
+    router.push('/');
   };
 
   const value = {

@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 
 // app/lib/auth.js
 
-const API_URL = 'http://192.168.137.1:8000/api';
+const API_URL = 'https://hospitable-alignment-production.up.railway.app/api';
 
 export default function LoginPage() {
         const [formData, setFormData] = useState({
@@ -82,6 +82,7 @@ export default function LoginPage() {
                                         }),
                                 }).then(res => res.json());
 
+                                console.log(response)
                                 if (response.access) {
                                         // Lưu token vào cookie (7 ngày)
                                         Cookies.set('access', response.access, { expires: 7 });
