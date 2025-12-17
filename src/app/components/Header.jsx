@@ -87,9 +87,7 @@ export default function Header() {
     }}
   />
 </div>
-                <p>
-
-                </p>
+              
               </button>
 
               {/* Tên người dùng - Không bị co lại */}
@@ -102,6 +100,13 @@ export default function Header() {
               </div>
 
               {/* Nút đăng xuất */}
+              <button
+                onClick={() => push('/dashboard')}
+                className="flex-shrink-0 flex items-center justify-center p-2 text-blue-600 dark:text-blue-400  rounded-lg transition-colors"
+                title="Vào học ngay"
+              >
+                <span className="material-symbols-outlined text-lg">school</span>
+              </button>
               <button
                 onClick={() => logout()}
                 className="flex-shrink-0 flex items-center justify-center p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
@@ -265,6 +270,17 @@ export default function Header() {
                       <p className="text-sm font-medium text-text-main dark:text-white truncate">{user.email}</p>
                     </div>
                   </div>
+
+                  <button
+                    onClick={() => {
+                      push('/dashboard');
+              
+                    }}
+                    className="flex items-center justify-center gap-2 p-3 text-blue-600 border dark:hover:bg-red-900/20 rounded-lg transition-colors font-medium w-full"
+                  >
+                    <span className="material-symbols-outlined">logout</span>
+                    <span>Vào học ngay</span>
+                  </button>
 
                   {/* Logout Button */}
                   <button
