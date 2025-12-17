@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Header from '../components/Header';
+import { useRouter } from 'next/navigation';
 
 export default function ReadingLibrary() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -8,12 +9,13 @@ export default function ReadingLibrary() {
   const [selectedTopics, setSelectedTopics] = useState(['Kinh tế & Thương mại']);
   const [duration, setDuration] = useState(5);
   const [isLoading, setIsLoading] = useState(true);
-
+  const router = useRouter();
   // Sample data
   const articles = [
     {
       id: 1,
       title: "中国的数字经济蓬勃发展",
+      slug: "zhong-guo-de-shu-zi-jing-ji-peng-bo-fa-zhan",
       description: "Sự phát triển mạnh mẽ của nền kinh tế số Trung Quốc và tác động đến đời sống người dân.",
       level: "HSK 5",
       levelColor: "text-primary",
@@ -37,12 +39,16 @@ export default function ReadingLibrary() {
       duration: "3 phút",
       views: "856",
       tags: ["Văn hóa"],
+            slug: "zhong-guo-de-shu-zi-jing-ji-peng-bo-fa-zhan",
+
       tagColors: ["bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400"],
       isBookmarked: false,
       isNew: false
     },
     {
       id: 3,
+            slug: "zhong-guo-de-shu-zi-jing-ji-peng-bo-fa-zhan",
+
       title: "春节的传统习俗与现代变化",
       description: "Những phong tục truyền thống ngày Tết và những thay đổi trong xã hội hiện đại.",
       level: "HSK 6",
@@ -59,6 +65,8 @@ export default function ReadingLibrary() {
     {
       id: 4,
       title: "低头族：手机对生活的影响",
+            slug: "zhong-guo-de-shu-zi-jing-ji-peng-bo-fa-zhan",
+
       description: '"Cúi đầu tộc": Ảnh hưởng của điện thoại di động đến cuộc sống hàng ngày của giới trẻ.',
       level: "HSK 3",
       levelColor: "text-green-500",
@@ -74,6 +82,8 @@ export default function ReadingLibrary() {
     {
       id: 5,
       title: "中国古代建筑的特点",
+            slug: "zhong-guo-de-shu-zi-jing-ji-peng-bo-fa-zhan",
+
       description: "Đặc điểm kiến trúc cổ đại Trung Quốc và ảnh hưởng đến kiến trúc hiện đại.",
       level: "HSK 4",
       levelColor: "text-purple-400",
@@ -88,6 +98,8 @@ export default function ReadingLibrary() {
     },
     {
       id: 6,
+            slug: "zhong-guo-de-shu-zi-jing-ji-peng-bo-fa-zhan",
+
       title: "中国美食文化介绍",
       description: "Giới thiệu về văn hóa ẩm thực Trung Quốc và các món ăn đặc trưng vùng miền.",
       level: "HSK 2",
@@ -173,7 +185,7 @@ export default function ReadingLibrary() {
           {/* Sidebar Filters */}
           <aside className={`
             fixed lg:static inset-y-0 left-0 z-50 w-80 lg:w-72 xl:w-80 
-            bg-surface-light dark:bg-surface-dark border-r border-border-light dark:border-border-dark 
+            bg-white dark:bg-surface-dark border-r border-border-light dark:border-border-dark 
             transform transition-transform duration-300 ease-in-out 
             ${isDrawerOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
             overflow-y-auto z-20
@@ -354,8 +366,10 @@ export default function ReadingLibrary() {
             <div className="flex-1 overflow-y-auto p-4 md:p-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 md:gap-6">
                 {articles.map((article) => (
-                  <article 
-                    key={article.id} 
+                  <button   key={article.id} onClick={() => {router.push(`/reading/${article.slug}`)}}>
+
+                    <article 
+                  
                     className="group bg-surface-light dark:bg-surface-dark rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 border border-border-light dark:border-border-dark"
                   >
                     <div className="relative h-48 overflow-hidden">
@@ -412,33 +426,12 @@ export default function ReadingLibrary() {
                       </div>
                     </div>
                   </article>
+                  </button>
                 ))}
               </div>
             </div>
           </div>
         </main>
-
-        {/* Mobile Bottom Navigation */}
-        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-surface-light dark:bg-surface-dark border-t border-border-light dark:border-border-dark p-4">
-          <div className="flex items-center justify-around">
-            <button className="flex flex-col items-center gap-1 text-primary">
-              <span className="material-symbols-outlined text-2xl">menu_book</span>
-              <span className="text-xs font-medium">Đọc</span>
-            </button>
-            <button className="flex flex-col items-center gap-1 text-text-sub hover:text-primary transition-colors">
-              <span className="material-symbols-outlined text-2xl">search</span>
-              <span className="text-xs">Tìm kiếm</span>
-            </button>
-            <button className="flex flex-col items-center gap-1 text-text-sub hover:text-primary transition-colors">
-              <span className="material-symbols-outlined text-2xl">bookmark</span>
-              <span className="text-xs">Đã lưu</span>
-            </button>
-            <button className="flex flex-col items-center gap-1 text-text-sub hover:text-primary transition-colors">
-              <span className="material-symbols-outlined text-2xl">person</span>
-              <span className="text-xs">Tài khoản</span>
-            </button>
-          </div>
-        </div>
 
         {/* Floating Action Button for Mobile */}
         <button className="lg:hidden fixed bottom-20 right-4 z-30 h-14 w-14 bg-primary rounded-full shadow-lg shadow-primary/30 flex items-center justify-center text-white transition-transform active:scale-95">

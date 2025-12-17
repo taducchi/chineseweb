@@ -3,14 +3,15 @@
 import { useState } from 'react';
 import Link from "next/link";
 import { useAuth } from "../context/AuthContext";
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, logout } = useAuth();
-
+  const router = useRouter();
   return (
     <>
-      <header className="sticky top-0 z-40 flex items-center bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm p-4 border-b border-gray-200 dark:border-gray-800 justify-between container mx-auto">
+      <header className="sticky top-0 left-0 right-0 z-40 w-full flex items-center bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm p-4 border-b border-gray-200 dark:border-gray-800 justify-between container mx-auto">
         {/* Left section - Logo */}
         <div className="flex items-center gap-3">
           <div className="bg-primary/10 text-primary p-2 rounded-lg flex items-center justify-center">
@@ -76,18 +77,18 @@ export default function Header() {
               {/* Avatar */}
               <button className="flex-shrink-0 rounded-full overflow-hidden ring-2 ring-gray-100 dark:ring-gray-700 hover:ring-primary transition-all size-9">
                 <div className="relative transform perspective-1000 hover:-translate-y-1 transition-all duration-300">
-  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-purple-500/20 rounded-full transform rotate-6 scale-105"></div>
-  <img
-    alt="User profile avatar"
-    className="relative w-full h-full object-cover rounded-full shadow-[0_10px_30px_-5px_rgba(99,102,241,0.3)] dark:shadow-[0_10px_30px_-5px_rgba(99,102,241,0.5)] border-2 border-white/50 dark:border-gray-800/50 backdrop-blur-sm"
-    src={user.avatar_url}
-    onError={(e) => {
-      const initials = (user.first_name?.[0] || user.email[0]).toUpperCase();
-      e.currentTarget.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><rect width="256" height="256" fill="%236366f1" rx="128"/><text x="128" y="140" font-family="Arial" font-size="96" fill="white" text-anchor="middle" dy=".3em">${initials}</text></svg>`;
-    }}
-  />
-</div>
-              
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-purple-500/20 rounded-full transform rotate-6 scale-105"></div>
+                  <img
+                    alt="User profile avatar"
+                    className="relative w-full h-full object-cover rounded-full shadow-[0_10px_30px_-5px_rgba(99,102,241,0.3)] dark:shadow-[0_10px_30px_-5px_rgba(99,102,241,0.5)] border-2 border-white/50 dark:border-gray-800/50 backdrop-blur-sm"
+                    src={user.avatar_url}
+                    onError={(e) => {
+                      const initials = (user.first_name?.[0] || user.email[0]).toUpperCase();
+                      e.currentTarget.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><rect width="256" height="256" fill="%236366f1" rx="128"/><text x="128" y="140" font-family="Arial" font-size="96" fill="white" text-anchor="middle" dy=".3em">${initials}</text></svg>`;
+                    }}
+                  />
+                </div>
+
               </button>
 
               {/* Tên người dùng - Không bị co lại */}
@@ -101,7 +102,7 @@ export default function Header() {
 
               {/* Nút đăng xuất */}
               <button
-                onClick={() => push('/dashboard')}
+                onClick={() => router.push('/dashboard')}
                 className="flex-shrink-0 flex items-center justify-center p-2 text-blue-600 dark:text-blue-400  rounded-lg transition-colors"
                 title="Vào học ngay"
               >
@@ -254,17 +255,17 @@ export default function Header() {
                   <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg mb-3">
                     <div className="rounded-full overflow-hidden ring-2 ring-gray-100 dark:ring-gray-700 size-10 flex-shrink-0">
                       <div className="relative transform perspective-1000 hover:-translate-y-1 transition-all duration-300">
-  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-purple-500/20 rounded-full transform rotate-6 scale-105"></div>
-  <img
-    alt="User profile avatar"
-    className="relative w-full h-full object-cover rounded-full shadow-[0_10px_30px_-5px_rgba(99,102,241,0.3)] dark:shadow-[0_10px_30px_-5px_rgba(99,102,241,0.5)] border-2 border-white/50 dark:border-gray-800/50 backdrop-blur-sm"
-    src={user.avatar_url}
-    onError={(e) => {
-      const initials = (user.first_name?.[0] || user.email[0]).toUpperCase();
-      e.currentTarget.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><rect width="256" height="256" fill="%236366f1" rx="128"/><text x="128" y="140" font-family="Arial" font-size="96" fill="white" text-anchor="middle" dy=".3em">${initials}</text></svg>`;
-    }}
-  />
-</div>
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-purple-500/20 rounded-full transform rotate-6 scale-105"></div>
+                        <img
+                          alt="User profile avatar"
+                          className="relative w-full h-full object-cover rounded-full shadow-[0_10px_30px_-5px_rgba(99,102,241,0.3)] dark:shadow-[0_10px_30px_-5px_rgba(99,102,241,0.5)] border-2 border-white/50 dark:border-gray-800/50 backdrop-blur-sm"
+                          src={user.avatar_url}
+                          onError={(e) => {
+                            const initials = (user.first_name?.[0] || user.email[0]).toUpperCase();
+                            e.currentTarget.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><rect width="256" height="256" fill="%236366f1" rx="128"/><text x="128" y="140" font-family="Arial" font-size="96" fill="white" text-anchor="middle" dy=".3em">${initials}</text></svg>`;
+                          }}
+                        />
+                      </div>
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-text-main dark:text-white truncate">{user.email}</p>
@@ -273,8 +274,8 @@ export default function Header() {
 
                   <button
                     onClick={() => {
-                      push('/dashboard');
-              
+                      router.push('/dashboard');
+
                     }}
                     className="flex items-center justify-center gap-2 p-3 text-blue-600 border dark:hover:bg-red-900/20 rounded-lg transition-colors font-medium w-full"
                   >
