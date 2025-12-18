@@ -2,6 +2,9 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import Header from '../components/Header';
+import { useSearchParams } from 'next/navigation'
+
+export const API_URL = 'https://hospitable-alignment-production.up.railway.app/api';
 
 export default function VocabularyPractice() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -14,6 +17,11 @@ export default function VocabularyPractice() {
   const [showHint, setShowHint] = useState(false);
   const [hintUsed, setHintUsed] = useState(false);
   const audioRef = useRef(null);
+  const searchParams = useSearchParams();
+
+  const levelparam = searchParams.get('level');
+  const wordparam = searchParams.get('words');
+
 
   // Fetch data từ API
   useEffect(() => {
@@ -24,7 +32,7 @@ export default function VocabularyPractice() {
     try {
       setIsLoading(true);
       // Thay thế URL này bằng endpoint thực tế của bạn
-      const response = await fetch('http://192.168.137.1:8000/api/vocabulary/');
+      const response = await fetch(`${API_URL}/vocabulary/?words=${wordparam}`);
       const data = await response.json();
 
       if (data && data.results.length > 0) {

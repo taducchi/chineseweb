@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 
 // app/lib/auth.js
 
-const API_URL = 'https://hospitable-alignment-production.up.railway.app/api';
+export const API_URL = 'https://hospitable-alignment-production.up.railway.app/api';
 
 export default function LoginPage() {
         const [formData, setFormData] = useState({
