@@ -189,6 +189,14 @@ export default function Header() {
                 <span className="material-symbols-outlined text-primary">school</span>
                 <span className="font-medium">Khóa học</span>
               </Link>
+              {user && <Link
+                href="/dashboard"
+                className="flex items-center gap-3 p-3 text-text-main dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <span className="material-symbols-outlined text-primary">school</span>
+                <span className="font-medium">Dashboard</span>
+              </Link> }
 
               <Link
                 href="/materials"

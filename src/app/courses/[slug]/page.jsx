@@ -12,33 +12,33 @@ export default function CourseDetailPage() {
   const [showAllReviews, setShowAllReviews] = useState(false)
 
   // Dữ liệu mẫu - thực tế sẽ fetch từ API
-  const mockCourses = {
-    'luyen-thi-hsk-3': {
-      id: 1,
-      slug: 'luyen-thi-hsk-3',
-      title: 'Luyện thi HSK 3: Từ vựng & Ngữ pháp toàn diện',
-      description: 'Nắm vững 600 từ vựng và các cấu trúc ngữ pháp trọng điểm. Khóa học được thiết kế đặc biệt giúp bạn tự tin đạt điểm cao trong kỳ thi HSK 3 chỉ sau 8 tuần.',
-      level: 'Intermediate',
-      duration: '8 tuần',
-      lessons: 42,
-      students: 3800,
-      rating: 4.8,
-      price: 1299000,
-      originalPrice: 2500000,
-      instructor: 'Tiến sĩ Wang Li',
-      category: 'Luyện thi HSK',
+  // const mockCourses = {
+  //   'luyen-thi-hsk-3': {
+  //     id: 1,
+  //     slug: 'luyen-thi-hsk-3',
+  //     title: 'Luyện thi HSK 3: Từ vựng & Ngữ pháp toàn diện',
+  //     description: 'Nắm vững 600 từ vựng và các cấu trúc ngữ pháp trọng điểm. Khóa học được thiết kế đặc biệt giúp bạn tự tin đạt điểm cao trong kỳ thi HSK 3 chỉ sau 8 tuần.',
+  //     level: 'Intermediate',
+  //     duration: '8 tuần',
+  //     lessons: 42,
+  //     students: 3800,
+  //     rating: 4.8,
+  //     price: 1299000,
+  //     originalPrice: 2500000,
+  //     instructor: 'Tiến sĩ Wang Li',
+  //     category: 'Luyện thi HSK',
+  //   }
+  // }
+  const fetchCourseData = async (slug) => {
+    await fetch(`http://127.0.0.1:8000/api/courses/${slug}`)
+      .then(response => response.json()).then(data => {
+        setCourse(data);
+      });
+      setLoading(false);
     }
-  }
-
   useEffect(() => {
+    fetchCourseData(params.slug);
     // Giả lập fetch API
-    setTimeout(() => {
-      const foundCourse = mockCourses[params.slug]
-      if (foundCourse) {
-        setCourse(foundCourse)
-      }
-      setLoading(false)
-    }, 500)
   }, [params.slug])
 
   if (loading) {
@@ -159,6 +159,7 @@ export default function CourseDetailPage() {
 
       <main className="w-full bg-white dark:bg-background-dark">
         {/* Course Hero Section */}
+        
         <div className="bg-[#1a2632] dark:bg-slate-900 text-white py-8 md:py-12">
           <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
             {/* Breadcrumb */}
@@ -208,7 +209,7 @@ export default function CourseDetailPage() {
                   
                   <span className="hidden sm:inline text-slate-400 text-sm">•</span>
                   <span className="text-slate-300 text-sm">
-                    {course.students.toLocaleString()} học viên
+                    {course.students_display.toLocaleString()} học viên
                   </span>
                 </div>
 
@@ -528,11 +529,11 @@ export default function CourseDetailPage() {
               <div className="p-4 md:p-6">
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-2xl md:text-3xl font-bold text-[#0d141b] dark:text-white">
-                    {course.price.toLocaleString()}đ
+                    {course.current_price.toLocaleString()}đ
                   </span>
-                  {course.originalPrice && (
+                  {course.price && (
                     <span className="text-lg text-slate-400 line-through decoration-slate-400">
-                      {course.originalPrice.toLocaleString()}đ
+                      {course.price.toLocaleString()}đ
                     </span>
                   )}
                 </div>

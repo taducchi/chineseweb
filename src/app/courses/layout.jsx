@@ -12,10 +12,8 @@ export const metadata = {
 
 export default function Layout({ children }) {
   return (
-    <html lang="en" className="light">
-      <body className={`${inter.className} antialiased`}>
+      <div className={`${inter.className} antialiased`}>
         {children}
-      </body>
-    </html>
+      </div>
   )
 }

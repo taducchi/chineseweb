@@ -1,3 +1,6 @@
+import Footer from "../../components/Footer"
+import Header from "../../components/Header"
+
 export async function generateMetadata({ params }) {
   // Trong thực tế, bạn sẽ fetch dữ liệu khóa học từ API/database
   const course = {
@@ -18,7 +21,8 @@ export async function generateMetadata({ params }) {
 
 export default function CourseDetailLayout({ children }) {
   return <>
+  <Header />
   {children}
-  
+  <Footer />
   </>
 }

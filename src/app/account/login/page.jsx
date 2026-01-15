@@ -88,7 +88,7 @@ export default function LoginPage() {
                                         Cookies.set('access', response.access, { expires: 7 });
                                         Cookies.set('refresh', response.refresh, { expires: 7 });
                                         setUser(response.user);
-                                        router.push('/materials');
+                                        router.push('/dashboard');
                                 }
 
                                

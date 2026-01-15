@@ -1,11 +1,16 @@
 // components/dashboard/DashboardSidebar.jsx
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useAuth } from '../../context/AuthContext';
+import Link from 'next/link';
 
 export default function DashboardSidebar({ sidebarOpen, setSidebarOpen }) {
   const pathname = usePathname();
-  
+   const { user, logout } = useAuth();
+  const router = useRouter();
+
+
   const navItems = [
     { icon: 'dashboard', label: 'Bảng Điều Khiển', href: '/dashboard' },
     { icon: 'menu_book', label: 'Khóa Học', href: '/dashboard/courses' },
@@ -25,26 +30,18 @@ export default function DashboardSidebar({ sidebarOpen, setSidebarOpen }) {
       border-r border-slate-200 dark:border-slate-800 transition-transform duration-300
       ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
     `}>
+
       <div className="p-6 flex items-center gap-3">
         <div className="size-8 text-primary">
           <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
             <path d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z" fill="currentColor" />
           </svg>
         </div>
-        <h1 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Zhongwen Master</h1>
+        <h1 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Zhoo 中文</h1>
       </div>
       
       <div className="px-4 py-2">
-        <div className="flex gap-3 items-center p-2 mb-6 bg-slate-50 dark:bg-slate-800 rounded-lg">
-          <div 
-            className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
-            style={{backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuDNHiXTpMWi3QfV5Inx5xIJKPUEZy37dXp6WazZGEZ-wIAdcr1Z4eukzrve_0xrw5BX4cdF5bQ_qmnw_6V9Rgg2SzzATVDdFiMzOeu0wTJhZL91StNmdx8ckjEuNE51d0_qodOUNz1tfZZo_Tdnt01dU5FYkWGmFUfDipnRgaBPsQfTihlgQx6iGhkISw1o2YwaQA_IRCnuJIZ7M-LwRdF3NV1uvNNZBJp55YFigkfoAjAC0pFTvCpJE4qNQxao6M4Jk5D-0R1e9ao")'}}
-          />
-          <div className="flex flex-col overflow-hidden">
-            <h2 className="text-sm font-bold truncate text-slate-900 dark:text-white">Alex Chen</h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400">Học Viên Cấp 3</p>
-          </div>
-        </div>
+  
         
         <nav className="flex flex-col gap-1">
           {navItems.map((item, index) => {
