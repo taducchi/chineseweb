@@ -160,7 +160,7 @@ export default function ReadingLibrary() {
 
   return (
     <>
-      <Header />
+   
       
       {/* Main Container */}
       <div className="min-h-screen bg-background-light dark:bg-background-dark flex flex-col">
