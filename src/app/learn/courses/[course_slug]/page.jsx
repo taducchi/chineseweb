@@ -1,7 +1,6 @@
 // app/page.js
 'use client';
 
-import VideoLesson from "../components/learn/VideoLesson";
 
 export default function HomePage({ toggleSidebar }) {
   return (

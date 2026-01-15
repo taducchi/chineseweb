@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
-import VideoLesson from "../../../../../../components/learn/VideoLesson";
 import ReadingLesson from "../../../../../../components/learn/ReadingLesson";
 import FlashcardLesson from "../../../../../../components/learn/FlashcardLesson";
 import DictationLesson from "../../../../../../components/learn/DictationLesson";
+import VideoLesson from "../../../../../../components/learn/VideoLesson";
 
 
 export default function LessonItemPage() {
