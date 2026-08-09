@@ -36,6 +36,13 @@ module.exports = {
           '2xl': '6rem',
         },
       },
+      backgroundImage: {
+        'chinese-pattern': 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0)',
+        'modal-gradient': 'linear-gradient(135deg, #2563eb 0%, #3b82f6 100%)'
+      },
+      backgroundSize: {
+        'pattern': '24px 24px'
+      },
     },
   },
   plugins: [],

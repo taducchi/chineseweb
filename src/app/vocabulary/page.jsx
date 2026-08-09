@@ -3,10 +3,11 @@
 import { useState, useEffect, useRef } from 'react';
 import Header from '../components/Header';
 import { useSearchParams } from 'next/navigation'
+import { useAuth } from '../context/AuthContext';
 
-export const API_URL = 'https://hospitable-alignment-production.up.railway.app/api';
 
 export default function VocabularyPractice() {
+  const API_URL= useAuth().API_URL; // Access API_URL from AuthContext
   const [currentIndex, setCurrentIndex] = useState(0);
   const [words, setWords] = useState([]);
   const [userInput, setUserInput] = useState('');
@@ -25,6 +26,7 @@ export default function VocabularyPractice() {
 
   // Fetch data từ API
   useEffect(() => {
+   
     fetchVocabularyData();
   }, []);
 
@@ -32,7 +34,7 @@ export default function VocabularyPractice() {
     try {
       setIsLoading(true);
       // Thay thế URL này bằng endpoint thực tế của bạn
-      const response = await fetch(`${API_URL}/vocabulary/?words=${wordparam}`);
+      const response = await fetch(`${API_URL}/api/vocabulary/?words=${wordparam}`);
       const data = await response.json();
 
       if (data && data.results.length > 0) {

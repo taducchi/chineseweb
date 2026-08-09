@@ -1,48 +1,86 @@
 // components/Layout/Header.js
-'use client';
 
-export default function Header() {
+'use client';
+import { useRouter } from "next/navigation";
+import { useAuth } from "../../context/AuthContext";
+import Link from "next/link";
+import Logo from "../Logo";
+
+export default function Header({toggleSidebar}) {
+
+  const { user, logout } = useAuth();
+  const router = useRouter();
+
   return (
-    <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark px-6 py-3 shrink-0 z-20">
-      <div className="flex items-center gap-4">
-        <div className="size-8 text-primary">
-          <svg className="w-full h-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-            <g clipPath="url(#clip0_6_319)">
-              <path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor" />
-            </g>
-            <defs>
-              <clipPath id="clip0_6_319"><rect fill="white" height="48" width="48" /></clipPath>
-            </defs>
-          </svg>
-        </div>
-        <h2 className="text-lg font-bold leading-tight tracking-[-0.015em] hidden sm:block">
-          Zhoo 中文
-        </h2>
-      </div>
+    <header className="h-16 flex items-center justify-between px-4 md:px-6 bg-white dark:bg-[#15222b] border-b border-slate-200 dark:border-slate-800 shrink-0 z-10">
+      <div className="flex lg:hidden items-center gap-3">
+    <button
+        className="text-slate-500 hover:text-slate-700 transition-colors p-2 rounded-lg hover:bg-slate-100"
+        onClick={() => toggleSidebar()}
+    >
+        <span className="material-symbols-outlined">menu</span>
+    </button>
+</div>
+
+     
       <div className="flex flex-1 justify-end gap-8 items-center">
-        <div className="hidden md:flex items-center gap-9">
-          <a className="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">
+        <div className="hidden md:flex items-center gap-9" >
+          <Link className="text-sm font-medium leading-normal hover:text-primary transition-colors" href="/dashboard">
             Dashboard
-          </a>
-          <a className="text-sm font-medium leading-normal text-primary" href="#">
+          </Link>
+          <Link className="text-sm font-medium leading-normal text-primary" href="/dashboard/courses">
             Khoá học
-          </a>
-       
+          </Link>
+
         </div>
-        <div className="flex items-center gap-4">
-          <button className="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-full hover:bg-background-light dark:hover:bg-border-dark transition-colors text-text-main-light dark:text-text-main-dark">
-            <span className="material-symbols-outlined text-[24px]">
-              notifications
-            </span>
-          </button>
-          <div 
-            className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20"
-            style={{
-              backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCCm9GebosGwxxmhDpkEDpKH09Hp2pQkMtLDkbu_fLMCRiDglXASNtNkHDcVLhnjWXPoERO02BaIVpRbE0vxKirsvNdKc0NgIyAArQ9KuawVL8nsNGqYMV5iFHMOcL0wm909E58hdr8-fRgFAZX12pMJ_isI2o22xRGFfOsJAHbqUOWlfMsDDG9qo_95D3vnNgLShXop9G1Ccx9fgZ4YVTECKPzSd7PMScPdW62fcuaMJsiOCt6-Z6ZeojfrWvqkpsd1Zg-9MoPz-Gl")'
+
+      </div>
+      <div className="flex items-center gap-4">
+        <button className="relative p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+          <span className="material-symbols-outlined">notifications</span>
+          <span className="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white dark:border-[#15222b]" />
+        </button>
+
+
+        <div className="h-8 w-[1px] bg-slate-200 dark:bg-slate-700 mx-1" />
+        {user && (<>
+          {/* User Info */}
+          <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg mb-3">
+            <div className="rounded-full overflow-hidden ring-2 ring-gray-100 dark:ring-gray-700 size-10 flex-shrink-0">
+              <div className="relative transform perspective-1000 hover:-translate-y-1 transition-all duration-300">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-purple-500/20 rounded-full transform rotate-6 scale-105"></div>
+                <img
+                  alt="User profile avatar"
+                  className="relative w-full h-full object-cover rounded-full shadow-[0_10px_30px_-5px_rgba(99,102,241,0.3)] dark:shadow-[0_10px_30px_-5px_rgba(99,102,241,0.5)] border-2 border-white/50 dark:border-gray-800/50 backdrop-blur-sm"
+                  src={user.google_avatar_url || user.avatar_url || '/default-avatar.png'}
+
+                  onError={(e) => {
+                    const initials = (user.first_name?.[0] || user.email[0]).toUpperCase();
+                    e.currentTarget.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><rect width="256" height="256" fill="%236366f1" rx="128"/><text x="128" y="140" font-family="Arial" font-size="96" fill="white" text-anchor="middle" dy=".3em">${initials}</text></svg>`;
+                  }}
+                />
+              </div>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-text-main dark:text-white truncate">{user.first_name} {user.last_name}</p>
+            </div>
+          </div>
+
+
+
+          {/* Logout Button */}
+          <button
+            onClick={() => {
+              logout();
+
             }}
-          />
-        </div>
+            className="flex items-center justify-center gap-2 p-3 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors font-medium w-full"
+          >
+            <span className="material-symbols-outlined">logout</span>
+
+          </button>
+        </>)}
       </div>
     </header>
-  ); 
+  );
 }

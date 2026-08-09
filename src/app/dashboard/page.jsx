@@ -1,5 +1,43 @@
 // app/dashboard/page.jsx (Trang chủ dashboard)
+'use client'
+import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useEffect } from "react";
+
 export default function DashboardPage() {
+
+    const {user, loadingCount }= useAuth()
+    const [greeting, setGreeting] = useState('');
+    const [timeIcon, setTimeIcon] = useState('');
+    
+    useEffect(() => {
+        const hour = new Date().getHours();
+        
+        let greet = '';
+        let icon = '';
+        
+        if (hour >= 5 && hour < 12) {
+            greet = 'Chào buổi sáng';
+            icon = '🌅';
+        } else if (hour >= 12 && hour < 14) {
+            greet = 'Chào buổi trưa';
+            icon = '☀️';
+        } else if (hour >= 14 && hour < 18) {
+            greet = 'Chào buổi chiều';
+            icon = '🌤️';
+        } else if (hour >= 18 && hour < 22) {
+            greet = 'Chào buổi tối';
+            icon = '🌙';
+        } else {
+            greet = 'Chào buổi đêm';
+            icon = '🌃';
+        }
+        
+        setGreeting(greet);
+        setTimeIcon(icon);
+    }, []);
+  
+
   // Thống kê nhanh
   const stats = [
     { value: '350', label: 'Từ Đã Thuộc', icon: 'school', color: 'purple' },
@@ -39,7 +77,8 @@ export default function DashboardPage() {
         <div className="flex flex-wrap justify-between items-end gap-4">
           <div>
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tight text-slate-900 dark:text-white mb-2">
-              Chào Buổi Sáng, Alex
+              {greeting}
+              {loadingCount == 0 ?    `, ${user.first_name}` : ", bạn"}
             </h1>
             <p className="text-slate-500 dark:text-slate-400 text-sm md:text-base">
               Hãy tiếp tục hành trình đến với sự trôi chảy. Bạn đang làm rất tốt!

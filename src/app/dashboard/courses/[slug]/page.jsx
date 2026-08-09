@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+
 export default function CourseDetailPage() {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState('');
@@ -169,12 +170,13 @@ export default function CourseDetailPage() {
   return (
     <main className="flex flex-1 flex-col  w-full  h-full overflow-hidden bg-background-light dark:bg-background-dark relative">
       
-      {/* Top Navbar */}
-     
+      
     
       {/* Scrollable Page Content */}
-      <div className="flex-1 overflow-y-auto  w-full  scroll-smooth">
-        <div className="flex justify-center  w-full pb-20 ">
+      <div className="flex-1 overflow-y-auto  w-full  scroll-smooth pb-20">
+       
+        <div className="flex justify-center  w-full  ">
+          
           <div className="layout-content-container flex flex-col max-w-[1200px] mx-auto w-full p-6 md:p-8 pb-32">
             
             {/* Hero Section */}

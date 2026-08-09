@@ -109,10 +109,10 @@ export default function MaterialsPage() {
         return (
                 <main className="flex-1 w-full max-w-[1440px] mx-auto flex flex-col">
                         {/* Hero Section */}
-                        <div className="px-4 py-6 md:px-10 lg:px-40 flex justify-center">
+                        <div className="px-4 py-6 md:px-10 lg:px-40 flex justify-center z-index-10">
                                 <div className="w-full max-w-[960px]">
                                         <div
-                                                className="flex min-h-[400px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-2xl items-center justify-center p-6 relative overflow-hidden"
+                                                className="flex min-h-[400px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-2xl items-center justify-center p-6  overflow-hidden"
                                                 style={{
                                                         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCLsB0rLN6_wQka_NkV6Uvlh4KOe2UfrN3nPqOc-77lVXPC0eq9spUeRa2Jcld7ZG-oAXM8_Xc_PMD6jl33z_Ysm6io79A0KWFpUuz6IVAQf_mXutrWY4s52yGA98xbWYRROMbTMBvqIHUbZVkEuXkGf53moM6lhDSyNzB2RauInYIf0fPdHfn3mlXi097a6o_mmFslodRIs7UA47bgOi5WVthgJsPCwnOU1BxUWlO_mfRGBICzT1ksXEae8nyeDAqdt1dL3suld8k")`
                                                 }}

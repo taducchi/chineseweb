@@ -62,23 +62,7 @@ export default function ReadingLesson() {
       <main className="flex-1 flex flex-col h-full overflow-y-auto relative scroll-smooth">
         {/* Header Section */}
         <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 lg:pt-8 pb-2 sm:pb-4">
-          {/* Breadcrumbs */}
-          <div className="flex flex-wrap gap-2 mb-4 sm:mb-6 text-sm">
-            <a className="text-[#617589] hover:text-primary transition-colors font-medium" href="#">
-              Khóa học
-            </a>
-            <span className="text-[#617589] font-medium">/</span>
-            <a className="text-[#617589] hover:text-primary transition-colors font-medium" href="#">
-              Cấp độ 1
-            </a>
-            <span className="text-[#617589] font-medium">/</span>
-            <a className="text-[#617589] hover:text-primary transition-colors font-medium" href="#">
-              Bài 5
-            </a>
-            <span className="text-[#617589] font-medium">/</span>
-            <span className="text-[#111418] dark:text-white font-medium">Bài đọc</span>
-          </div>
-
+       
           {/* Page Heading */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b border-gray-200 dark:border-gray-800 pb-4 sm:pb-6">
             <div className="flex flex-col gap-2">

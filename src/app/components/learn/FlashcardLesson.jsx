@@ -204,45 +204,11 @@ export default function FlashcardLesson({ data, course_slug, lesson_slug, item_s
   const currentCardData = cards[currentCard];
 
   return (
-    <main className="flex-1 flex flex-col min-w-0 bg-background-light dark:bg-background-dark relative">
+    <main className="flex-1 flex flex-col overflow-hidden bg-background-light dark:bg-background-dark relative">
       {/* Header / Top Bar */}
-      <header className="h-16 px-6 md:px-10 flex items-center justify-between bg-white/50 dark:bg-[#101922]/50 backdrop-blur-sm sticky top-0 z-10 border-b border-slate-200/50 dark:border-slate-800/50">
-        {/* Breadcrumbs */}
-        <nav className="flex items-center gap-2 text-sm">
-          <button 
-            onClick={() => router.push('/')}
-            className="text-text-sub hover:text-primary transition-colors"
-          >
-            Home
-          </button>
-          <span className="text-slate-300 dark:text-slate-600">/</span>
-          <button 
-            onClick={() => router.push(`/courses/${course_slug}`)}
-            className="text-text-sub hover:text-primary transition-colors"
-          >
-            HSK Level 3
-          </button>
-          <span className="text-slate-300 dark:text-slate-600">/</span>
-          <span className="text-text-main dark:text-white font-medium">
-            Lesson {lesson_slug}: Feelings
-          </span>
-        </nav>
-        
-        {/* Actions */}
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
-            <span className="material-symbols-outlined text-orange-500 text-[20px] icon-filled">
-              local_fire_department
-            </span>
-            <span className="text-sm font-bold text-text-main dark:text-white">
-              {streak}
-            </span>
-          </div>
-        </div>
-      </header>
       
       {/* Content Body */}
-      <div className="flex-1 overflow-y-auto p-6 md:p-10 flex flex-col items-center">
+      <div className="flex-1 overflow-y-auto p-6 md:p-10 flex flex-col items-center custom-scrollbar scroll-smooth">
         <div className="w-full max-w-[800px] flex flex-col gap-6">
           {/* Progress & Timer Row */}
           <div className="flex items-end justify-between gap-4">

@@ -21,7 +21,7 @@ export async function generateMetadata({ params }) {
 
 export default function CourseDetailLayout({ children }) {
   return <>
-  <Header />
+ 
   {children}
   <Footer />
   </>

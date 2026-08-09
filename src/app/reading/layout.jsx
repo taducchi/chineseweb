@@ -8,14 +8,14 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="light">
-      <body className={`${inter.className} antialiased`}>
+  
+      <body className={`${inter.className} antialiased`} lang="en" className="light">
         <Header />
         <main className="min-h-screen">
           {children}
         </main>
         <Footer />
       </body>
-    </html>
+  
   )
 }

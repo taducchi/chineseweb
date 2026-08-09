@@ -169,39 +169,7 @@ export default function LibraryPage() {
   return (
     <main className="flex flex-1 flex-col h-full overflow-hidden bg-background-light dark:bg-background-dark relative">
       
-      {/* Header */}
-      <header className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-4 flex-shrink-0 z-10">
-        <div className="flex items-center gap-4">
-          <button className="lg:hidden p-1 text-slate-500">
-            <span className="material-symbols-outlined">menu</span>
-          </button>
-          <div className="flex items-center gap-2 text-slate-900 dark:text-white">
-            <span className="material-symbols-outlined text-primary">library_books</span>
-            <h2 className="text-lg font-bold tracking-tight">Thư Viện Bài Đọc</h2>
-          </div>
-        </div>
-        
-        <div className="flex items-center gap-6">
-          <div className="hidden sm:flex relative group">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <span className="material-symbols-outlined text-slate-400 text-[20px]">search</span>
-            </div>
-            <input
-              type="text"
-              className="block w-full rounded-full border-none bg-slate-100 dark:bg-slate-800 py-2 pl-10 pr-4 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-primary placeholder:text-slate-400"
-              placeholder="Tìm kiếm bài viết..."
-              value={searchTerm}
-              onChange={handleSearch}
-            />
-          </div>
-          <div 
-            className="bg-center bg-no-repeat bg-cover rounded-full size-10 border-2 border-white dark:border-slate-800 shadow-sm cursor-pointer"
-            style={{
-              backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBQt7hjcBW-wWSZ9y4sJ3Lgzf3C5uhNgCUpEjO5vV9EvbxW_AFZnnym0SuTHQu7hNns-e6t94uxbEN271irRQx5b9EMRwHnjFq8ywJU8LjFzkXaU_jzfEpYN3fM_ozy99w0tL6J1374rMlqjafCaF_dL4vM7jpAwj63IjVNQgypAZuWK3gKkX402rufRUXnyh2QCLYrh1LztF0QlbGP5FWESVTFtpoIpYdgY06lTmYKiFSokOMvw-Jrm_Fw6zFEBmV0Thm4QYJPJxo")'
-            }}
-          />
-        </div>
-      </header>
+    
 
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto scroll-smooth">

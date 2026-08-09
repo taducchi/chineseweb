@@ -6,8 +6,8 @@ import { Suspense } from 'react'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-        title: 'Học Tiếng Trung - Landing Page',
-        description: 'Nền tảng học tiếng Trung trực tuyến hàng đầu Việt Nam',
+        title: 'Maginese.vn - Trang chủ',
+        description: 'Nền tảng học tiếng Trung của genZ',
         icons: {
                 icon: [
                         { media: '(prefers-color-scheme: light)', url: '/images/favicon.png', href: '/images/favicon.png' },
@@ -31,10 +31,10 @@ export default function RootLayout({ children }) {
                                                         rel="stylesheet"
                                                 />
                                                 <link rel="preconnect" href="https://fonts.googleapis.com" />
-                                                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+                                                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
                                                 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
                                         </head>
-                                        <body className={`${inter.className} font-display antialiased`}>
+                                        <body className={`${inter.className} font-display antialiased`} suppressHydrationWarning>
                                                 {children}
                                         </body>
                                 </html>

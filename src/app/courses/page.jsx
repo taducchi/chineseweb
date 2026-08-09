@@ -8,92 +8,20 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import IntroCourseCard from '../components/courses/IntroCourseCard';
+import FilterButtons from './FilterButtons';
+import { useAuth } from '../context/AuthContext';
+
+
+
 
 export default function CoursesPage() {
-        // const courses = [
-        //         {
-        //                 id: 1,
-        //                 level: "HSK 1",
-        //                 slug: 'luyen-thi-hsk-3',
-        //                 levelColor: "text-primary",
-        //                 title: "Tiếng Trung Nhập Môn",
-        //                 rating: 4.9,
-        //                 description: "Làm quen với thanh điệu, phiên âm Pinyin và những câu giao tiếp cơ bản nhất.",
-        //                 lessons: 12,
-        //                 duration: "3 giờ",
-        //                 students: "1.2k",
-        //                 image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCEmmPpEMLdAdAsWJDd153rs8nh1-DPTYzvTZvWU7OfkKjf3EGo3tXIxUCRU_s0DXprchkAgaJkAfGrqdpv1cBLYxfBFtfFfvUetsSAa4Kr3oLvZrRMAnbXgfHyE22yL9scomk5KVoo1izgwHkqjQSfF7-e8O8QgaOnu5Y8olbpISBQtfBKNqLRIKS2rN0T3xrvLszLesRejevaJBGpwaHDUM88ehiRuHIKCq_Qz87kQBJvRdBQEWdKbUrffpgh-bWer971oIZObT0W"
-        //         },
-        //         {
-        //                 id: 2,
-        //                 level: "HSK 3",
-        //                  slug: 'luyen-thi-hsk-3',
-        //                 levelColor: "text-emerald-600",
-        //                 title: "Giao Tiếp Văn Phòng",
-        //                 rating: 4.8,
-        //                 description: "Học các mẫu câu thông dụng trong môi trường công sở, viết email và thuyết trình.",
-        //                 lessons: 20,
-        //                 duration: "5 giờ",
-        //                 students: "850",
-        //                 image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCRefRuTIratEe07FVaDZYxiZyhrvw8fUQ9AsFR2-3R8ScXk78Ad4x59lufp9wo7dsuWCi3BK0zWYAyxqzlwboHQer2ZnuqRv6A6DqV667emKC-XGv4e3AlWyTjIt3jn1GKpKpLPYQ35IuV4y1uPpxctNpyJ606tblPc3K-XKTS0u2EIKrMcD9Osyv4PKTpa9eGT8XM-FMOX5uWeMkxqqA--A3k9xdrhEOpfaqb5wy_IXAzRrR-wkOQoDeRn2GSVgy2sQH7aLJPgMr6"
-        //         },
-        //         {
-        //                 id: 3,
-        //                 level: "HSK 4",
-        //                 slug: 'luyen-thi-hsk-3',
-        //                 levelColor: "text-orange-600",
-        //                 title: "Luyện Thi HSK 4 Cấp Tốc",
-        //                 rating: 5.0,
-        //                 description: "Chiến thuật làm bài, giải đề thi thử và tổng hợp 1200 từ vựng quan trọng.",
-        //                 lessons: 30,
-        //                 duration: "8 giờ",
-        //                 students: "2.5k",
-        //                 image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDn7-S0iV0QJj-5lO-SJuRsXJQw-2hHpUztaj19R4JnBEFDcrqwporCDyraSrK47I7onLP4ZcLDo4HWvZ-APQSkB6ej_2YnKT5NWZotCKbT3V_wCWvtYftHGctvtxgHML-sMNcCc6lNjJnpNQLy6SeH7pg3NbttjnFCh2G1HzbTVBdesBsWHfI-qsiXtQA4UafCPiKYOLpSkdl-Qy62dFTUdVLes-1CZyDB0bTeD2Cr2wJIsG2VH3IORhj7XRLXpvGnzp2B4j5DHpTF"
-        //         },
-        //         {
-        //                 id: 4,
-        //                 level: "HSK 2",
-        //                  slug: 'luyen-thi-hsk-3',
-        //                 levelColor: "text-primary",
-        //                 title: "Viết Chữ Hán Cơ Bản",
-        //                 rating: 4.7,
-        //                 description: "Tìm hiểu về 214 bộ thủ, quy tắc bút thuận và luyện viết chữ đẹp.",
-        //                 lessons: 15,
-        //                 duration: "4 giờ",
-        //                 students: "540",
-        //                 image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBL7iDtIrFYRNC9jYiTj6KaXlSivB3Tjk0X1L9ke_ILX6gPp3QB7MoHgtIlG05rBTLzLBd0VKqBC7L3-Gdapx2w0xkjBJSWujgEe5hh1LhgLQbpmV2yXcnb01mUZ_n-V5Zi59eNaZNehxd-_wf0oH_L_cQ9pL21nffNVcLvOfwsyIsGfi-Y19GP8sGn0qQC9oEvmD8gfelHZ0ZGaptDzXeE8_q5gK3G5Ghf25E6GTT-Vy2sjfysEDY7v1ktSM5JoDOP8Ly-ZPE51T6z"
-        //         },
-        //         {
-        //                 id: 5,
-        //                 level: "Giao Tiếp",
-        //                 slug: 'luyen-thi-hsk-3',
-        //                 levelColor: "text-purple-600",
-        //                 title: "Tiếng Trung Du Lịch",
-        //                 rating: 4.9,
-        //                 description: "Tự tin đi khắp Trung Quốc với các chủ đề: đặt phòng, hỏi đường, mua sắm.",
-        //                 lessons: 18,
-        //                 duration: "4.5 giờ",
-        //                 students: "920",
-        //                 image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDNK-VNRRv4Q791mXkwcpzBkQjuBF1ziBbJ6nn-y7I9Q88tsIod86kbCno_lWSgj5lqUA142qpSYItZkPDW-RkiWfGxkIww9Eijk2fbgoM7uOvZAmQRT5Vm6iTWWv_Szgn4PJp4QR07CjfuYSIXVLnCHL_DDgBGuR4vlxSl9Y9tcn1DXJVC-0jC5jYDCKq5NpG2_zsMTaWKdP-1DeLT-p-mwAEltOXMPmNd57-Z0hhKNNeLfPAst_AnWXwLL3r_OAyrlnWH_WKZ5jHw"
-        //         },
-        //         {
-        //                 id: 6,
-        //                 level: "HSK 6",
-        //                 levelColor: "text-rose-600",
-        //                 slug: 'luyen-thi-hsk-3',
-        //                 title: "Thành Ngữ & Văn Hóa",
-        //                 rating: 5.0,
-        //                 description: "Khám phá chiều sâu ngôn ngữ qua các câu thành ngữ và điển tích lịch sử nổi tiếng.",
-        //                 lessons: 25,
-        //                 duration: "10 giờ",
-        //                 students: "300",
-        //                 image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDL7agOZitg9wnxKFJny1bDD0ymAS9TQQF_BR22ODraxBx71eF5FzuboMEBYO2OjCcUIJhZgN-YblnCEyLyzzRLitMa4thQPLzUUm48CZN0LkQwiIsFR3jz1BBjjt_wEQLjNJug6Q6qoJtWGR8FYq1D1hrEWaI0mTDUjrs_bcXy7wEFbAvwj1U2OSqVU_UY1wlBWmYoyEjHM0lIYRL3uJYNqRuu-4im_HiyJxPe2Fl9tsZWIeSOCgY3bI-6LJC01QcTKU2Y5jC59jOQ"
-        //         }
-        // ];
+        const [searchTerm, setSearchTerm] = useState('');
+        const [activeFilter, setActiveFilter] = useState('all');
         const [courses, setCourses] = useState([]);
+        const API_URL = useAuth().API_URL; // Access API_URL from AuthContext
         const fetchCourses = async () => {
                 // Simulate fetching data from an API
-                fetch("http://127.0.0.1:8000/api/courses/")
+                fetch(`${API_URL}/api/courses/`)
                         .then(response => response.json())
                         .then(data => setCourses(data.results));
         };
@@ -104,20 +32,46 @@ export default function CoursesPage() {
                 // For demonstration, we'll use static data
         }, []);
 
-        const categories = [
-                { id: 1, name: "Tất cả", active: true },
-                { id: 2, name: "Nhập môn", active: false },
-                { id: 3, name: "Sơ cấp", active: false },
-                { id: 4, name: "Trung cấp", active: false },
-                { id: 5, name: "Cao cấp", active: false },
-                { id: 6, name: "Kỹ năng", active: false },
-                { id: 7, name: "Tiếng Trung chuyên ngành", active: false },
+        // Filter options
+        const filterOptions = [
+                { id: 'all', label: 'Tất cả' },
+                { id: 'beginner', label: 'Sơ cấp' },
+                { id: 'intermediate', label: 'Trung cấp' },
+                { id: 'advanced', label: 'Cao cấp' },
+                { id: 'hsk', label: 'Luyện thi HSK' },
+                { id: 'conversation', label: 'Giao tiếp' }
         ];
+
+        // Filter and search courses
+        const filteredCourses = courses.filter(course => {
+                const matchesSearch = searchTerm === '' ||
+                        course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        course.description.toLowerCase().includes(searchTerm.toLowerCase());
+
+                const matchesFilter = activeFilter === 'all' || course.level === activeFilter;
+
+                return matchesSearch && matchesFilter;
+        });
+        const handleSearch = (e) => {
+                setSearchTerm(e.target.value);
+        };
+
+        const handleFilterClick = (filterId) => {
+                setActiveFilter(filterId);
+        };
+
+        const handleCourseClick = (courseId) => {
+                // Navigate to course detail page
+                console.log('Navigating to course:', courseId);
+                // router.push(`/dashboard/courses/${courseId}`);
+        };
+
+        const handlePageChange = (page) => {
+                setCurrentPage(page);
+        };
 
         return (
                 <>
-                        
-
                         <div className="min-h-screen bg-background-light dark:bg-background-dark">
                                 <main className="px-4 md:px-10 lg:px-2 py-8 max-w-[1200px] mx-auto">
                                         {/* Page Heading */}
@@ -128,78 +82,122 @@ export default function CoursesPage() {
                                                 </div>
                                         </div>
 
-                                        {/* Search and Filters */}
-                                        <div className="flex flex-col lg:flex-row gap-4 px-4 py-2 mb-6">
-                                                {/* Search Bar */}
-                                                <div className="flex-1">
-                                                        <div className="flex w-full h-12 items-stretch rounded-lg overflow-hidden shadow-sm">
-                                                                <div className="flex items-center justify-center pl-4 pr-2 bg-white dark:bg-background-dark text-text-sub">
-                                                                        <span className="material-symbols-outlined">search</span>
-                                                                </div>
-                                                                <input
-                                                                        className="flex-1 w-full min-w-0 h-full px-2 pl-0 bg-white dark:bg-background-dark text-text-main dark:text-white placeholder:text-text-sub border-none focus:outline-none focus:ring-0 text-base font-normal"
-                                                                        placeholder="Tìm kiếm khóa học theo tên hoặc chủ đề..."
-                                                                />
-                                                        </div>
-                                                </div>
+                                        <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
 
-                                                {/* Filter & Sort Options */}
-                                                <div className="flex gap-3 overflow-x-auto pb-2 lg:pb-0">
-                                                        {/* Category Filter */}
-                                                        <div className="relative min-w-[140px]">
-                                                                <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-text-sub">
-                                                                        <span className="material-symbols-outlined text-[20px]">filter_list</span>
-                                                                </div>
-                                                                <select className="appearance-none w-full h-12 pl-10 pr-8 bg-white dark:bg-background-dark text-text-main dark:text-slate-200 text-sm rounded-lg focus:ring-2 focus:ring-primary shadow-sm cursor-pointer border-none">
-                                                                        <option>Tất cả cấp độ</option>
-                                                                        <option>Sơ cấp (HSK 1-2)</option>
-                                                                        <option>Trung cấp (HSK 3-4)</option>
-                                                                        <option>Cao cấp (HSK 5-6)</option>
-                                                                </select>
-                                                                <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-text-sub">
-                                                                        <span className="material-symbols-outlined text-[20px]">expand_more</span>
-                                                                </div>
-                                                        </div>
+                                                <FilterButtons
+                                                        filterOptions={filterOptions || []}  // Fallback nếu undefined
+                                                        activeFilter={activeFilter}
+                                                        handleFilterClick={handleFilterClick}
+                                                />
 
-                                                        {/* Sort Option */}
-                                                        <div className="relative min-w-[140px]">
-                                                                <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-text-sub">
-                                                                        <span className="material-symbols-outlined text-[20px]">sort</span>
-                                                                </div>
-                                                                <select className="appearance-none w-full h-12 pl-10 pr-8 bg-white dark:bg-background-dark text-text-main dark:text-slate-200 text-sm rounded-lg focus:ring-2 focus:ring-primary shadow-sm cursor-pointer border-none">
-                                                                        <option>Phổ biến nhất</option>
-                                                                        <option>Mới nhất</option>
-                                                                        <option>Giá: Thấp đến cao</option>
-                                                                        <option>Giá: Cao đến thấp</option>
-                                                                </select>
-                                                                <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-text-sub">
-                                                                        <span className="material-symbols-outlined text-[20px]">expand_more</span>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                        </div>
-
-                                        {/* Quick Categories */}
-                                        <div className="px-4 mb-8">
-                                                <div className="flex gap-3 flex-wrap">
-                                                        {categories.map((category) => (
-                                                                <button
-                                                                        key={category.id}
-                                                                        className={`flex h-9 shrink-0 items-center justify-center rounded-full px-5 shadow-sm transition-all active:scale-95 ${category.active
-                                                                                ? 'bg-primary text-white hover:scale-105'
-                                                                                : 'bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-700 text-text-sub dark:text-slate-300 hover:border-primary/50 hover:text-primary'
-                                                                                }`}
-                                                                >
-                                                                        <span className="text-sm font-medium">{category.name}</span>
-                                                                </button>
-                                                        ))}
-                                                </div>
                                         </div>
 
                                         {/* Course Grid */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 pb-10">
-                                                {courses.map((course) => (
-                                                       <IntroCourseCard key={course.id} course={course} />
+                                                {filteredCourses.map((course) => (
+                                                        <div
+                                                                key={course.id}
+                                                                className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group course-card"
+                                                        >
+                                                                <div className="relative h-48 md:h-56 overflow-hidden">
+                                                                        <div
+                    className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                    style={{
+                        backgroundImage: `url('${course.thumbnail || '/images/course-default.jpg'}')`,
+                        backgroundColor: course.thumbnail ? 'transparent' : '#f3f4f6'
+                    }}
+                ></div>
+                                                                        
+
+                                                                        {/* Badge hiển thị level */}
+                                                                        <div className={`absolute top-4 left-4 px-3 py-1 rounded-lg text-sm font-bold text-white ${course.level === 'beginner' ? 'bg-green-500' :
+                                                                                        course.level === 'intermediate' ? 'bg-orange-500' :
+                                                                                                course.level === 'advanced' ? 'bg-red-500' :
+                                                                                                        'bg-blue-500'
+                                                                                }`}>
+                                                                                {course.level_display || course.level}
+                                                                        </div>
+
+                                                                        {/* Badge giảm giá */}
+                                                                        {course.is_discounted && (
+                                                                                <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-lg text-sm font-bold animate-pulse">
+                                                                                        -{course.discount_percentage}%
+                                                                                </div>
+                                                                        )}
+
+                                                                        {/* Badge featured */}
+                                                                        {course.is_featured && (
+                                                                                <div className="absolute bottom-4 left-4 bg-yellow-500 text-white px-3 py-1 rounded-lg text-xs font-bold">
+                                                                                        ⭐ Nổi bật
+                                                                                </div>
+                                                                        )}
+                                                                </div>
+
+                                                                <div className="p-6">
+                                                                        <h4 className="text-xl font-bold text-text-main dark:text-white mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                                                                                {course.title}
+                                                                        </h4>
+
+                                                                        <p className="text-text-sub dark:text-gray-400 mb-4 text-sm line-clamp-2">
+                                                                                {course.short_description}
+                                                                        </p>
+
+                                                                        <div className="flex flex-wrap items-center gap-2 text-sm text-text-sub dark:text-gray-500 mb-4">
+                                                                                <div className="flex items-center gap-1">
+                                                                                        <span className="material-symbols-outlined text-base">schedule</span>
+                                                                                        {course.duration_display || 'Chưa cập nhật'}
+                                                                                </div>
+                                                                                <span className="w-1 h-1 rounded-full bg-gray-300" />
+                                                                                <div className="flex items-center gap-1">
+                                                                                        <span className="material-symbols-outlined text-base">menu_book</span>
+                                                                                        {course.total_lessons || 0} bài
+                                                                                </div>
+                                                                                <span className="w-1 h-1 rounded-full bg-gray-300" />
+                                                                                <div className="flex items-center gap-1">
+                                                                                        <span className="material-symbols-outlined text-base">group</span>
+                                                                                        {course.students_display || course.student_count || '0'} học viên
+                                                                                </div>
+                                                                        </div>
+
+                                                                        {/* Rating */}
+                                                                        {course.rating > 0 && (
+                                                                                <div className="flex items-center gap-1 mb-4">
+                                                                                        <span className="material-symbols-outlined text-base text-yellow-500 fill-current">star</span>
+                                                                                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                                                                                {course.rating.toFixed(1)}
+                                                                                        </span>
+                                                                                </div>
+                                                                        )}
+
+                                                                        {/* Price */}
+                                                                        <div className="flex items-center gap-3 mb-4">
+                                                                                {course.is_discounted ? (
+                                                                                        <>
+                                                                                                <span className="text-xl font-bold text-red-500">
+                                                                                                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(course.current_price)}
+                                                                                                </span>
+                                                                                                <span className="text-sm text-gray-400 line-through">
+                                                                                                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(course.price)}
+                                                                                                </span>
+                                                                                        </>
+                                                                                ) : (
+                                                                                        <span className="text-xl font-bold text-gray-900 dark:text-white">
+                                                                                                {course.is_free ? 'Miễn phí' : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(course.price)}
+                                                                                        </span>
+                                                                                )}
+                                                                        </div>
+
+                                                                        <Link
+                                                                                href={`/courses/${course.slug}`}
+                                                                                className={`block w-full text-center font-bold py-2.5 rounded-lg text-sm transition-colors shadow-md ${course.is_free
+                                                                                                ? 'bg-green-500 hover:bg-green-600 shadow-green-200 dark:shadow-none'
+                                                                                                : 'bg-primary hover:bg-primary-dark shadow-blue-200 dark:shadow-none'
+                                                                                        } text-white`}
+                                                                        >
+                                                                                Xem chi tiết
+                                                                        </Link>
+                                                                </div>
+                                                        </div>
                                                 ))}
                                         </div>
 
@@ -210,12 +208,12 @@ export default function CoursesPage() {
                                                                 <span className="material-symbols-outlined">chevron_left</span>
                                                         </button>
                                                         <button className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary text-white font-bold shadow-md shadow-blue-200 dark:shadow-none">1</button>
-                                                        
+
                                                         {/* <button className="flex items-center justify-center w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-background-dark text-text-main dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors font-medium">2</button>
                                                         <button className="flex items-center justify-center w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-background-dark text-text-main dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors font-medium">3</button>
                                                         <span className="flex items-center justify-center w-10 h-10 text-text-sub">...</span>
                                                         <button className="flex items-center justify-center w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-background-dark text-text-main dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors font-medium">8</button> */}
-                                                        
+
                                                         <button className="flex items-center justify-center w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-background-dark text-text-sub dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
                                                                 <span className="material-symbols-outlined">chevron_right</span>
                                                         </button>

@@ -125,37 +125,9 @@ export default function DictationLesson() {
   ];
 
   return (
-    <div className="w-full min-h-screen bg-background-light dark:bg-background-dark text-text-main dark:text-white font-display overflow-hidden">
-      {/* Main Content */}
-      <main className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark relative">
-        {/* Header */}
-        <header className="h-16 px-4 sm:px-6 md:px-10 flex items-center justify-between bg-white/50 dark:bg-[#101922]/50 backdrop-blur-sm sticky top-0 z-10 border-b border-slate-200/50 dark:border-slate-800/50">
-          <nav className="flex items-center gap-2 text-sm overflow-hidden whitespace-nowrap">
-            <a className="text-text-sub hover:text-primary transition-colors" href="#">
-              Courses
-            </a>
-            <span className="text-slate-300 dark:text-slate-600">/</span>
-            <a className="text-text-sub hover:text-primary transition-colors" href="#">
-              HSK Level 4
-            </a>
-            <span className="text-slate-300 dark:text-slate-600">/</span>
-            <span className="text-text-main dark:text-white font-medium truncate">
-              Listening Practice: Lesson {currentQuestion}
-            </span>
-          </nav>
-          
-          <div className="flex items-center gap-2 sm:gap-4">
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
-              <span className="material-symbols-outlined text-orange-500 text-[20px] icon-filled">
-                local_fire_department
-              </span>
-              <span className="text-sm font-bold text-text-main dark:text-white">
-                3 Day Streak
-              </span>
-            </div>
-          </div>
-        </header>
-
+    
+    <main className="flex-1 flex flex-col overflow-hidden bg-background-light dark:bg-background-dark relative">
+       
         {/* Main Content Area */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-10 flex flex-col items-center">
           <div className="w-full max-w-[700px] flex flex-col gap-6 sm:gap-8">
@@ -395,10 +367,7 @@ export default function DictationLesson() {
             )}
           </div>
         </div>
-      </main>
-
-      {/* Custom Styles */}
-      <style jsx global>{`
+        <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap');
         
@@ -414,6 +383,6 @@ export default function DictationLesson() {
           transition: background-color 0.2s ease, border-color 0.2s ease;
         }
       `}</style>
-    </div>
+      </main>
   );
 }

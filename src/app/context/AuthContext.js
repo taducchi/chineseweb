@@ -1,97 +1,117 @@
 'use client';
-import { createContext, useState, useContext, useEffect } from 'react';
+
+import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const AuthContext = createContext({});
+const AuthContext = createContext(null);
 
-const API_URL = 'http://192.168.137.1:8000/api';
+const API_URL = 'http://localhost:8000/';
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const router = useRouter();
+    const [loadingCount, setLoadingCount] = useState(1)
+    useEffect(() => {
+        const initAuth = () => {
+            try {
+                const accessToken = Cookies.get('access');
 
-  useEffect(() => {
-    // Kiểm tra token khi component mount
-    checkUser();
-  }, []);
+                if (!accessToken) {
+                    setLoadingCount(loadingCount => loadingCount - 1)
+                    return;
+                }
 
-  const checkUser = async () => {
-    const token = Cookies.get('token');
+                const storedUser = localStorage.getItem('user');
 
-    if (token) {
-      try {
-        // Nếu có token, lấy thông tin user từ localStorage
-        const userData = localStorage.getItem('user');
-        if (userData) {
-          setUser(JSON.parse(userData));
+                if (storedUser) {
+                    setUser(JSON.parse(storedUser));
+                    
+                }
+            } catch (err) {
+                console.error(err);
+                Cookies.remove('access');
+                Cookies.remove('refresh');
+                localStorage.removeItem('user');
+            } finally {
+                setLoadingCount(loadingCount => loadingCount - 1)
+            }
+        };
+
+        initAuth();
+    }, []);
+
+    const login = async (email, password) => {
+        try {
+            const response = await fetch(`${API_URL}/auth/login/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email,
+                    password,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                return {
+                    success: false,
+                    message: data.message || 'Đăng nhập thất bại',
+                };
+            }
+
+            Cookies.set('access', data.access, { expires: 7 });
+            Cookies.set('refresh', data.refresh, { expires: 7 });
+
+            localStorage.setItem('user', JSON.stringify(data.user));
+
+            setUser(data.user);
+
+            return {
+                success: true,
+            };
+        } catch (error) {
+            return {
+                success: false,
+                message: error.message,
+            };
         }
-      } catch (error) {
-        console.error('Error checking user:', error);
-        logout();
-      }
-    }
+    };
 
-    setLoading(false);
-  };
+    const logout = () => {
+        Cookies.remove('access');
+        Cookies.remove('refresh');
 
-  const login = async (email, password) => {
-    try {
-      const response = await fetch(`${API_URL}/auth/login/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-      console.log(data)
-      if (response.data.access) {
-        
-        // Lưu token vào cookie (7 ngày)
-        Cookies.set('access', response.data.access, { expires: 7 });
-        Cookies.set('refresh', response.data.refresh, { expires: 7 });
+        localStorage.removeItem('user');
 
-        // Lưu thông tin user
-        const userData = response.data.user || { email };
-        localStorage.setItem('user', JSON.stringify(userData));
-        setUser(userData);
+        setUser(null);
 
-        return { success: true };
-      }
-    } catch (error) {
-      return {
-        success: false,
-        message: error.response?.data?.message || 'Đăng nhập thất bại'
-      };
-    }
-  };
+        router.replace('/');
+        setLoading(false);
+    };
 
-  const logout = () => {
-    Cookies.remove('token');
-    localStorage.removeItem('user');
-    setUser(null);
-    router.push('/');
-  };
-
-  const value = {
-    user,
-    setUser,
-    loading,
-    login,
-    logout,
-    isAuthenticated: !!user,
-  };
-
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+    return (
+        <AuthContext.Provider
+            value={{
+                API_URL,
+                user,
+                setUser,
+                loading,
+                setLoading,
+                login,
+                logout,
+                loadingCount, 
+                setLoadingCount, 
+                isAuthenticated: !!user,
+            }}
+        >
+            {children}
+        </AuthContext.Provider>
+    );
 };
 
 export const useAuth = () => useContext(AuthContext);

@@ -6,13 +6,14 @@ import Footer from '../components/Footer'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'LingoDash - Chinese Learning Dashboard',
+  title: 'Maginese - Chinese Learning Dashboard',
   description: 'Interactive dashboard for learning Chinese',
 }
 
 export default function Layout({ children }) {
   return (
       <div className={`${inter.className} antialiased`}>
+          <Header />
         {children}
       </div>
   )
