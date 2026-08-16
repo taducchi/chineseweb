@@ -203,7 +203,7 @@ export default function Roadmap() {
         
         {/* Wave Decoration */}
         <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 1440 120" fill="none" xmlns="https://www.w3.org/2000/svg">
             <path d="M0 40L60 50C120 60 240 80 360 80C480 80 600 60 720 50C840 40 960 40 1080 50C1200 60 1320 80 1380 90L1440 100V120H0V40Z" fill="white" fillOpacity="0.1"/>
             <path d="M0 70L60 75C120 80 240 90 360 90C480 90 600 80 720 75C840 70 960 70 1080 75C1200 80 1320 90 1380 95L1440 100V120H0V70Z" fill="white" fillOpacity="0.05"/>
           </svg>

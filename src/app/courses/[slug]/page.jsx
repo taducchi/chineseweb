@@ -16,7 +16,7 @@ export default function CourseDetailPage() {
   const fetchCourseData = async (slug) => {
 
    
-    await fetch(`http://127.0.0.1:8000/api/courses/${slug}`)
+    await fetch(`/api/courses/${slug}`)
       .then(response => response.json()).then(data => {
         setCourse(data);
       });

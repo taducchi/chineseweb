@@ -133,7 +133,7 @@ export default function Header() {
 										src={user.avatar_url || user.google_avatar_url}
 										onError={(e) => {
 											const initials = (user.first_name?.[0] || user.email[0] || 'U').toUpperCase();
-											e.currentTarget.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><rect width="256" height="256" fill="%236366f1" rx="128"/><text x="128" y="140" font-family="Arial" font-size="96" fill="white" text-anchor="middle" dy=".3em">${initials}</text></svg>`;
+											e.currentTarget.src = `data:image/svg+xml,<svg xmlns="https://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><rect width="256" height="256" fill="%236366f1" rx="128"/><text x="128" y="140" font-family="Arial" font-size="96" fill="white" text-anchor="middle" dy=".3em">${initials}</text></svg>`;
 										}}
 									/>
 									<span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
@@ -361,7 +361,7 @@ export default function Header() {
 												src={user.avatar_url || user.google_avatar_url}
 												onError={(e) => {
 													const initials = (user.first_name?.[0] || user.email[0] || 'U').toUpperCase();
-													e.currentTarget.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><rect width="256" height="256" fill="%236366f1" rx="128"/><text x="128" y="140" font-family="Arial" font-size="96" fill="white" text-anchor="middle" dy=".3em">${initials}</text></svg>`;
+													e.currentTarget.src = `data:image/svg+xml,<svg xmlns="https://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><rect width="256" height="256" fill="%236366f1" rx="128"/><text x="128" y="140" font-family="Arial" font-size="96" fill="white" text-anchor="middle" dy=".3em">${initials}</text></svg>`;
 												}}
 											/>
 										</div>
