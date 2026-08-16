@@ -12,7 +12,7 @@ import { useAuth } from '../../context/AuthContext';
 export default function CoursesPage() {
   const API_URL = useAuth().API_URL; // Access API_URL from AuthContext
   const [courses, setCourses] = useState([]);
-          const fetchCourses = async () => {
+  const fetchCourses = async () => {
                   // Simulate fetching data from an API
                   fetch(`${API_URL}/api/courses/`)
                           .then(response => response.json())

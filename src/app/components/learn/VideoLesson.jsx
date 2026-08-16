@@ -4,13 +4,16 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 
-export default function VideoLesson({ toggleSidebar, course_slug, module_slug, lesson_slug  }) {
+export default function VideoLesson({ toggleSidebar, course_slug, module_slug, lesson_slug }) {
     const [activeTab, setActiveTab] = useState('transcript');
     const [lessonData, setLessonData] = useState({});
     const [content, setContent] = useState({});
     const [loading, setLoading] = useState(true); // ← Thêm state loading
     const [error, setError] = useState(null);
-    const {API_URL} = useAuth()
+    const [words, setWords] = useState({})
+
+
+    const { API_URL } = useAuth()
     useEffect(() => {
         setLoading(true);
         fetch(`${API_URL}api/courses/${course_slug}/lessons/${lesson_slug}/`)
@@ -23,7 +26,11 @@ export default function VideoLesson({ toggleSidebar, course_slug, module_slug, l
             .then(data => {
                 setLessonData(data);
                 setContent(data.content || {});
-                console.log(data);
+                if (data?.content?.vocabulary_content) {
+                    setWords(data.content.vocabulary_content.words || []);
+                } else {
+                    setWords([]); // Hoặc xử lý mặc định
+                }
                 setLoading(false);
             })
             .catch(error => {
@@ -130,15 +137,15 @@ export default function VideoLesson({ toggleSidebar, course_slug, module_slug, l
                         )}
                     </div> */}
                     <div className="w-full aspect-video rounded-xl overflow-hidden bg-black relative shadow-2xl"> {/* 4:3 aspect ratio */}
-            <iframe
-                src={`https://player.vimeo.com/video/${`1216750355`}`}
-                className="absolute top-0 left-0 w-full h-full rounded-xl"
-                frameBorder="0"
-                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                title={"Video thử giảng"}
-            />
-        </div>
+                        <iframe
+                            src={`https://player.vimeo.com/video/${`1216750355`}`}
+                            className="absolute top-0 left-0 w-full h-full rounded-xl"
+                            frameBorder="0"
+                            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            title={"Video thử giảng"}
+                        />
+                    </div>
 
                     {/* Content Tabs */}
                     <div className="flex flex-col bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm">
@@ -197,28 +204,74 @@ export default function VideoLesson({ toggleSidebar, course_slug, module_slug, l
                             )}
                             {activeTab === 'vocabulary' && (
                                 <>
-                                  
+
                                     <div className="space-y-6">
                                         {/* Dialogue items would be rendered here */}
-                                        <div className="flex gap-4">
-                                            <div className="size-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-primary font-bold shrink-0">
-                                                A
-                                            </div>
-                                            <div className="flex flex-col gap-1">
-                                                <p className="text-2xl font-body font-medium text-text-main-light dark:text-text-main-dark">
-                                                    你好！
-                                                </p>
-                                                <p className="text-sm text-text-sub-light dark:text-text-sub-dark font-mono">
-                                                    Nǐ hǎo!
-                                                </p>
-                                                <p className="text-base text-text-main-light dark:text-text-main-dark mt-1">
-                                                    Xin chào
-                                                </p>
-                                            </div>
-                                            <button className="ml-auto size-8 flex items-center justify-center rounded-full hover:bg-background-light dark:hover:bg-border-dark text-text-sub-light transition-colors self-start">
-                                                <span className="material-symbols-outlined text-[20px]">volume_up</span>
-                                            </button>
-                                        </div>
+                                        {words.map((word, index) => {
+                                            return (
+                                            <div className="group relative bg-white dark:bg-gray-800/30 rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] border border-gray-200/60 dark:border-gray-700/30 hover:border-blue-400/40 dark:hover:border-blue-400/30 transition-all duration-300 hover:-translate-y-0.5">
+  
+  <div className="flex items-center gap-4 px-6 py-5">
+    
+    {/* Cột 1: Số thứ tự - Circular design */}
+    <div className="w-10 flex-shrink-0">
+      <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-400/20 dark:to-purple-400/20 flex items-center justify-center ring-1 ring-blue-200/50 dark:ring-blue-400/20 group-hover:ring-blue-400/70 dark:group-hover:ring-blue-400/40 transition-all">
+        <span className="text-xs font-bold text-blue-600 dark:text-blue-400">
+          {String(index + 1).padStart(2, '0')}
+        </span>
+      </div>
+    </div>
+
+    {/* Cột 2: Từ vựng + Audio */}
+    <div className="w-32 flex-shrink-0 flex items-center gap-3">
+      <span className="text-2xl font-bold text-gray-800 dark:text-gray-100 tracking-tight">
+        {word.chinese}
+      </span>
+      {word.audio_file && (
+        <button
+          className="w-8 h-8 rounded-full bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white shadow-sm hover:shadow-md transition-all duration-300 hover:scale-110 flex items-center justify-center flex-shrink-0"
+          onClick={() => new Audio(word.audio_file).play()}
+        >
+          <span className="material-symbols-outlined text-[18px]">volume_up</span>
+        </button>
+      )}
+    </div>
+
+    {/* Cột 3: Pinyin - Với nền highlight */}
+    <div className="w-40 flex-shrink-0">
+      <span className="inline-block text-sm text-gray-500 dark:text-gray-400 font-mono bg-gray-100 dark:bg-gray-700/40 px-3 py-1 rounded-lg border border-gray-200/50 dark:border-gray-600/30 tracking-wide">
+        {word.pinyin}
+      </span>
+    </div>
+
+    {/* Cột 4: Nghĩa */}
+    <div className="flex-1 min-w-[120px]">
+      <span className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+        {word.meaning}
+      </span>
+    </div>
+
+    {/* Cột 5: Badges */}
+    <div className="w-28 flex-shrink-0 flex items-center justify-end gap-2">
+      {word.level && (
+        <span className="text-[10px] font-bold text-white bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 px-2.5 py-1 rounded-full shadow-sm">
+          HSK {word.level}
+        </span>
+      )}
+      {word.mastered && (
+        <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-2.5 py-1 rounded-full border border-emerald-200/50 dark:border-emerald-400/20">
+          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+          </svg>
+          Done
+        </span>
+      )}
+    </div>
+  </div>
+</div>
+                                            );
+                                        })}
+
                                     </div>
                                 </>
                             )}

@@ -7,7 +7,6 @@ import Courses from './components/Courses'
 import Testimonials from './components/Testimonials'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
-import Roadmap from './components/Roadmap'
 import ChinesePromoPopup from './promotion/ChinesePromoPopup'
 import TopBanner from './promotion/TopBanner'
 import { useAuth } from './context/AuthContext'
@@ -27,7 +26,7 @@ export default function Home() {
         <ChinesePromoPopup />
         <Hero />
         <Features />
-        {/* <Roadmap /> */}
+       
         <Courses />
         <Testimonials />
         <CTA />

@@ -2,138 +2,159 @@
 import { useState, useEffect } from 'react';
 
 export default function Roadmap() {
-  const [currentLevel, setCurrentLevel] = useState('HSK 3');
+  const [currentLevel, setCurrentLevel] = useState('HSK 1');
+  const [targetLevel, setTargetLevel] = useState('HSK 3');
   const [isLoading, setIsLoading] = useState(true);
-  const [isDesktop, setIsDesktop] = useState(false);
 
-  // Detect screen size
   useEffect(() => {
-    const checkScreenSize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-    };
-    
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    
-    // Simulate loading
     setTimeout(() => setIsLoading(false), 500);
-    
-    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-  // Roadmap data
-  const roadmapData = [
-    {
-      id: 1,
+  // All available levels
+  const allLevels = ['HSK 1', 'HSK 2', 'HSK 3', 'HSK 4', 'HSK 5', 'HSK 6', 'HSK 7-9'];
+
+  // Course data
+  const courseData = {
+    'HSK 1': {
       level: 'HSK 1',
-      title: 'Khởi động',
-      status: 'completed',
-      progress: 100,
+      title: 'Nền tảng vững chắc',
+      subtitle: 'Khởi đầu hành trình tiếng Trung',
+      description: 'Làm quen với bảng chữ cái, phát âm chuẩn và 150 từ vựng cơ bản nhất. Xây dựng nền móng vững chắc cho con đường chinh phục tiếng Trung của bạn.',
       stats: [
         { icon: 'translate', label: '150 từ vựng' },
         { icon: 'edit_square', label: '174 Hán tự' },
-        { icon: 'menu_book', label: '45 ngữ pháp' },
-        { icon: 'schedule', label: '40 giờ' }
+        { icon: 'menu_book', label: '45 cấu trúc' },
+        { icon: 'schedule', label: '40 giờ học' }
       ],
-      color: 'bg-green-500',
-      buttonText: 'Ôn tập lại'
+      color: 'from-green-400 to-emerald-500',
+      badge: '🇨🇳 Bắt đầu',
+      cta: 'Bắt đầu học ngay',
+      duration: '2-3 tháng',
+      level_num: 1
     },
-    {
-      id: 2,
+    'HSK 2': {
       level: 'HSK 2',
-      title: 'Cơ bản',
-      status: 'completed',
-      progress: 100,
+      title: 'Giao tiếp cơ bản',
+      subtitle: 'Tự tin hội thoại hàng ngày',
+      description: 'Mở rộng vốn từ lên 300+, nắm vững 347 Hán tự và 45 cấu trúc ngữ pháp. Bắt đầu tự tin giao tiếp trong các tình huống đời sống cơ bản.',
       stats: [
         { icon: 'translate', label: '300 từ vựng' },
         { icon: 'edit_square', label: '347 Hán tự' },
-        { icon: 'menu_book', label: '45 ngữ pháp' },
-        { icon: 'schedule', label: '40 giờ' }
+        { icon: 'menu_book', label: '45 cấu trúc' },
+        { icon: 'schedule', label: '40 giờ học' }
       ],
-      color: 'bg-green-500',
-      buttonText: 'Ôn tập lại'
+      color: 'from-blue-400 to-cyan-500',
+      badge: '🗣️ Giao tiếp',
+      cta: 'Chinh phục HSK 2',
+      duration: '3-4 tháng',
+      level_num: 2
     },
-    {
-      id: 3,
+    'HSK 3': {
       level: 'HSK 3',
-      title: 'Trung cấp',
-      status: 'current',
-      progress: 75,
+      title: 'Trung cấp vượt trội',
+      subtitle: 'Tư duy bằng tiếng Trung',
+      description: 'Đạt 600 từ vựng, 617 Hán tự và 45 cấu trúc ngữ pháp nâng cao. Phát triển khả năng diễn đạt ý tưởng, kể chuyện và thảo luận chủ đề đa dạng.',
       stats: [
         { icon: 'translate', label: '600 từ vựng' },
         { icon: 'edit_square', label: '617 Hán tự' },
-        { icon: 'menu_book', label: '45 ngữ pháp' },
-        { icon: 'schedule', label: '60 giờ' }
+        { icon: 'menu_book', label: '45 cấu trúc' },
+        { icon: 'schedule', label: '60 giờ học' }
       ],
-      color: 'bg-blue-500',
-      buttonText: 'Tiếp tục học bài 12'
+      color: 'from-indigo-400 to-purple-500',
+      badge: '🚀 Phát triển',
+      cta: 'Chinh phục HSK 3',
+      duration: '4-5 tháng',
+      level_num: 3
     },
-    {
-      id: 4,
+    'HSK 4': {
       level: 'HSK 4',
       title: 'Tiền cao cấp',
-      status: 'locked',
-      progress: 0,
+      subtitle: 'Đọc hiểu & Viết chuyên sâu',
+      description: 'Nâng vốn từ lên 1200+, 1000 Hán tự. Đọc hiểu báo chí, văn bản chuyên ngành và viết đoạn văn mạch lạc. Sẵn sàng cho môi trường làm việc quốc tế.',
       stats: [
         { icon: 'translate', label: '1200 từ vựng' },
-        { icon: 'edit_square', label: '1000 Hán tự' }
+        { icon: 'edit_square', label: '1000 Hán tự' },
+        { icon: 'menu_book', label: '60 cấu trúc' },
+        { icon: 'schedule', label: '80 giờ học' }
       ],
-      color: 'bg-gray-500',
-      buttonText: 'Mở khóa'
+      color: 'from-pink-400 to-rose-500',
+      badge: '📚 Chuyên sâu',
+      cta: 'Chinh phục HSK 4',
+      duration: '5-6 tháng',
+      level_num: 4
     },
-    {
-      id: 5,
+    'HSK 5': {
       level: 'HSK 5',
-      title: 'Cao cấp',
-      status: 'locked',
-      progress: 0,
+      title: 'Cao cấp toàn diện',
+      subtitle: 'Giao tiếp học thuật & Chuyên nghiệp',
+      description: '2500 từ vựng, 1500 Hán tự. Nắm vững ngữ pháp phức tạp, thuyết trình, tranh luận và viết báo cáo chuyên nghiệp. Đạt chuẩn giao tiếp công sở.',
       stats: [
         { icon: 'translate', label: '2500 từ vựng' },
-        { icon: 'edit_square', label: '1500 Hán tự' }
+        { icon: 'edit_square', label: '1500 Hán tự' },
+        { icon: 'menu_book', label: '70 cấu trúc' },
+        { icon: 'schedule', label: '100 giờ học' }
       ],
-      color: 'bg-gray-500',
-      buttonText: 'Mở khóa'
+      color: 'from-orange-400 to-red-500',
+      badge: '💼 Chuyên nghiệp',
+      cta: 'Chinh phục HSK 5',
+      duration: '6-8 tháng',
+      level_num: 5
     },
-    {
-      id: 6,
+    'HSK 6': {
       level: 'HSK 6',
-      title: 'Thành thạo',
-      status: 'locked',
-      progress: 0,
+      title: 'Thành thạo cao cấp',
+      subtitle: 'Ngôn ngữ thượng đỉnh',
+      description: '5000 từ vựng, 2500 Hán tự. Đọc hiểu văn bản phức tạp, viết luận và giao tiếp tinh tế trong mọi tình huống. Trình độ tương đương người bản xứ.',
       stats: [
         { icon: 'translate', label: '5000 từ vựng' },
-        { icon: 'edit_square', label: '2500 Hán tự' }
+        { icon: 'edit_square', label: '2500 Hán tự' },
+        { icon: 'menu_book', label: '80 cấu trúc' },
+        { icon: 'schedule', label: '120 giờ học' }
       ],
-      color: 'bg-gray-500',
-      buttonText: 'Mở khóa'
+      color: 'from-amber-400 to-yellow-600',
+      badge: '🏆 Thành thạo',
+      cta: 'Chinh phục HSK 6',
+      duration: '8-10 tháng',
+      level_num: 6
     },
-    {
-      id: 7,
+    'HSK 7-9': {
       level: 'HSK 7-9',
-      title: 'Chuyên gia',
-      status: 'locked',
-      progress: 0,
+      title: 'Chuyên gia ngôn ngữ',
+      subtitle: 'Đẳng cấp thượng thừa',
+      description: 'Trên 11000 từ vựng, thành thạo dịch thuật, viết báo chí và phản biện học thuật. Trở thành chuyên gia tiếng Trung trong lĩnh vực của bạn.',
       stats: [
         { icon: 'translate', label: '11000+ từ' },
-        { icon: 'edit_square', label: 'Dịch thuật' }
+        { icon: 'edit_square', label: 'Dịch thuật' },
+        { icon: 'menu_book', label: 'Nâng cao' },
+        { icon: 'schedule', label: '150+ giờ' }
       ],
-      color: 'bg-gray-500',
-      buttonText: 'Mở khóa'
+      color: 'from-emerald-400 to-teal-500',
+      badge: '🌟 Chuyên gia',
+      cta: 'Chinh phục HSK 7-9',
+      duration: '12+ tháng',
+      level_num: 7
     }
-  ];
-
-  const stats = {
-    currentLevel: 'HSK 3',
-    wordsLearned: 450,
-    totalWords: 5000,
-    streakDays: 12
   };
+
+  // Get filtered roadmap based on current and target level
+  const getFilteredCourses = () => {
+    const currentIndex = allLevels.indexOf(currentLevel);
+    const targetIndex = allLevels.indexOf(targetLevel);
+    
+    // Ensure current <= target
+    const start = Math.min(currentIndex, targetIndex);
+    const end = Math.max(currentIndex, targetIndex);
+    
+    return allLevels.slice(start, end + 1);
+  };
+
+  const filteredLevels = getFilteredCourses();
 
   if (isLoading) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Đang tải lộ trình...</p>
         </div>
       </div>
@@ -141,337 +162,335 @@ export default function Roadmap() {
   }
 
   return (
-    <>
- 
+    <div className="min-h-screen bg-gradient-to-b from-white via-blue-50/30 to-white">
       
-      {/* Main Container */}
-      <div className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-yellow-400 rounded-full blur-3xl"></div>
+        </div>
         
-        {/* Desktop Header */}
-        <header className="hidden lg:block sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
-          <div className="container mx-auto px-6 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <button className="p-2 rounded-lg hover:bg-gray-100 text-gray-700">
-                  <span className="material-symbols-outlined text-xl">arrow_back</span>
-                </button>
-                <div>
-                  <h1 className="text-xl font-bold font-display text-gray-900">Lộ trình học tiếng Trung</h1>
-                  <p className="text-sm text-gray-600 mt-1">Hành trình chinh phục HSK từ cơ bản đến thành thạo</p>
-                </div>
+        <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <span className="inline-block bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-medium mb-4">
+              🎯 Lộ trình bài bản - Cam kết đầu ra
+            </span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+              Hành trình chinh phục 
+              <br />
+              <span className="text-yellow-300">Tiếng Trung HSK</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-blue-100 mb-6 max-w-2xl mx-auto">
+              Từ con số 0 đến chuyên gia - Lộ trình học tập được thiết kế khoa học, phù hợp với mọi trình độ
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                <span className="text-2xl">📚</span>
+                <span className="text-sm">7 cấp độ</span>
               </div>
-              
-              <div className="flex items-center gap-4">
-                <div className="hidden xl:flex items-center gap-6">
-                  <div className="text-center">
-                    <p className="text-xs text-gray-500">Cấp độ hiện tại</p>
-                    <p className="text-lg font-bold text-primary">{stats.currentLevel}</p>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-xs text-gray-500">Từ đã học</p>
-                    <p className="text-lg font-bold text-gray-900">
-                      {stats.wordsLearned}<span className="text-sm text-gray-500">/{stats.totalWords}</span>
-                    </p>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-xs text-gray-500">Ngày liên tiếp</p>
-                    <p className="text-lg font-bold text-orange-500">{stats.streakDays} 🔥</p>
-                  </div>
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                <span className="text-2xl">🎓</span>
+                <span className="text-sm">150+ bài học</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                <span className="text-2xl">⭐</span>
+                <span className="text-sm">98% học viên hài lòng</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Wave Decoration */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 40L60 50C120 60 240 80 360 80C480 80 600 60 720 50C840 40 960 40 1080 50C1200 60 1320 80 1380 90L1440 100V120H0V40Z" fill="white" fillOpacity="0.1"/>
+            <path d="M0 70L60 75C120 80 240 90 360 90C480 90 600 80 720 75C840 70 960 70 1080 75C1200 80 1320 90 1380 95L1440 100V120H0V70Z" fill="white" fillOpacity="0.05"/>
+          </svg>
+        </div>
+      </section>
+
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-8 max-w-6xl">
+        
+        {/* Level Selector - Updated with both current and target */}
+        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 mb-8 -mt-8 relative z-20">
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Current Level */}
+            <div>
+              <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-3">
+                <span className="text-2xl">📍</span>
+                Trình độ hiện tại của bạn
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {allLevels.map((level) => (
+                  <button
+                    key={`current-${level}`}
+                    onClick={() => setCurrentLevel(level)}
+                    className={`
+                      px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300
+                      ${currentLevel === level 
+                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg scale-105' 
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:scale-105'}
+                    `}
+                  >
+                    {level}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Target Level */}
+            <div>
+              <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-3">
+                <span className="text-2xl">🎯</span>
+                Mục tiêu bạn muốn đạt được
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {allLevels.map((level) => {
+                  const isDisabled = allLevels.indexOf(level) < allLevels.indexOf(currentLevel);
+                  return (
+                    <button
+                      key={`target-${level}`}
+                      onClick={() => !isDisabled && setTargetLevel(level)}
+                      disabled={isDisabled}
+                      className={`
+                        px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300
+                        ${targetLevel === level 
+                          ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg scale-105' 
+                          : isDisabled
+                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed opacity-50'
+                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:scale-105'}
+                      `}
+                    >
+                      {level}
+                      {isDisabled && ' 🔒'}
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="text-xs text-gray-500 mt-2">
+                💡 Mục tiêu phải cao hơn hoặc bằng trình độ hiện tại
+              </p>
+            </div>
+          </div>
+
+          {/* Progress Summary */}
+          <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-100">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">📊</span>
+                <span className="font-medium text-gray-700">
+                  Lộ trình: <span className="text-blue-600 font-bold">{currentLevel}</span>
+                  <span className="mx-2">➜</span>
+                  <span className="text-purple-600 font-bold">{targetLevel}</span>
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-gray-600">
+                  {filteredLevels.length} cấp độ • 
+                  {filteredLevels.reduce((total, level) => {
+                    const course = courseData[level];
+                    const hours = parseInt(course.stats[3].label);
+                    return total + (isNaN(hours) ? 0 : hours);
+                  }, 0)} giờ học
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Course Cards - Showing from current to target */}
+        <div className="space-y-8">
+          {filteredLevels.map((level, index) => {
+            const course = courseData[level];
+            const isFirst = index === 0;
+            const isLast = index === filteredLevels.length - 1;
+            const isTarget = level === targetLevel;
+            
+            return (
+              <div 
+                key={level} 
+                className={`group relative bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500
+                  ${isTarget ? 'ring-2 ring-purple-500 ring-offset-2' : ''}
+                  ${isFirst ? 'ring-2 ring-blue-500 ring-offset-2' : ''}`}
+              >
+                {/* Gradient Background */}
+                <div className={`absolute inset-0 bg-gradient-to-r ${course.color} opacity-5 group-hover:opacity-10 transition-opacity duration-500`}></div>
+                
+                {/* Badges */}
+                <div className="absolute top-4 right-4 z-10 flex flex-col gap-2 items-end">
+                  {isFirst && (
+                    <span className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg animate-pulse">
+                      🚀 Bắt đầu
+                    </span>
+                  )}
+                  {isTarget && (
+                    <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg animate-pulse">
+                      🎯 Mục tiêu
+                    </span>
+                  )}
+                  {!isFirst && !isTarget && (
+                    <span className="bg-gradient-to-r from-gray-500 to-gray-600 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg">
+                      ⏳ Trên lộ trình
+                    </span>
+                  )}
                 </div>
                 
-                <button className="relative p-2 rounded-lg hover:bg-gray-100 text-gray-700">
-                  <span className="material-symbols-outlined">notifications</span>
-                  <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        {/* Mobile Header */}
-        <header className="lg:hidden sticky top-0 z-50 bg-white border-b border-gray-200">
-          <div className="container mx-auto px-4 py-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <button className="p-2 rounded-lg hover:bg-gray-100 text-gray-700">
-                  <span className="material-symbols-outlined text-xl">arrow_back</span>
-                </button>
-                <div>
-                  <h1 className="text-lg font-bold font-display text-gray-900">Lộ trình của bạn</h1>
-                </div>
-              </div>
-              
-              <button className="p-2 rounded-lg hover:bg-gray-100 text-gray-700">
-                <span className="material-symbols-outlined">more_vert</span>
-              </button>
-            </div>
-          </div>
-        </header>
-
-        {/* Main Content */}
-        <main className="container mx-auto px-4 py-6">
-          
-          {/* Hero Section */}
-          <div className="mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold leading-tight text-gray-900 mb-3">
-              Hành trình chinh phục <br/>
-              <span className="text-primary">Tiếng Trung HSK</span>
-            </h2>
-            <p className="text-gray-600 mb-6">Từ cơ bản đến thành thạo với lộ trình được cá nhân hóa</p>
-            
-            {/* Mobile Stats */}
-            <div className="lg:hidden grid grid-cols-3 gap-3 mb-6">
-              <div className="bg-gray-50 p-3 rounded-xl border border-gray-200">
-                <p className="text-xs text-gray-500 mb-1">Cấp độ hiện tại</p>
-                <p className="text-lg font-bold text-primary">{stats.currentLevel}</p>
-              </div>
-              <div className="bg-gray-50 p-3 rounded-xl border border-gray-200">
-                <p className="text-xs text-gray-500 mb-1">Từ đã học</p>
-                <p className="text-lg font-bold text-gray-900">
-                  {stats.wordsLearned}<span className="text-xs font-normal text-gray-500">/{stats.totalWords}</span>
-                </p>
-              </div>
-              <div className="bg-gray-50 p-3 rounded-xl border border-gray-200">
-                <p className="text-xs text-gray-500 mb-1">Ngày liên tiếp</p>
-                <p className="text-lg font-bold text-orange-500">{stats.streakDays} 🔥</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Roadmap Container */}
-          <div className="relative">
-            
-            {/* Timeline Line for Desktop */}
-            <div className="hidden lg:block absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-primary/50 to-gray-300 ml-4 z-0"></div>
-            
-            {/* Roadmap Items */}
-            <div className="space-y-6 lg:space-y-8">
-              {roadmapData.map((item, index) => (
-                <div key={item.id} className="relative">
-                  
-                  {/* Timeline Node for Desktop */}
-                  <div className="hidden lg:flex absolute left-8 -translate-x-1/2 z-10">
-                    <div className={`
-                      flex h-8 w-8 items-center justify-center rounded-full border-4 border-white shadow-lg
-                      ${item.status === 'completed' ? 'bg-green-500' : 
-                        item.status === 'current' ? 'bg-primary shadow-glow' : 
-                        'bg-gray-300'}
-                    `}>
-                      <span className="material-symbols-outlined text-white text-sm">
-                        {item.status === 'completed' ? 'check' : 
-                         item.status === 'current' ? 'play_arrow' : 
-                         'lock'}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Card Container */}
-                  <div className={`
-                    lg:ml-16 rounded-xl border transition-all duration-300
-                    ${item.status === 'current' ? 
-                      'bg-gradient-to-br from-blue-50 to-white border-blue-200 shadow-lg' : 
-                      'bg-white border-gray-200 hover:border-gray-300 hover:shadow-md'}
-                  `}>
+                <div className="relative p-6 md:p-8">
+                  <div className="flex flex-col lg:flex-row lg:items-start gap-6">
                     
-                    {/* Card Header */}
-                    <div className="p-4 md:p-6">
-                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div className="flex items-center gap-3">
-                          {/* Mobile Status Badge */}
-                          <div className={`
-                            lg:hidden flex h-10 w-10 items-center justify-center rounded-full border-2 border-white shadow
-                            ${item.status === 'completed' ? 'bg-green-500' : 
-                              item.status === 'current' ? 'bg-primary shadow-glow' : 
-                              'bg-gray-300'}
-                          `}>
-                            <span className="material-symbols-outlined text-white text-sm">
-                              {item.status === 'completed' ? 'check' : 
-                               item.status === 'current' ? 'play_arrow' : 
-                               'lock'}
-                            </span>
-                          </div>
-                          
-                          <div>
-                            <div className="flex items-center gap-2">
-                              <h3 className="text-lg md:text-xl font-bold text-gray-900">
-                                {item.level} - {item.title}
-                              </h3>
-                              <span className={`
-                                px-3 py-1 rounded-full text-xs font-bold uppercase
-                                ${item.status === 'completed' ? 'bg-green-100 text-green-800' : 
-                                  item.status === 'current' ? 'bg-blue-100 text-primary' : 
-                                  'bg-gray-100 text-gray-600'}
-                              `}>
-                                {item.status === 'completed' ? 'Đã xong' : 
-                                 item.status === 'current' ? 'Đang học' : 
-                                 'Chưa mở'}
-                              </span>
-                            </div>
-                            
-                            {item.status === 'current' && (
-                              <p className="text-primary text-sm font-medium mt-1">Tiến độ: {item.progress}%</p>
-                            )}
-                          </div>
+                    {/* Level Info */}
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className={`
+                          flex items-center justify-center w-12 h-12 rounded-xl text-white font-bold text-lg shadow-lg
+                          bg-gradient-to-r ${course.color}
+                        `}>
+                          {course.level_num}
                         </div>
-                        
-                        {/* Progress Bar for Current Level */}
-                        {item.status === 'current' && (
-                          <div className="md:w-48 lg:w-64">
-                            <div className="flex items-center justify-between text-sm mb-1">
-                              <span className="text-gray-600">Tiến độ</span>
-                              <span className="font-semibold text-primary">{item.progress}%</span>
-                            </div>
-                            <div className="w-full bg-gray-200 rounded-full h-2">
-                              <div 
-                                className="bg-primary h-2 rounded-full transition-all duration-500"
-                                style={{ width: `${item.progress}%` }}
-                              ></div>
-                            </div>
-                          </div>
-                        )}
+                        <div>
+                          <span className="inline-block px-3 py-1 bg-gray-100 rounded-full text-xs font-semibold text-gray-600">
+                            {course.badge}
+                          </span>
+                          <h3 className="text-xl md:text-2xl font-bold text-gray-900 mt-1">
+                            {course.level} - {course.title}
+                          </h3>
+                        </div>
                       </div>
                       
+                      <p className="text-sm text-gray-500 font-medium mb-2">{course.subtitle}</p>
+                      <p className="text-gray-600 leading-relaxed mb-4">
+                        {course.description}
+                      </p>
+                      
                       {/* Stats Grid */}
-                      <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
-                        {item.stats.map((stat, statIndex) => (
-                          <div key={statIndex} className="flex items-center gap-2">
-                            <span className={`
-                              material-symbols-outlined text-lg
-                              ${item.status === 'current' ? 'text-primary' : 
-                                item.status === 'completed' ? 'text-green-600' : 
-                                'text-gray-400'}
-                            `}>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+                        {course.stats.map((stat, idx) => (
+                          <div key={idx} className="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2 border border-gray-100">
+                            <span className="text-blue-600 text-lg material-symbols-outlined">
                               {stat.icon}
                             </span>
-                            <span className={`
-                              text-sm
-                              ${item.status === 'current' ? 'text-gray-700' : 
-                                item.status === 'completed' ? 'text-gray-600' : 
-                                'text-gray-500'}
-                            `}>
-                              {stat.label}
-                            </span>
+                            <span className="text-sm text-gray-700 font-medium">{stat.label}</span>
                           </div>
                         ))}
                       </div>
                       
-                      {/* Action Button */}
-                      <button className={`
-                        mt-6 w-full md:w-auto px-6 py-3 rounded-lg font-medium text-sm transition-colors
-                        ${item.status === 'current' ? 
-                          'bg-primary hover:bg-primary-dark text-white' : 
-                          item.status === 'completed' ? 
-                          'bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-300' : 
-                          'bg-gray-100 text-gray-500 cursor-not-allowed'}
-                      `}>
-                        <div className="flex items-center justify-center gap-2">
-                          <span className="material-symbols-outlined text-base">
-                            {item.status === 'current' ? 'play_circle' : 
-                             item.status === 'completed' ? 'replay' : 
-                             'lock'}
-                          </span>
-                          {item.buttonText}
-                          {item.status === 'current' && (
-                            <span className="material-symbols-outlined text-base">arrow_forward</span>
-                          )}
-                        </div>
-                      </button>
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <span className="text-lg">⏱️</span> {course.duration}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <span className="text-lg">📖</span> {course.stats[0].label}
+                        </span>
+                      </div>
                     </div>
                     
-                    {/* Decorative Element for Current Level */}
-                    {item.status === 'current' && (
-                      <div className="absolute top-4 right-4 w-20 h-20 bg-primary/10 rounded-full blur-xl -z-10"></div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Additional Information Section for Desktop */}
-          <div className="hidden lg:block mt-12">
-            <div className="bg-gradient-to-r from-blue-50 to-gray-50 rounded-2xl p-8 border border-gray-200">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Lời khuyên học tập</h3>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="bg-white p-4 rounded-lg border border-gray-200">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
-                      <span className="material-symbols-outlined text-primary">schedule</span>
+                    {/* CTA Button */}
+                    <div className="lg:w-64 flex flex-col justify-center">
+                      <button className={`
+                        w-full py-4 px-6 rounded-xl font-bold text-white shadow-lg 
+                        hover:shadow-xl transform hover:scale-105 transition-all duration-300
+                        ${isTarget ? 'bg-gradient-to-r from-purple-600 to-pink-600' : `bg-gradient-to-r ${course.color}`}
+                      `}>
+                        <span className="block text-base">
+                          {isTarget ? '🎯 Chinh phục ngay' : course.cta}
+                        </span>
+                        <span className="text-xs opacity-90 font-normal mt-1 block">
+                          {isTarget 
+                            ? `Đạt ${course.level} - Mục tiêu của bạn` 
+                            : isFirst 
+                              ? 'Bắt đầu hành trình' 
+                              : `Từ ${allLevels[allLevels.indexOf(level) - 1]} lên ${course.level}`}
+                        </span>
+                      </button>
+                      
+                      {isTarget && (
+                        <p className="text-xs text-center text-gray-500 mt-2">
+                          ⭐ Hơn 10,000+ học viên đã thành công
+                        </p>
+                      )}
                     </div>
-                    <h4 className="font-semibold text-gray-900">Duy trì đều đặn</h4>
                   </div>
-                  <p className="text-sm text-gray-600">Học 30 phút mỗi ngày hiệu quả hơn 3.5 giờ cuối tuần</p>
-                </div>
-                
-                <div className="bg-white p-4 rounded-lg border border-gray-200">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
-                      <span className="material-symbols-outlined text-green-600">repeat</span>
-                    </div>
-                    <h4 className="font-semibold text-gray-900">Ôn tập thường xuyên</h4>
-                  </div>
-                  <p className="text-sm text-gray-600">Ôn lại từ vựng cũ ít nhất 1 lần/tuần để ghi nhớ lâu</p>
-                </div>
-                
-                <div className="bg-white p-4 rounded-lg border border-gray-200">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="h-10 w-10 rounded-full bg-orange-100 flex items-center justify-center">
-                      <span className="material-symbols-outlined text-orange-500">auto_stories</span>
-                    </div>
-                    <h4 className="font-semibold text-gray-900">Học qua ngữ cảnh</h4>
-                  </div>
-                  <p className="text-sm text-gray-600">Đọc truyện, xem phim giúp nhớ từ vựng tự nhiên hơn</p>
                 </div>
               </div>
+            );
+          })}
+        </div>
+
+        {/* Why Choose Us */}
+        <section className="mt-16 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-3xl p-8 border border-blue-100">
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8">
+            Tại sao nên chọn lộ trình này?
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-shadow">
+              <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                <span className="text-3xl">🎯</span>
+              </div>
+              <h3 className="font-bold text-gray-900 mb-2">Lộ trình cá nhân hóa</h3>
+              <p className="text-sm text-gray-600">Tùy chỉnh theo trình độ và mục tiêu của bạn. Học đúng những gì bạn cần.</p>
+            </div>
+            
+            <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-shadow">
+              <div className="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+                <span className="text-3xl">📚</span>
+              </div>
+              <h3 className="font-bold text-gray-900 mb-2">Giáo trình chuẩn HSK</h3>
+              <p className="text-sm text-gray-600">Nội dung được biên soạn theo cấu trúc đề thi HSK mới nhất của Hán Việt.</p>
+            </div>
+            
+            <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-shadow">
+              <div className="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+                <span className="text-3xl">🏆</span>
+              </div>
+              <h3 className="font-bold text-gray-900 mb-2">Cam kết đầu ra</h3>
+              <p className="text-sm text-gray-600">Đạt được chứng chỉ HSK với lộ trình học tập rõ ràng và bài bản.</p>
             </div>
           </div>
-        </main>
+        </section>
 
-        {/* Mobile Bottom Action Button */}
-        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 p-4 bg-gradient-to-t from-white via-white to-transparent">
-          <button className="w-full flex items-center justify-center gap-3 bg-primary hover:bg-primary-dark text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition-colors">
-            <span className="material-symbols-outlined fill-current">play_circle</span>
-            Tiếp tục học: HSK 3
-          </button>
-        </div>
-
-        {/* Desktop Action Button in Content */}
-        <div className="hidden lg:block container mx-auto px-6 py-8">
-          <div className="max-w-4xl mx-auto">
-            <button className="w-full flex items-center justify-center gap-3 bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-xl shadow-lg transition-colors text-lg">
-              <span className="material-symbols-outlined fill-current">play_circle</span>
-              Bắt đầu học ngay hôm nay - Tiếp tục với HSK 3
+        {/* Final CTA */}
+        <div className="mt-12 text-center">
+          <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-3xl p-8 md:p-12 text-white">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">
+              Sẵn sàng chinh phục tiếng Trung?
+            </h2>
+            <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
+              Bắt đầu hành trình của bạn ngay hôm nay. Hơn 10,000+ học viên đã thành công với lộ trình này.
+            </p>
+            <button className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+              🚀 Bắt đầu học ngay - Miễn phí 7 ngày
             </button>
+            <p className="text-sm text-blue-200 mt-3">✨ Không cần thẻ tín dụng. Hủy bất kỳ lúc nào.</p>
           </div>
-        </div>
-
-        {/* Background Decoration */}
-        <div className="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 overflow-hidden">
-          <div className="absolute top-[-10%] right-[-10%] w-64 h-64 bg-blue-100 rounded-full blur-3xl opacity-50"></div>
-          <div className="absolute bottom-[10%] left-[-10%] w-96 h-96 bg-blue-50 rounded-full blur-3xl opacity-30"></div>
         </div>
       </div>
 
       {/* Custom CSS */}
       <style jsx global>{`
-        .shadow-glow {
-          box-shadow: 0 0 20px -5px rgba(19, 127, 236, 0.5);
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
         
-        /* Hide scrollbar but keep functionality */
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
+        .animate-pulse {
+          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
         
-        /* Smooth transitions */
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.7; }
+        }
+        
         * {
-          transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+          transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+        }
+        
+        button:active {
+          transform: scale(0.96);
         }
       `}</style>
-    </>
+    </div>
   );
 }

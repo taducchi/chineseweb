@@ -67,20 +67,8 @@ export default function VocabularyPage() {
                         <div className="flex-1 overflow-y-auto">
                                 <div className="layout-content-container flex flex-col max-w-[1200px] mx-auto w-full p-6 md:p-8 pb-32">
 
-                                        {/* Thanh điều hướng */}
-                                        <div className="flex flex-wrap gap-2 mb-4">
-                                                <a
-                                                        className="text-slate-500 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors"
-                                                        href="/dashboard"
-                                                >
-                                                        Trang Chủ
-                                                </a>
-                                                <span className="text-slate-400 text-sm font-medium">/</span>
-                                                <span className="text-slate-900 dark:text-white text-sm font-medium">
-                                                        Bộ Từ Vựng
-                                                </span>
-                                        </div>
-
+                                      
+                                      
                                         {/* Tiêu đề Trang */}
                                         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8">
                                                 <div className="flex flex-col gap-2 max-w-2xl">

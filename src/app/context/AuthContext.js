@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 
 const AuthContext = createContext(null);
 
-const API_URL = 'http://localhost:8000/';
+const API_URL = 'http://127.0.0.1:8000/';
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -91,7 +91,7 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
 
         router.replace('/');
-        setLoading(false);
+        setLoadingCount(-1);
     };
 
     return (

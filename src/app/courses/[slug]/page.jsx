@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, notFound } from 'next/navigation'
 import Link from 'next/link'
+import { useAuth } from '../../context/AuthContext'
 
 export default function CourseDetailPage() {
   const params = useParams()
@@ -10,26 +11,11 @@ export default function CourseDetailPage() {
   const [loading, setLoading] = useState(true)
   const [activeChapter, setActiveChapter] = useState(0)
   const [showAllReviews, setShowAllReviews] = useState(false)
+  const API_URL = useAuth().API_URL
 
-  // Dữ liệu mẫu - thực tế sẽ fetch từ API
-  // const mockCourses = {
-  //   'luyen-thi-hsk-3': {
-  //     id: 1,
-  //     slug: 'luyen-thi-hsk-3',
-  //     title: 'Luyện thi HSK 3: Từ vựng & Ngữ pháp toàn diện',
-  //     description: 'Nắm vững 600 từ vựng và các cấu trúc ngữ pháp trọng điểm. Khóa học được thiết kế đặc biệt giúp bạn tự tin đạt điểm cao trong kỳ thi HSK 3 chỉ sau 8 tuần.',
-  //     level: 'Intermediate',
-  //     duration: '8 tuần',
-  //     lessons: 42,
-  //     students: 3800,
-  //     rating: 4.8,
-  //     price: 1299000,
-  //     originalPrice: 2500000,
-  //     instructor: 'Tiến sĩ Wang Li',
-  //     category: 'Luyện thi HSK',
-  //   }
-  // }
   const fetchCourseData = async (slug) => {
+
+   
     await fetch(`http://127.0.0.1:8000/api/courses/${slug}`)
       .then(response => response.json()).then(data => {
         setCourse(data);
@@ -56,12 +42,7 @@ export default function CourseDetailPage() {
   // Dữ liệu mẫu cho nội dung chi tiết
   const courseData = {
     ...course,
-    instructor: {
-      name: "Tiến sĩ Wang Li",
-      title: "Giảng viên cao cấp Đại học Ngôn ngữ Bắc Kinh",
-      experience: "15 năm kinh nghiệm",
-      avatar: "/api/placeholder/96/96"
-    },
+    
     reviews: [
       {
         id: 1,
@@ -88,54 +69,6 @@ export default function CourseDetailPage() {
         avatarColor: "bg-blue-100 text-blue-600"
       }
     ],
-    chapters: [
-      {
-        title: "Chương 1: Khởi động & Ôn tập nền tảng",
-        duration: "45m",
-        lessons: 4,
-        topics: [
-          { title: "Giới thiệu cấu trúc đề thi HSK 3 mới nhất", duration: "10:20", type: "video" },
-          { title: "Ôn tập 150 từ vựng HSK 1 & 2 quan trọng", duration: "15:45", type: "video" },
-          { title: "Bài kiểm tra đánh giá đầu vào", duration: "20:00", type: "quiz" }
-        ]
-      },
-      {
-        title: "Chương 2: Chủ đề Sinh hoạt & Mua sắm",
-        duration: "1h 20m",
-        lessons: 6,
-        topics: [
-          { title: "Từ vựng về mua sắm và mặc cả", duration: "12:10", type: "video" },
-          { title: "Hội thoại tại siêu thị", duration: "18:30", type: "video" },
-          { title: "Bài tập nghe chủ đề mua sắm", duration: "25:00", type: "quiz" }
-        ]
-      },
-      {
-        title: "Chương 3: Cấu trúc ngữ pháp trọng điểm",
-        duration: "1h 05m",
-        lessons: 5,
-        topics: [
-          { title: "Câu chữ 把 (Bả) và 被 (Bèi)", duration: "18:30", type: "video" },
-          { title: "Cấu trúc so sánh phức tạp", duration: "22:15", type: "video" },
-          { title: "Bài tập ngữ pháp nâng cao", duration: "24:15", type: "quiz" }
-        ]
-      }
-    ],
-    highlights: [
-      "Nắm vững 600 từ vựng HSK 3 cốt lõi",
-      "Thành thạo các cấu trúc ngữ pháp phức hợp",
-      "Kỹ năng nghe hiểu các đoạn hội thoại dài",
-      "Phương pháp làm bài thi HSK đạt điểm tối đa",
-      "Viết được các đoạn văn ngắn 300 từ",
-      "Tự tin giao tiếp chủ đề đời sống, công việc"
-    ],
-    includes: [
-      { icon: "videocam", text: "12.5 giờ video bài giảng" },
-      { icon: "description", text: "42 tài liệu có thể tải xuống" },
-      { icon: "quiz", text: "8 bài kiểm tra thực hành" },
-      { icon: "all_inclusive", text: "Truy cập trọn đời" },
-      { icon: "devices", text: "Học trên Mobile và Desktop" },
-      { icon: "emoji_events", text: "Chứng chỉ hoàn thành khóa học" }
-    ]
   }
 
   const ratingStats = {
@@ -167,14 +100,10 @@ export default function CourseDetailPage() {
               <Link href="/courses" className="hover:text-white transition-colors">
                 Khóa học
               </Link>
+              
               <span className="material-symbols-outlined text-xs">chevron_right</span>
-              <Link href="/courses" className="hover:text-white transition-colors">
-                Tiếng Trung
-              </Link>
-              <span className="material-symbols-outlined text-xs">chevron_right</span>
-              <span className="text-white">Luyện thi HSK</span>
-            </div>
-
+              <span className="text-white">{courseData.title}</span>
+            </div> 
             {/* Course Title and Info */}
             <div className="flex flex-col lg:flex-row gap-6 md:gap-8">
               <div className="lg:w-2/3 flex flex-col gap-4">
@@ -220,7 +149,7 @@ export default function CourseDetailPage() {
                     {courseData.instructor.name}
                   </Link>
                   
-                  <span className="hidden md:inline text-slate-400 ml-4">Cập nhật lần cuối: 10/2023</span>
+                  <span className="hidden md:inline text-slate-400 ml-4">{courseData.instructor.title}</span>
                   
                   <div className="flex items-center gap-1 text-slate-300">
                     <span className="material-symbols-outlined text-base">language</span>
@@ -321,15 +250,15 @@ export default function CourseDetailPage() {
                 Nội dung khóa học
               </h3>
               <div className="flex items-center gap-3 md:gap-4 text-sm text-[#4c739a] dark:text-slate-400 mb-4 flex-wrap">
-                <span>{courseData.chapters.length} Chương</span>
+                <span>{courseData.modules.length} Chương</span>
                 <span className="text-slate-400">•</span>
-                <span>{courseData.chapters.reduce((acc, ch) => acc + ch.lessons, 0)} Bài học</span>
+                <span>{courseData.modules.lesson_count} Bài học</span>
                 <span className="text-slate-400">•</span>
                 <span>Tổng thời lượng 12h 30m</span>
               </div>
               
               <div className="border border-[#e7edf3] dark:border-slate-700 rounded-lg divide-y divide-[#e7edf3] dark:divide-slate-700 overflow-hidden">
-                {courseData.chapters.map((chapter, index) => (
+                {courseData.modules.map((module, index) => (
                   <details 
                     key={index}
                     className="group bg-white dark:bg-[#1a2632]"
@@ -342,24 +271,24 @@ export default function CourseDetailPage() {
                           expand_more
                         </span>
                         <span className="font-bold text-[#0d141b] dark:text-white text-sm md:text-base">
-                          {chapter.title}
+                          {module.title}
                         </span>
                       </div>
                       <span className="text-xs md:text-sm text-slate-500">
-                        {chapter.lessons} bài học • {chapter.duration}
+                        {module.total_lessons} bài học • {module.duration_minutes}
                       </span>
                     </summary>
                     
                     <div className="p-3 md:p-4 pt-0 text-sm text-[#4c739a] dark:text-slate-300 space-y-2 md:space-y-3 bg-white dark:bg-[#1a2632]">
-                      {chapter.topics.map((topic, topicIndex) => (
+                      {module.lessons.map((topic, topicIndex) => (
                         <div key={topicIndex} className="flex justify-between pl-8 md:pl-9 py-2 border-t border-slate-100 dark:border-slate-700/50">
                           <div className="flex items-center gap-2 md:gap-3">
                             <span className="material-symbols-outlined text-base">
-                              {topic.type === 'video' ? 'play_circle' : 'description'}
+                              {topic.lesson_type === 'video' ? 'play_circle' : 'description'}
                             </span>
                             <span className="text-sm">{topic.title}</span>
                           </div>
-                          <span className="text-slate-400 text-xs md:text-sm">{topic.duration}</span>
+                          <span className="text-slate-400 text-xs md:text-sm">{topic.duration_display}</span>
                         </div>
                       ))}
                     </div>

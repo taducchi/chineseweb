@@ -21,7 +21,9 @@ export default function Breadcrumb() {
 
     return (
         <nav className="flex items-center gap-1.5 py-2.5 px-3" aria-label="Breadcrumb">
-            <BackButton />
+            {paths.length > 2 && (
+               <BackButton />
+            )}
             
             {/* Home icon - phiên bản đơn giản hơn */}
             <Link 

@@ -89,7 +89,7 @@ export default function IntroCourseCard({ course, link }) {
 
 
                         <Link
-                            href={`/learn/courses/${course.slug}`}
+                            href={`/dashboard/courses/${course.slug}`}
                             className={`block text-center ${isSpecialCourse
                                     ? 'bg-green-500 hover:bg-green-600 shadow-green-200 dark:shadow-none'
                                     : 'bg-primary hover:bg-primary-dark shadow-blue-200 dark:shadow-none'

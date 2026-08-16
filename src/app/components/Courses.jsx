@@ -113,10 +113,10 @@ export default function Courses() {
               Lộ trình học được thiết kế riêng cho người Việt
             </p>
           </div>
-          <a href="#" className="text-primary hover:text-primary-dark text-lg font-semibold flex items-center gap-2">
+          <Link href="/courses" className="text-primary hover:text-primary-dark text-lg font-semibold flex items-center gap-2">
             Xem tất cả
             <span className="material-symbols-outlined">arrow_forward</span>
-          </a>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">

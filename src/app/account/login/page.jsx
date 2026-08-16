@@ -11,7 +11,8 @@ import GoogleSignInButton from "./GoogleSignInButton";
 import axios from 'axios';
 
 
-const GOOGLE_AUTH_CLIENT_ID = ""
+const GOOGLE_AUTH_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+
 
 export default function LoginPage() {
         const API_URL = useAuth().API_URL; // Access API_URL from AuthContext
@@ -85,7 +86,7 @@ export default function LoginPage() {
 
                 setLoadingLogin(true);
                 setLoginError('');
-                setLoadingCount(loadingCount => loadingCount + 1) // Set loading state to true when starting the login process
+                setLoadingCount(2) // Set loading state to true when starting the login process
                 try {
 
                         fetch(`${API_URL}api/auth/login/`, {
@@ -115,6 +116,7 @@ export default function LoginPage() {
                         setLoginError('Đã có lỗi xảy ra. Vui lòng thử lại sau.');
                 } finally {
                         setLoadingLogin(false);
+                        setLoadingCount(0) 
                 }
         };
 
@@ -122,7 +124,7 @@ export default function LoginPage() {
         const handleGoogleSignIn = async (response) => {
                  
                 try {
-                        setLoadingCount(loadingCount => loadingCount + 1);
+                        setLoadingCount(1);
                         fetch(`${API_URL}auth/google-login/`, {
                                 method: 'POST',
                                 headers: {
@@ -145,9 +147,11 @@ export default function LoginPage() {
                                         localStorage.setItem('user', JSON.stringify(user));
                                         setUser(user);
                                         router.push('/dashboard');
+                                        
                                        
                                 } else {
                                         console.error('Login failed:', data.message);
+                                        
                                 }
                         })
 
@@ -157,6 +161,10 @@ export default function LoginPage() {
                 }
                 catch (e) {
                         // Handle error
+                }
+                finally {
+                        setLoadingLogin(false);
+                        setLoadingCount(0) 
                 }
         }
         return (

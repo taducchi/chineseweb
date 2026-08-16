@@ -105,29 +105,7 @@ export default function DictationPage() {
     <main className="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark p-4 sm:p-6 lg:p-10">
       <div className="w-full mx-auto flex flex-col">
         
-        {/* Breadcrumbs */}
-        <nav aria-label="Breadcrumb" className="flex">
-          <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
-            <li className="inline-flex items-center">
-              <button
-                onClick={handleBackToHome}
-                className="inline-flex items-center text-sm font-medium text-text-secondary hover:text-primary dark:text-slate-400 dark:hover:text-white"
-              >
-                <span className="material-symbols-outlined text-[18px] mr-1">home</span>
-                Trang chủ
-              </button>
-            </li>
-            <li>
-              <div className="flex items-center">
-                <span className="material-symbols-outlined text-slate-400 text-sm mx-1">chevron_right</span>
-                <span className="ms-1 text-sm font-medium text-text-main dark:text-white md:ms-2">
-                  Chép chính tả
-                </span>
-              </div>
-            </li>
-          </ol>
-        </nav>
-
+        
         {/* Page Heading */}
         <div className="flex flex-col gap-2">
           <h1 className="text-3xl md:text-4xl font-black text-text-main dark:text-white tracking-tight">

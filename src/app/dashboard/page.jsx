@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
+import Link from "next/link";
 
 export default function DashboardPage() {
 
@@ -96,49 +97,58 @@ export default function DashboardPage() {
           {/* LEFT COLUMN (Main Focus) */}
           <div className="lg:col-span-8 flex flex-col gap-6">
             {/* Hero Course Card */}
-            <div className="bg-white dark:bg-[#15222b] rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-              <div className="p-6 md:p-8 flex flex-col lg:flex-row gap-6 md:gap-8 items-center">
-                <div className="flex-1 w-full">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded uppercase tracking-wide">
-                      Khóa Học Hiện Tại
-                    </span>
-                    <span className="text-slate-400 text-xs font-medium">HSK Cấp 3</span>
-                  </div>
-                  <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-2">
-                    Cấu Trúc Ngữ Pháp Trung Cấp
-                  </h2>
-                  <p className="text-slate-500 dark:text-slate-400 mb-6 text-sm leading-relaxed">
-                    Tiếp tục học cách diễn đạt thời lượng với 'le' và bổ ngữ chỉ hướng phức tạp.
-                  </p>
-                  
-                  {/* Progress Bar */}
-                  <div className="flex flex-col gap-2 mb-6">
-                    <div className="flex justify-between text-sm">
-                      <span className="font-medium text-slate-700 dark:text-slate-300">Tiến Độ</span>
-                      <span className="text-slate-500">65%</span>
-                    </div>
-                    <div className="h-2.5 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
-                      <div className="h-full bg-primary rounded-full" style={{ width: '65%' }} />
-                    </div>
-                    <p className="text-xs text-slate-400 mt-1">24/30 Bài Học Đã Hoàn Thành</p>
-                  </div>
-                  
-                  <button className="bg-primary hover:bg-sky-500 text-white font-bold py-2.5 px-6 rounded-lg transition-colors flex items-center gap-2">
-                    Tiếp Tục Bài Học
-                    <span className="material-symbols-outlined">arrow_forward</span>
-                  </button>
-                </div>
-                
-                <div className="w-full lg:w-64 aspect-video lg:aspect-square shrink-0 rounded-lg bg-cover bg-center shadow-inner relative overflow-hidden">
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCV3PqHMYQJCQ4l1WhMC8nZcVPOj8sJRttCXKLVU-SnhqdwXidHPTPDeCTkUTSdhFznkr9iEJJfFLQ9KcPo8vXs2fDa47EWn_vCT1g44FIVz-su8eUkD7MIfPm4MRtnv98XwXJuRmZPROhS3TXCBZW-37Ci8L7Rol12CWZWmucFZ6MCtZvYHwjygYhzjsMkY21CfE3kA1Wdny21X72r9ep6dk2PY0D7qvuEgyzXHXHjX_H6ipj1qsiaAWanyoOkwjt0VSVeY8254so")'}}
-                  />
-                  <div className="absolute inset-0 bg-black/10" />
-                </div>
-              </div>
-            </div>
+
+<div className="bg-white dark:bg-[#15222b] rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden group hover:shadow-md transition-shadow duration-300">
+  <div className="p-6 md:p-8 flex flex-col lg:flex-row gap-6 md:gap-8 items-center">
+    <div className="flex-1 w-full">
+      <div className="flex items-center gap-2 mb-3">
+        <span className="bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded uppercase tracking-wide">
+          Khóa Học Hiện Tại
+        </span>
+        <span className="text-slate-400 text-xs font-medium">HSK Cấp 1</span>
+      </div>
+      <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-2">
+        Tiếng Trung Sơ Cấp - HSK 1
+      </h2>
+      <p className="text-slate-500 dark:text-slate-400 mb-6 text-sm leading-relaxed">
+        Làm quen với bảng chữ cái, phát âm cơ bản và 150 từ vựng thiết yếu cho người mới bắt đầu.
+      </p>
+      
+      {/* Progress Bar */}
+      <div className="flex flex-col gap-2 mb-6">
+        <div className="flex justify-between text-sm">
+          <span className="font-medium text-slate-700 dark:text-slate-300">Tiến Độ</span>
+          <span className="text-slate-500">65%</span>
+        </div>
+        <div className="h-2.5 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+          <div className="h-full bg-primary rounded-full" style={{ width: '65%' }} />
+        </div>
+        <p className="text-xs text-slate-400 mt-1">24/30 Bài Học Đã Hoàn Thành</p>
+      </div>
+      
+      <Link
+        href="/learn/courses/tieng-trung-hsk-1"
+        className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-2.5 px-6 rounded-lg transition-colors"
+      >
+        Tiếp Tục Bài Học
+        <span className="material-symbols-outlined text-xl">arrow_forward</span>
+      </Link>
+    </div>
+    
+    <div className="w-full lg:w-64 aspect-video lg:aspect-square shrink-0 rounded-lg bg-cover bg-center shadow-inner relative overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+        style={{backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCV3PqHMYQJCQ4l1WhMC8nZcVPOj8sJRttCXKLVU-SnhqdwXidHPTPDeCTkUTSdhFznkr9iEJJfFLQ9KcPo8vXs2fDa47EWn_vCT1g44FIVz-su8eUkD7MIfPm4MRtnv98XwXJuRmZPROhS3TXCBZW-37Ci8L7Rol12CWZWmucFZ6MCtZvYHwjygYhzjsMkY21CfE3kA1Wdny21X72r9ep6dk2PY0D7qvuEgyzXHXHjX_H6ipj1qsiaAWanyoOkwjt0VSVeY8254so")'}}
+      />
+      <div className="absolute inset-0 bg-black/10 group-hover:bg-black/5 transition-colors duration-300" />
+      
+      {/* Badge HSK 1 */}
+      <div className="absolute top-3 right-3 bg-primary/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-lg">
+        HSK 1
+      </div>
+    </div>
+  </div>
+</div>
 
             {/* Quick Stats Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

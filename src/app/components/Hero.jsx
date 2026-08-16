@@ -6,7 +6,7 @@ export default function Hero() {
       <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
         <div className="lg:w-1/2 text-center lg:text-left">
           <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
-            Nền tảng học trực tuyến hàng đầu
+            Nền tảng tiếng Trung genZ
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-text-main dark:text-white mb-6">
             Học tiếng Trung không khó mà còn mang lại nhiều lợi ích

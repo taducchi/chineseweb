@@ -10,7 +10,7 @@ import { useAuth } from '../../context/AuthContext';
 import Cookies from 'js-cookie';
 
 
-const GOOGLE_AUTH_CLIENT_ID = "786041087468-ua24bulr0f6n98h8381lm5semeunrijf.apps.googleusercontent.com"
+const GOOGLE_AUTH_CLIENT_ID = process.env.GOOGLE_AUTH_CLIENT_ID;
 
 
 export default function RegisterPage() {

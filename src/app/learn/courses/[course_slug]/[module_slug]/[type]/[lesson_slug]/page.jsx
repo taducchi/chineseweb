@@ -23,7 +23,7 @@ export default function LessonItemPage() {
     case "reading":
       return <ReadingLesson data={data} />
     case "vocabulary":
-      return <FlashcardLesson />
+      return <FlashcardLesson data={data} course_slug={course_slug} module_slug={module_slug} lesson_slug={lesson_slug}  />
     case "dictation":
       return <DictationLesson />
     default:
