@@ -17,14 +17,14 @@ export default function Sidebar({ isOpen, onClose, course_slug, toggleSidebar })
         const pathname = usePathname();
         const [modules, setModules] = useState([]);
         const [modulesLoading, setModulesLoading] = useState(true); 
-
+        const {API_URL} = useAuth()
         useEffect(() => {
                 // Fetch modules data from API
                 setModulesLoading(true); // Bắt đầu loading
                 
                 const fetchModules = async () => {
                         try {
-                                const response = await fetch(`http://localhost:8000/api/courses/tieng-trung-hsk-1/`);
+                                const response = await fetch(`${API_URL}api/courses/tieng-trung-hsk-1/`);
                                 const data = await response.json();
                                 setModules(data.modules || []);
                         } catch (error) {
