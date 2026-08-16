@@ -21,7 +21,7 @@ export default function CoursesPage() {
         const API_URL = useAuth().API_URL; // Access API_URL from AuthContext
         const fetchCourses = async () => {
                 // Simulate fetching data from an API
-                fetch(`${API_URL}/api/courses/`)
+                fetch(`${API_URL}api/courses/`)
                         .then(response => response.json())
                         .then(data => setCourses(data.results));
         };

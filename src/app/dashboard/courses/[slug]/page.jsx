@@ -18,7 +18,7 @@ export default function CourseDetailPage() {
   const [courses, setCourses] = useState([]);
   const fetchCourses = async () => {
                   // Simulate fetching data from an API
-                  fetch(`${API_URL}/api/courses/`)
+                  fetch(`${API_URL}api/courses/`)
                           .then(response => response.json())
                           .then(data => setCourses(data.results));
           };
