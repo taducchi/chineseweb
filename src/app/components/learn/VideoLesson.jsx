@@ -166,31 +166,38 @@ export default function VideoLesson({ toggleSidebar, course_slug, module_slug, l
                                         </div>
                                         <div className="flex flex-col bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm">
                                                 {/* Tab Headers */}
-                                                <div className="flex border-b border-border-light dark:border-border-dark overflow-x-auto">
-                                                        {tabs.map((tab) => (
-                                                                <button
-                                                                        key={tab.id}
-                                                                        onClick={() => setActiveTab(tab.id)}
-                                                                        className={`px-6 py-4 text-sm font-bold whitespace-nowrap transition-colors ${activeTab === tab.id
-                                                                                ? 'text-primary border-b-2 border-primary bg-primary/5'
-                                                                                : 'text-text-sub-light dark:text-text-sub-dark hover:text-text-main-light dark:hover:text-text-main-dark hover:bg-background-light dark:hover:bg-border-dark'
-                                                                                }`}
-                                                                >
-                                                                        {tab.label}
-                                                                        {tab.badge && (
-                                                                                <span className="ml-2 bg-border-light dark:bg-border-dark px-1.5 py-0.5 rounded text-xs">
-                                                                                        {tab.badge}
-                                                                                </span>
-                                                                        )}
-                                                                </button>
-                                                        ))}
+                                                <div className="flex border-b border-border-light dark:border-border-dark overflow-x-auto scrollbar-none">
+                                                        <div className="flex min-w-full">
+                                                                {tabs.map((tab) => (
+                                                                        <button
+                                                                                key={tab.id}
+                                                                                onClick={() => setActiveTab(tab.id)}
+                                                                                className={`
+                        relative px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-bold whitespace-nowrap transition-colors flex-shrink-0
+                        ${activeTab === tab.id
+                                                                                                ? 'text-primary'
+                                                                                                : 'text-text-sub-light dark:text-text-sub-dark hover:text-text-main-light dark:hover:text-text-main-dark hover:bg-background-light dark:hover:bg-border-dark'
+                                                                                        }
+                    `}
+                                                                        >
+                                                                                {tab.label}
+                                                                                {tab.badge && (
+                                                                                        <span className="ml-1 sm:ml-2 bg-border-light dark:bg-border-dark px-1.5 py-0.5 rounded text-[10px] sm:text-xs">
+                                                                                                {tab.badge}
+                                                                                        </span>
+                                                                                )}
+
+                                                                                {/* Active indicator - bottom border */}
+                                                                                {activeTab === tab.id && (
+                                                                                        <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+                                                                                )}
+                                                                        </button>
+                                                                ))}
+                                                        </div>
                                                 </div>
 
-
-
-
                                                 {/* Tab Content */}
-                                                <div className="p-6 md:p-8">
+                                                <div className="p-4 sm:p-6 md:p-8">
                                                         {activeTab === 'dialouge' && (
                                                                 <>
                                                                         <h3 className="text-xl font-bold mb-4">Hội thoại: Chào Anh!</h3>
