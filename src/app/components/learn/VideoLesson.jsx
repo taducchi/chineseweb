@@ -33,7 +33,7 @@ export default function VideoLesson({ toggleSidebar, course_slug, module_slug, l
                                         setWords([]); // Hoặc xử lý mặc định
                                 }
                                 if (data?.next_lesson) {
-                                       setNextLesson(data.next_lesson)
+                                        setNextLesson(data.next_lesson)
                                 } else {
                                 }
                                 setLoading(false);
@@ -148,22 +148,22 @@ export default function VideoLesson({ toggleSidebar, course_slug, module_slug, l
                                                         frameBorder="0"
                                                         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                                                         referrerPolicy="strict-origin-when-cross-origin"
-                                                        
+
                                                 />
                                         </div>
 
                                         {/* Content Tabs */}
                                         <div className="mt-6 flex justify-end">
-  <Link
-  href={`/learn/courses/${course_slug}/${module_slug}/${nextLesson.lesson_type}/${nextLesson.slug}`}
-  className="px-6 py-2.5 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95 flex items-center gap-2"
->
-  <span>Bài tiếp theo</span>
-  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-  </svg>
-</Link>
-</div>
+                                                <Link
+                                                        href={`/learn/courses/${course_slug}/${module_slug}/${nextLesson.lesson_type}/${nextLesson.slug}`}
+                                                        className="px-6 py-2.5 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95 flex items-center gap-2"
+                                                >
+                                                        <span>Bài tiếp theo</span>
+                                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                                        </svg>
+                                                </Link>
+                                        </div>
                                         <div className="flex flex-col bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm">
                                                 {/* Tab Headers */}
                                                 <div className="flex border-b border-border-light dark:border-border-dark overflow-x-auto">
@@ -222,126 +222,233 @@ export default function VideoLesson({ toggleSidebar, course_slug, module_slug, l
                                                                 <div className="space-y-6">
                                                                         {words.map((word, index) => (
                                                                                 <div
-  key={word.id || index}
-  className="group relative bg-white dark:bg-gray-800/30 rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] border border-gray-200/60 dark:border-gray-700/30 hover:border-blue-400/40 dark:hover:border-blue-400/30 transition-all duration-300 hover:-translate-y-0.5"
->
-  <div className="flex items-center gap-4 px-6 py-5">
-    {/* Cột 1: Số thứ tự */}
-    <div className="w-10 flex-shrink-0">
-      <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-400/20 dark:to-purple-400/20 flex items-center justify-center ring-1 ring-blue-200/50 dark:ring-blue-400/20 group-hover:ring-blue-400/70 dark:group-hover:ring-blue-400/40 transition-all">
-        <span className="text-xs font-bold text-blue-600 dark:text-blue-400">
-          {String(index + 1).padStart(2, '0')}
-        </span>
-      </div>
-    </div>
+                                                                                        key={word.id || index}
+                                                                                        className="group relative bg-white dark:bg-gray-800/30 rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] border border-gray-200/60 dark:border-gray-700/30 hover:border-blue-400/40 dark:hover:border-blue-400/30 transition-all duration-300 hover:-translate-y-0.5"
+                                                                                >
+                                                                                        {/* Mobile: Layout dạng cột dọc */}
+                                                                                        <div className="block md:hidden p-4 space-y-3">
+                                                                                                {/* Hàng 1: Số thứ tự + Từ vựng + Audio */}
+                                                                                                <div className="flex items-center gap-3">
+                                                                                                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-400/20 dark:to-purple-400/20 flex items-center justify-center ring-1 ring-blue-200/50 dark:ring-blue-400/20 flex-shrink-0">
+                                                                                                                <span className="text-xs font-bold text-blue-600 dark:text-blue-400">
+                                                                                                                        {String(index + 1).padStart(2, '0')}
+                                                                                                                </span>
+                                                                                                        </div>
+                                                                                                        <span className="text-2xl font-bold text-gray-800 dark:text-gray-100 tracking-tight">
+                                                                                                                {word.chinese}
+                                                                                                        </span>
+                                                                                                        {word.audio_file && word.audio_file.trim() !== '' && (
+                                                                                                                <button
+                                                                                                                        className="w-8 h-8 rounded-full bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white shadow-sm hover:shadow-md transition-all duration-300 hover:scale-110 flex items-center justify-center flex-shrink-0"
+                                                                                                                        onClick={() => {
+                                                                                                                                try {
+                                                                                                                                        new Audio(word.audio_file).play();
+                                                                                                                                } catch (error) {
+                                                                                                                                        console.error('Audio playback failed:', error);
+                                                                                                                                }
+                                                                                                                        }}
+                                                                                                                >
+                                                                                                                        <span className="material-symbols-outlined text-[18px]">volume_up</span>
+                                                                                                                </button>
+                                                                                                        )}
+                                                                                                </div>
 
-    {/* Cột 2: Từ vựng + Audio */}
-    <div className="w-32 flex-shrink-0 flex items-center gap-3">
-      <span className="text-2xl font-bold text-gray-800 dark:text-gray-100 tracking-tight">
-        {word.chinese}
-      </span>
-      {word.audio_file && word.audio_file.trim() !== '' && (
-        <button
-          className="w-8 h-8 rounded-full bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white shadow-sm hover:shadow-md transition-all duration-300 hover:scale-110 flex items-center justify-center flex-shrink-0"
-          onClick={() => {
-            try {
-              new Audio(word.audio_file).play();
-            } catch (error) {
-              console.error('Audio playback failed:', error);
-            }
-          }}
-        >
-          <span className="material-symbols-outlined text-[18px]">volume_up</span>
-        </button>
-      )}
-    </div>
+                                                                                                {/* Hàng 2: Pinyin */}
+                                                                                                <div>
+                                                                                                        <span className="inline-block text-sm text-gray-500 dark:text-gray-400 font-mono bg-gray-100 dark:bg-gray-700/40 px-3 py-1 rounded-lg border border-gray-200/50 dark:border-gray-600/30 tracking-wide">
+                                                                                                                {word.pinyin}
+                                                                                                        </span>
+                                                                                                </div>
 
-    {/* Cột 3: Pinyin */}
-    <div className="w-40 flex-shrink-0">
-      <span className="inline-block text-sm text-gray-500 dark:text-gray-400 font-mono bg-gray-100 dark:bg-gray-700/40 px-3 py-1 rounded-lg border border-gray-200/50 dark:border-gray-600/30 tracking-wide">
-        {word.pinyin}
-      </span>
-    </div>
+                                                                                                {/* Hàng 3: Nghĩa + Badges */}
+                                                                                                <div className="flex flex-wrap items-center gap-2">
+                                                                                                        <span className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                                                                                                                {word.meaning}
+                                                                                                        </span>
+                                                                                                        <div className="flex items-center gap-2 ml-auto">
+                                                                                                                {word.level && (
+                                                                                                                        <span className="text-[10px] font-bold text-white bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 px-2.5 py-1 rounded-full shadow-sm">
+                                                                                                                                HSK {word.level}
+                                                                                                                        </span>
+                                                                                                                )}
+                                                                                                                {word.is_learned && (
+                                                                                                                        <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-2.5 py-1 rounded-full border border-emerald-200/50 dark:border-emerald-400/20">
+                                                                                                                                <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                                                                                                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                                                                                                                </svg>
+                                                                                                                                Learned
+                                                                                                                        </span>
+                                                                                                                )}
+                                                                                                        </div>
+                                                                                                </div>
 
-    {/* Cột 4: Nghĩa */}
-    <div className="flex-1 min-w-[120px]">
-      <span className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-        {word.meaning}
-      </span>
-    </div>
+                                                                                                {/* Phần mở rộng Mobile */}
+                                                                                                {(word.example_sentence || word.image_file || word.review_count > 0) && (
+                                                                                                        <div className="pt-3 border-t border-gray-100/60 dark:border-gray-700/20 space-y-3">
+                                                                                                                {/* Hình ảnh */}
+                                                                                                                {(word.image_file || word.image_url) && (
+                                                                                                                        <div className="flex items-center gap-2">
+                                                                                                                                <span className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">Hình:</span>
+                                                                                                                                {(word.image_file && word.image_file.trim() !== '') ? (
+                                                                                                                                        <img
+                                                                                                                                                src={word.image_file}
+                                                                                                                                                alt={word.chinese}
+                                                                                                                                                className="h-12 w-12 object-cover rounded-lg border border-gray-200/50 dark:border-gray-700/30"
+                                                                                                                                                onError={(e) => e.target.style.display = 'none'}
+                                                                                                                                        />
+                                                                                                                                ) : (word.image_url && word.image_url.trim() !== '') ? (
+                                                                                                                                        <img
+                                                                                                                                                src={word.image_url}
+                                                                                                                                                alt={word.chinese}
+                                                                                                                                                className="h-12 w-12 object-cover rounded-lg border border-gray-200/50 dark:border-gray-700/30"
+                                                                                                                                                onError={(e) => e.target.style.display = 'none'}
+                                                                                                                                        />
+                                                                                                                                ) : null}
+                                                                                                                        </div>
+                                                                                                                )}
 
-    {/* Cột 5: Badges */}
-    <div className="w-28 flex-shrink-0 flex items-center justify-end gap-2">
-      {word.level && (
-        <span className="text-[10px] font-bold text-white bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 px-2.5 py-1 rounded-full shadow-sm">
-          HSK {word.level}
-        </span>
-      )}
-      {word.is_learned && (
-        <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-2.5 py-1 rounded-full border border-emerald-200/50 dark:border-emerald-400/20">
-          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-          </svg>
-          Learned
-        </span>
-      )}
-    </div>
-  </div>
+                                                                                                                {/* Ví dụ câu */}
+                                                                                                                {word.example_sentence && word.example_sentence.trim() !== '' && (
+                                                                                                                        <div className="flex flex-col gap-1.5">
+                                                                                                                                <span className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">Ví dụ:</span>
+                                                                                                                                <div className="flex flex-col gap-1">
+                                                                                                                                        <span className="text-base text-gray-800 dark:text-gray-200 font-medium">
+                                                                                                                                                {word.example_sentence}
+                                                                                                                                        </span>
+                                                                                                                                        {word.example_pinyin && word.example_pinyin.trim() !== '' && (
+                                                                                                                                                <span className="text-sm text-gray-400 dark:text-gray-500 font-mono">
+                                                                                                                                                        {word.example_pinyin}
+                                                                                                                                                </span>
+                                                                                                                                        )}
+                                                                                                                                        {word.example_translation && word.example_translation.trim() !== '' && (
+                                                                                                                                                <span className="text-sm text-gray-500 dark:text-gray-400 italic">
+                                                                                                                                                        {word.example_translation}
+                                                                                                                                                </span>
+                                                                                                                                        )}
+                                                                                                                                </div>
+                                                                                                                        </div>
+                                                                                                                )}
+                                                                                                        </div>
+                                                                                                )}
+                                                                                        </div>
 
-  {/* Phần mở rộng: Hiển thị thêm thông tin */}
-  {(word.example_sentence || word.image_file || word.review_count > 0) && (
-    <div className="px-6 pb-4 pt-0 border-t border-gray-100/60 dark:border-gray-700/20">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
-        {/* Hình ảnh */}
-        {(word.image_file || word.image_url) && (
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">Hình:</span>
-            {(word.image_file && word.image_file.trim() !== '') ? (
-              <img
-                src={word.image_file}
-                alt={word.chinese}
-                className="h-12 w-12 object-cover rounded-lg border border-gray-200/50 dark:border-gray-700/30"
-                onError={(e) => e.target.style.display = 'none'}
-              />
-            ) : (word.image_url && word.image_url.trim() !== '') ? (
-              <img
-                src={word.image_url}
-                alt={word.chinese}
-                className="h-12 w-12 object-cover rounded-lg border border-gray-200/50 dark:border-gray-700/30"
-                onError={(e) => e.target.style.display = 'none'}
-              />
-            ) : null}
-          </div>
-        )}
+                                                                                        {/* Tablet & Desktop: Layout dạng hàng ngang */}
+                                                                                        <div className="hidden md:block">
+                                                                                                <div className="flex items-center gap-4 px-6 py-5 overflow-x-auto">
+                                                                                                        {/* Cột 1: Số thứ tự */}
+                                                                                                        <div className="w-10 flex-shrink-0">
+                                                                                                                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-400/20 dark:to-purple-400/20 flex items-center justify-center ring-1 ring-blue-200/50 dark:ring-blue-400/20 group-hover:ring-blue-400/70 dark:group-hover:ring-blue-400/40 transition-all">
+                                                                                                                        <span className="text-xs font-bold text-blue-600 dark:text-blue-400">
+                                                                                                                                {String(index + 1).padStart(2, '0')}
+                                                                                                                        </span>
+                                                                                                                </div>
+                                                                                                        </div>
 
-        {/* Ví dụ câu - TĂNG KÍCH THƯỚC CHỮ */}
-        {word.example_sentence && word.example_sentence.trim() !== '' && (
-          <div className="flex flex-col gap-1.5">
-            <span className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">Ví dụ:</span>
-            <div className="flex flex-col gap-1">
-              {/* Tăng từ text-sm lên text-base */}
-              <span className="text-base text-gray-800 dark:text-gray-200 font-medium">
-                {word.example_sentence}
-              </span>
-              {/* Tăng từ text-xs lên text-sm */}
-              {word.example_pinyin && word.example_pinyin.trim() !== '' && (
-                <span className="text-sm text-gray-400 dark:text-gray-500 font-mono">
-                  {word.example_pinyin}
-                </span>
-              )}
-              {/* Tăng từ text-xs lên text-sm */}
-              {word.example_translation && word.example_translation.trim() !== '' && (
-                <span className="text-sm text-gray-500 dark:text-gray-400 italic">
-                  {word.example_translation}
-                </span>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  )}
-</div>
+                                                                                                        {/* Cột 2: Từ vựng + Audio */}
+                                                                                                        <div className="w-28 lg:w-32 flex-shrink-0 flex items-center gap-2 lg:gap-3">
+                                                                                                                <span className="text-xl lg:text-2xl font-bold text-gray-800 dark:text-gray-100 tracking-tight">
+                                                                                                                        {word.chinese}
+                                                                                                                </span>
+                                                                                                                {word.audio_file && word.audio_file.trim() !== '' && (
+                                                                                                                        <button
+                                                                                                                                className="w-7 h-7 lg:w-8 lg:h-8 rounded-full bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white shadow-sm hover:shadow-md transition-all duration-300 hover:scale-110 flex items-center justify-center flex-shrink-0"
+                                                                                                                                onClick={() => {
+                                                                                                                                        try {
+                                                                                                                                                new Audio(word.audio_file).play();
+                                                                                                                                        } catch (error) {
+                                                                                                                                                console.error('Audio playback failed:', error);
+                                                                                                                                        }
+                                                                                                                                }}
+                                                                                                                        >
+                                                                                                                                <span className="material-symbols-outlined text-[16px] lg:text-[18px]">volume_up</span>
+                                                                                                                        </button>
+                                                                                                                )}
+                                                                                                        </div>
+
+                                                                                                        {/* Cột 3: Pinyin */}
+                                                                                                        <div className="w-32 lg:w-40 flex-shrink-0">
+                                                                                                                <span className="inline-block text-xs lg:text-sm text-gray-500 dark:text-gray-400 font-mono bg-gray-100 dark:bg-gray-700/40 px-2 lg:px-3 py-1 rounded-lg border border-gray-200/50 dark:border-gray-600/30 tracking-wide truncate max-w-full">
+                                                                                                                        {word.pinyin}
+                                                                                                                </span>
+                                                                                                        </div>
+
+                                                                                                        {/* Cột 4: Nghĩa */}
+                                                                                                        <div className="flex-1 min-w-[80px] lg:min-w-[120px]">
+                                                                                                                <span className="text-xs lg:text-sm text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-2">
+                                                                                                                        {word.meaning}
+                                                                                                                </span>
+                                                                                                        </div>
+
+                                                                                                        {/* Cột 5: Badges */}
+                                                                                                        <div className="w-24 lg:w-28 flex-shrink-0 flex items-center justify-end gap-1 lg:gap-2">
+                                                                                                                {word.level && (
+                                                                                                                        <span className="text-[9px] lg:text-[10px] font-bold text-white bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 px-2 lg:px-2.5 py-1 rounded-full shadow-sm whitespace-nowrap">
+                                                                                                                                HSK {word.level}
+                                                                                                                        </span>
+                                                                                                                )}
+                                                                                                                {word.is_learned && (
+                                                                                                                        <span className="inline-flex items-center gap-0.5 lg:gap-1 text-[9px] lg:text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-1.5 lg:px-2.5 py-1 rounded-full border border-emerald-200/50 dark:border-emerald-400/20 whitespace-nowrap">
+                                                                                                                                <svg className="w-2.5 h-2.5 lg:w-3 lg:h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                                                                                                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                                                                                                                </svg>
+                                                                                                                                <span className="hidden xs:inline">Learned</span>
+                                                                                                                        </span>
+                                                                                                                )}
+                                                                                                        </div>
+                                                                                                </div>
+
+                                                                                                {/* Phần mở rộng Tablet/Desktop */}
+                                                                                                {(word.example_sentence || word.image_file || word.review_count > 0) && (
+                                                                                                        <div className="px-6 pb-4 pt-0 border-t border-gray-100/60 dark:border-gray-700/20">
+                                                                                                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-3">
+                                                                                                                        {/* Hình ảnh */}
+                                                                                                                        {(word.image_file || word.image_url) && (
+                                                                                                                                <div className="flex items-center gap-2">
+                                                                                                                                        <span className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">Hình:</span>
+                                                                                                                                        {(word.image_file && word.image_file.trim() !== '') ? (
+                                                                                                                                                <img
+                                                                                                                                                        src={word.image_file}
+                                                                                                                                                        alt={word.chinese}
+                                                                                                                                                        className="h-12 w-12 object-cover rounded-lg border border-gray-200/50 dark:border-gray-700/30"
+                                                                                                                                                        onError={(e) => e.target.style.display = 'none'}
+                                                                                                                                                />
+                                                                                                                                        ) : (word.image_url && word.image_url.trim() !== '') ? (
+                                                                                                                                                <img
+                                                                                                                                                        src={word.image_url}
+                                                                                                                                                        alt={word.chinese}
+                                                                                                                                                        className="h-12 w-12 object-cover rounded-lg border border-gray-200/50 dark:border-gray-700/30"
+                                                                                                                                                        onError={(e) => e.target.style.display = 'none'}
+                                                                                                                                                />
+                                                                                                                                        ) : null}
+                                                                                                                                </div>
+                                                                                                                        )}
+
+                                                                                                                        {/* Ví dụ câu */}
+                                                                                                                        {word.example_sentence && word.example_sentence.trim() !== '' && (
+                                                                                                                                <div className="flex flex-col gap-1.5">
+                                                                                                                                        <span className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">Ví dụ:</span>
+                                                                                                                                        <div className="flex flex-col gap-1">
+                                                                                                                                                <span className="text-sm lg:text-base text-gray-800 dark:text-gray-200 font-medium">
+                                                                                                                                                        {word.example_sentence}
+                                                                                                                                                </span>
+                                                                                                                                                {word.example_pinyin && word.example_pinyin.trim() !== '' && (
+                                                                                                                                                        <span className="text-xs lg:text-sm text-gray-400 dark:text-gray-500 font-mono">
+                                                                                                                                                                {word.example_pinyin}
+                                                                                                                                                        </span>
+                                                                                                                                                )}
+                                                                                                                                                {word.example_translation && word.example_translation.trim() !== '' && (
+                                                                                                                                                        <span className="text-xs lg:text-sm text-gray-500 dark:text-gray-400 italic">
+                                                                                                                                                                {word.example_translation}
+                                                                                                                                                        </span>
+                                                                                                                                                )}
+                                                                                                                                        </div>
+                                                                                                                                </div>
+                                                                                                                        )}
+                                                                                                                </div>
+                                                                                                        </div>
+                                                                                                )}
+                                                                                        </div>
+                                                                                </div>
                                                                         ))}
 
                                                                         {/* Hiển thị khi không có dữ liệu */}
