@@ -394,7 +394,7 @@ export default function FlashcardLesson({ data, course_slug, lesson_slug, item_s
                 ].map((rating) => (
                   <button
                     key={rating.key}
-                    onClick={(e) => handleRating(rating.key, e)}
+                    // onClick={(e) => handleRating(rating.key, e)}
                     className={`${rating.color} text-white py-2 sm:py-3 px-2 rounded-lg font-medium text-xs sm:text-sm transition-all hover:scale-105 active:scale-95 shadow-lg shadow-black/10`}
                   >
                     {rating.label}

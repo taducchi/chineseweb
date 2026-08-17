@@ -18,6 +18,7 @@ export default function Sidebar({ isOpen, onClose, course_slug, toggleSidebar })
         const [modules, setModules] = useState([]);
         const [modulesLoading, setModulesLoading] = useState(true); 
         const {API_URL} = useAuth()
+        const [courseData, setCourseData] = useState()
         useEffect(() => {
                 // Fetch modules data from API
                 setModulesLoading(true); // Bắt đầu loading
@@ -26,6 +27,7 @@ export default function Sidebar({ isOpen, onClose, course_slug, toggleSidebar })
                         try {
                                 const response = await fetch(`${API_URL}api/courses/tieng-trung-hsk-1/`);
                                 const data = await response.json();
+                                setCourseData(data)
                                 setModules(data.modules || []);
                         } catch (error) {
                                 console.error('Error fetching modules:', error);
@@ -198,7 +200,7 @@ export default function Sidebar({ isOpen, onClose, course_slug, toggleSidebar })
                                 <div className="p-4 border-b border-gray-200 flex items-center justify-between lg:justify-start">
                                         <div className="flex-1">
                                                 <div className="flex flex-col gap-1">
-                                                        <p className="text-base font-bold text-gray-900">Khoá học HSK 3 Tiêu chuẩn</p>
+                                                        <p className="text-base font-bold text-gray-900">{courseData.title}</p>
                                                         <p className="text-primary text-sm font-bold">35%</p>
                                                 </div>
                                                 <div className="rounded-full bg-gray-200 h-2 overflow-hidden mt-2">
