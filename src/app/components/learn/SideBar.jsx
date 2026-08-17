@@ -18,7 +18,9 @@ export default function Sidebar({ isOpen, onClose, course_slug, toggleSidebar })
         const [modules, setModules] = useState([]);
         const [modulesLoading, setModulesLoading] = useState(true); 
         const {API_URL} = useAuth()
-        const [courseData, setCourseData] = useState()
+        const [courseData, setCourseData] = useState({
+                "title": "Khoá học tiếng Trung Quốc"
+        })
         useEffect(() => {
                 // Fetch modules data from API
                 setModulesLoading(true); // Bắt đầu loading
