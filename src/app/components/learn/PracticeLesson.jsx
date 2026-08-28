@@ -79,7 +79,7 @@ const QUESTION_BANK = [
     prompt: '3:30',
     question: 'Cách nói thường dùng nào đúng?',
     options: ['三点三分', '三点三十分', '三点半分', '三十分三点'],
-    correctIndex: 2,
+    correctIndex: 1,
   },
   {
     id: 12,
