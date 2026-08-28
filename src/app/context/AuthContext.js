@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 
 const AuthContext = createContext(null);
 
-const API_URL = 'https://hospitable-alignment-production.up.railway.app/';
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
