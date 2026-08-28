@@ -146,7 +146,7 @@ export default function PracticeLesson() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [musicVolume, setMusicVolume] = useState(0.3);
   const [showVolumeControl, setShowVolumeControl] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(15);
+  const [timeLeft, setTimeLeft] = useState(30);
   const [showResultBox, setShowResultBox] = useState(false);
   const [resultType, setResultType] = useState('');
   const [resultMessage, setResultMessage] = useState('');
