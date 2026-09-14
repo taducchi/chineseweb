@@ -100,16 +100,19 @@ export default function LoginPage() {
                                         password: formData.password
                                 }),
                         }).then(res => res.json()).then(response => {
+                                console.log("Access:", response.access)
 
                         if (response.access) {
                                 // Lưu token vào cookie (7 ngày)
                                 Cookies.set('access', response.access, { expires: 7 });
                                 Cookies.set('refresh', response.refresh, { expires: 7 });
+                               console.log(response.access)
                                 localStorage.setItem('user', JSON.stringify(response.user));
                                 setUser(response.user);
                                 router.push('/dashboard');
                         }
                 })
+                
 
                 } catch (error) {
                         console.error('Login error:', error);

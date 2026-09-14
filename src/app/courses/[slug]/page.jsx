@@ -11,12 +11,13 @@ export default function CourseDetailPage() {
   const [loading, setLoading] = useState(true)
   const [activeChapter, setActiveChapter] = useState(0)
   const [showAllReviews, setShowAllReviews] = useState(false)
+  
   const API_URL = useAuth().API_URL
 
   const fetchCourseData = async (slug) => {
 
    
-    await fetch(`/api/courses/${slug}`)
+    await fetch(`${API_URL}api/courses/${slug}`)
       .then(response => response.json()).then(data => {
         setCourse(data);
       });

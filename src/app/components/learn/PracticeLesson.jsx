@@ -158,7 +158,7 @@ export default function PracticeLesson() {
   const youtubePlayerRef = useRef(null);
   const countdownPlayerRef = useRef(null);
   const resultTimerRef = useRef(null);
-  const QUESTION_TIMER = 15;
+  const QUESTION_TIMER = 30;
 
   const BACKGROUND_VIDEO_ID = 'wyoU9qwxBUY';
   const COUNTDOWN_VIDEO_ID = 'W2lL1S-c8Rs';

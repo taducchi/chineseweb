@@ -6,6 +6,7 @@ import { useEffect, useState, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Logo from '../Logo';
 import { useAuth } from '../../context/AuthContext';
+import Cookies from 'js-cookie';
 
 export default function Sidebar({ isOpen, onClose, course_slug, toggleSidebar }) {
         const [openModule, setOpenModule] = useState(1);
@@ -27,7 +28,16 @@ export default function Sidebar({ isOpen, onClose, course_slug, toggleSidebar })
                 
                 const fetchModules = async () => {
                         try {
-                                const response = await fetch(`${API_URL}api/courses/tieng-trung-hsk-1/`);
+                                const accessToken = Cookies.get('access')
+                                const response = await fetch(
+                                        `${API_URL}api/courses/${course_slug}`,
+                                        {
+                                                headers: {
+                                                        "Authorization": `Bearer ${accessToken}`,
+                                                        "Content-Type": "application/json",
+                                                },
+                                        }
+                                );
                                 const data = await response.json();
                                 setCourseData(data)
                                 setModules(data.modules || []);
@@ -203,10 +213,10 @@ export default function Sidebar({ isOpen, onClose, course_slug, toggleSidebar })
                                         <div className="flex-1">
                                                 <div className="flex flex-col gap-1">
                                                         <p className="text-base font-bold text-gray-900">{courseData.title}</p>
-                                                        <p className="text-primary text-sm font-bold">35%</p>
+                                                        <p className="text-primary text-sm font-bold">{courseData.progress}%</p>
                                                 </div>
                                                 <div className="rounded-full bg-gray-200 h-2 overflow-hidden mt-2">
-                                                        <div className="h-full rounded-full bg-primary transition-all duration-500" style={{ width: '35%' }} />
+                                                        <div className="h-full rounded-full bg-primary transition-all duration-500" style={{ width:  courseData.progress}} />
                                                 </div>
                                                 <p className="text-gray-500 text-xs font-medium uppercase tracking-wider mt-1">
                                                         Tiến độ học tập
@@ -223,7 +233,7 @@ export default function Sidebar({ isOpen, onClose, course_slug, toggleSidebar })
                                 </div>
 
                                 {/* Modules Accordion - Container chính */}
-                                <div className="flex flex-col p-4 gap-2 flex-1 overflow-y-auto">
+                                <div className="flex flex-col p-4 gap-2 flex-1 ">
                                         {/* Loading Spinner */}
                                         {modulesLoading ? (
                                                 <div className="flex flex-col items-center justify-center h-full gap-4">
@@ -258,12 +268,12 @@ export default function Sidebar({ isOpen, onClose, course_slug, toggleSidebar })
                                                                         `}
                                                                         disabled={module.is_locked}
                                                                 >
-                                                                        <div className="flex items-center gap-3">
+                                                                        <div className="flex items-center gap-3 break-words">
                                                                                 <div className={`
                                                                                         size-6 rounded flex items-center justify-center
                                                                                         ${module.is_locked ? 'bg-gray-100 text-gray-500' : 'bg-primary/10 text-primary'}
                                                                                 `}>
-                                                                                        <span className="material-symbols-outlined text-[18px]">
+                                                                                        <span className="material-symbols-outlined text-[12px]">
                                                                                                 {module.is_locked ? 'lock' : 'crop_square'}
                                                                                         </span>
                                                                                 </div>

@@ -5,8 +5,8 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-
 import Logo from '../Logo';
+
 
 export default function DashboardSidebar({
   sidebarOpen,
@@ -204,7 +204,7 @@ export default function DashboardSidebar({
   };
 
   return (
-    <>
+    <div>
       {/* Overlay cho mobile */}
       {sidebarOpen && (
         <div
@@ -434,28 +434,8 @@ export default function DashboardSidebar({
           </nav>
         </div>
 
-        {/* =====================================================
-            USER INFO (Optional)
-        ====================================================== */}
-
-        {!collapsed && (
-          <div className="px-3 pb-4 pt-2 border-t border-slate-200 dark:border-slate-800">
-            <div className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center">
-                <span className="material-symbols-outlined text-primary">person</span>
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-slate-700 dark:text-slate-300 truncate">
-                  Người dùng
-                </p>
-                <p className="text-xs text-slate-500 dark:text-slate-500 truncate">
-                  user@example.com
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
+        
       </aside>
-    </>
+    </div>
   );
 }

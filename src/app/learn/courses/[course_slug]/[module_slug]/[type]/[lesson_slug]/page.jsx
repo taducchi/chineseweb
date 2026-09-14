@@ -7,6 +7,7 @@ import FlashcardLesson from "../../../../../../components/learn/FlashcardLesson"
 import DictationLesson from "../../../../../../components/learn/DictationLesson";
 import VideoLesson from "../../../../../../components/learn/VideoLesson";
 import PracticeLesson from "../../../../../../components/learn/PracticeLesson";
+import PracticeSelect from "../../../../../../components/learn/PracticeSelect";
 
 
 export default function LessonItemPage() {
@@ -17,7 +18,7 @@ export default function LessonItemPage() {
   const [error, setError] = useState(null);
 
 
-
+  
   switch (type) {
     case "video":
       return <VideoLesson data={data} course_slug={course_slug} module_slug={module_slug} lesson_slug={lesson_slug} />
@@ -27,8 +28,10 @@ export default function LessonItemPage() {
       return <FlashcardLesson data={data} course_slug={course_slug} module_slug={module_slug} lesson_slug={lesson_slug}  />
     case "dictation":
       return <DictationLesson />
-      case "practice":
+    case "practice":
       return <PracticeLesson />
+    case "overview-practice":
+      return <PracticeSelect course_slug={course_slug} module_slug={module_slug} lesson_slug={lesson_slug}  />
     default:
       return <div>Lesson type not supported</div>
   }
