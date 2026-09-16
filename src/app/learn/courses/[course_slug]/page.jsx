@@ -24,8 +24,7 @@ export default function HomePage({ params }) {
                         setLoading(true)
                         
                         try {
-                                // const accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg5Mzc2NTI5LCJpYXQiOjE3ODkzNzU2MjksImp0aSI6IjViMWI2ODg4MzU0NjRlNmY5ZWRiOTgzNGUxNjYyZTk2IiwidXNlcl9pZCI6IjEifQ.CNjA1FdDMCvdeBk5tKG6uPy0bbBgwKfF560PS5qLHkw
-                                const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg5Mzc4NjA5LCJpYXQiOjE3ODkzNzc3MDksImp0aSI6ImMxZWJhNTNmMWQ2ODRjMmRhMjg3ZTRhMTM4ZWZjY2VjIiwidXNlcl9pZCI6IjEifQ.F6aWxQdJNtRWBeaj1DoijziMnL22VSw4TAWG0Zo_DCk";
+                                const accessToken = Cookies.get("access");
                                 const response = await fetch(
                                         `${API_URL}api/courses/${course_slug}`,
                                         {

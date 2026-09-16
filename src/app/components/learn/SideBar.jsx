@@ -274,7 +274,8 @@ export default function Sidebar({ isOpen, onClose, course_slug, toggleSidebar })
                                                                                         ${module.is_locked ? 'bg-gray-100 text-gray-500' : 'bg-primary/10 text-primary'}
                                                                                 `}>
                                                                                         <span className="material-symbols-outlined text-[12px]">
-                                                                                                {module.is_locked ? 'lock' : 'crop_square'}
+                                                                                                {module.is_completed ? 'check_circle' : 'radio_button_unchecked'}
+                                                                                               
                                                                                         </span>
                                                                                 </div>
                                                                                 <span className={`
@@ -282,6 +283,7 @@ export default function Sidebar({ isOpen, onClose, course_slug, toggleSidebar })
                                                                                         ${module.is_locked ? 'font-medium text-gray-500' : 'font-bold text-gray-900'}
                                                                                 `}>
                                                                                         {module.title}
+                                                                                         {module.is_completed}
                                                                                 </span>
                                                                         </div>
                                                                         {!module.is_locked && (

@@ -4,7 +4,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import Link from 'next/link';
-
+import Cookies from 'js-cookie'
 export default function VideoLesson({ toggleSidebar, course_slug, module_slug, lesson_slug }) {
         const [activeTab, setActiveTab] = useState('vocabulary');
         const [lessonData, setLessonData] = useState({});
@@ -15,9 +15,36 @@ export default function VideoLesson({ toggleSidebar, course_slug, module_slug, l
         const [nextLesson, setNextLesson] = useState({})
 
         const { API_URL } = useAuth()
+        const accessToken = Cookies.get('access')
+
+
+        const updateProgress = async () => {
+
+                const response = await fetch(`${API_URL}api/courses/lessons/${lesson_slug}/update-progress/`, {
+                        method: 'PATCH',
+                        headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${accessToken}`,
+                        },
+                        body: JSON.stringify({
+                                status: 'completed',
+                                progress_percentage: 100,
+                        }),
+                })
+
+                console.log(response.json())
+
+        }
+
+
         useEffect(() => {
                 setLoading(true);
-                fetch(`${API_URL}api/courses/${course_slug}/lessons/${lesson_slug}/`)
+                fetch(`${API_URL}api/courses/${course_slug}/lessons/${lesson_slug}/`, {
+                        headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${accessToken}`,
+                        },
+                })
                         .then(response => {
                                 if (!response.ok) {
                                         throw new Error('Failed to fetch lesson data');
@@ -36,6 +63,7 @@ export default function VideoLesson({ toggleSidebar, course_slug, module_slug, l
                                         setNextLesson(data.next_lesson)
                                 } else {
                                 }
+                                console.log("LessonData" , data.is_completed)
                                 setLoading(false);
                         })
                         .catch(error => {
@@ -115,9 +143,22 @@ export default function VideoLesson({ toggleSidebar, course_slug, module_slug, l
                                                                 <span className="material-symbols-outlined text-[20px]">bookmark</span>
                                                                 <span>Lưu</span>
                                                         </button>
-                                                        <button className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary hover:bg-blue-600 transition-colors text-white text-sm font-bold shadow-lg shadow-blue-500/20">
-                                                                <span className="material-symbols-outlined text-[20px]">check_circle</span>
-                                                                <span>Đánh dấu hoàn thành</span>
+                                                        <button
+                                                                onClick={updateProgress}
+                                                                className={`flex items-center gap-2 px-5 py-2.5 rounded-lg transition-colors text-white text-sm font-bold shadow-lg ${lessonData.is_completed
+                                                                                ? "bg-green-500 hover:bg-green-600 shadow-green-500/20"
+                                                                                : "bg-primary hover:bg-blue-600 shadow-blue-500/20"
+                                                                        }`}
+                                                        >
+                                                                <span className="material-symbols-outlined text-[20px]">
+                                                                        {lessonData.is_completed ? "check_circle" : "check_circle"}
+                                                                </span>
+
+                                                                <span>
+                                                                        {lessonData.is_completed
+                                                                                ? "Đã hoàn thành"
+                                                                                : "Đánh dấu hoàn thành"}
+                                                                </span>
                                                         </button>
                                                 </div>
                                         </div>

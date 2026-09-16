@@ -109,6 +109,7 @@ export default function LoginPage() {
                                console.log(response.access)
                                 localStorage.setItem('user', JSON.stringify(response.user));
                                 setUser(response.user);
+                                console.log(response.access)
                                 router.push('/dashboard');
                         }
                 })
