@@ -14,29 +14,60 @@ export const AuthProvider = ({ children }) => {
     const router = useRouter();
     const [loadingCount, setLoadingCount] = useState(1)
     useEffect(() => {
-        const initAuth = () => {
+        const initAuth = async () => {
             try {
-                const accessToken = Cookies.get('access');
+                const refreshToken = Cookies.get('refresh');
 
-                if (!accessToken) {
-                    setLoadingCount(loadingCount => loadingCount - 1)
+                // Không có refresh token => coi như chưa đăng nhập
+                if (!refreshToken) {
+                    resetUser();
                     return;
                 }
 
-                const storedUser = localStorage.getItem('user');
+                // Gọi API để kiểm tra refresh token còn hạn không
+                const response = await fetch(`${API_URL}api/auth/token/refresh/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ refresh: refreshToken }),
+                });
 
+                if (!response.ok) {
+                    // Refresh token hết hạn hoặc không hợp lệ
+                    resetUser();
+                    return;
+                }
+
+                const data = await response.json();
+                const newAccessToken = data.access;
+
+                if (!newAccessToken) {
+                    resetUser();
+                    return;
+                }
+
+                // Lưu access token mới vào Cookies
+                Cookies.set('access', newAccessToken);
+
+                // Khôi phục user từ localStorage
+                const storedUser = localStorage.getItem('user');
                 if (storedUser) {
                     setUser(JSON.parse(storedUser));
-                    
                 }
             } catch (err) {
                 console.error(err);
-                Cookies.remove('access');
-                Cookies.remove('refresh');
-                localStorage.removeItem('user');
+                resetUser();
             } finally {
-                setLoadingCount(loadingCount => loadingCount - 1)
+                setLoadingCount(loadingCount => loadingCount - 1);
             }
+        };
+
+        const resetUser = () => {
+            Cookies.remove('access');
+            Cookies.remove('refresh');
+            localStorage.removeItem('user');
+            setUser(null);
         };
 
         initAuth();
@@ -65,7 +96,7 @@ export const AuthProvider = ({ children }) => {
             }
 
             Cookies.set('access', data.access, { expires: 7 });
-            Cookies.set('refresh', data.refresh, { expires: 7 });
+            Cookies.set('refresh', data.refresh, { expires: 30 });
 
             localStorage.setItem('user', JSON.stringify(data.user));
 
@@ -104,8 +135,8 @@ export const AuthProvider = ({ children }) => {
                 setLoading,
                 login,
                 logout,
-                loadingCount, 
-                setLoadingCount, 
+                loadingCount,
+                setLoadingCount,
                 isAuthenticated: !!user,
             }}
         >

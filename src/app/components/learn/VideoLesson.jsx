@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import Link from 'next/link';
 import Cookies from 'js-cookie'
+import { useCourse } from '../../context/CourseContext';
 export default function VideoLesson({ toggleSidebar, course_slug, module_slug, lesson_slug }) {
         const [activeTab, setActiveTab] = useState('vocabulary');
         const [lessonData, setLessonData] = useState({});
@@ -16,26 +17,76 @@ export default function VideoLesson({ toggleSidebar, course_slug, module_slug, l
 
         const { API_URL } = useAuth()
         const accessToken = Cookies.get('access')
-
-
+        const [loadingUpdate, setLoadingUpdate] = useState(false);
+        const {courseData, setCourseData} = useCourse()
         const updateProgress = async () => {
+                setLoadingUpdate(true);
+                try {
+                        const response = await fetch(
+                                `${API_URL}api/courses/lessons/${lesson_slug}/update-progress/`,
+                                {
+                                        method: 'PATCH',
+                                        headers: {
+                                                'Content-Type': 'application/json',
+                                                'Authorization': `Bearer ${accessToken}`,
+                                        },
+                                        body: JSON.stringify({
+                                                status: 'completed',
+                                                progress_percentage: 100,
+                                        }),
+                                }
+                        );
 
-                const response = await fetch(`${API_URL}api/courses/lessons/${lesson_slug}/update-progress/`, {
-                        method: 'PATCH',
-                        headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${accessToken}`,
-                        },
-                        body: JSON.stringify({
-                                status: 'completed',
-                                progress_percentage: 100,
-                        }),
-                })
+                        if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                        }
 
-                console.log(response.json())
+                        const data = await response.json();
+                        console.log('API response:', data);
 
-        }
+                        // ✅ 1. Cập nhật lessonData hiện tại
+                        setLessonData(prev => ({
+                                ...prev,
+                                ...data,
+                                is_completed: true,
+                        }));
 
+                        // ✅ 2. Cập nhật lesson trong courseData.modules
+                        const { module_slug, lesson_slug: returnedLessonSlug } = data;
+                        const targetLessonSlug = returnedLessonSlug || lesson_slug;
+
+                        if (module_slug && targetLessonSlug) {
+                                setCourseData(prev => {
+                                        if (!prev?.modules) return prev;
+
+                                        return {
+                                                ...prev,
+                                                modules: prev.modules.map(module => {
+                                                        if (module.slug !== module_slug) return module;
+
+                                                        return {
+                                                                ...module,
+                                                                lessons: module.lessons?.map(lesson => {
+                                                                        if (lesson.slug !== targetLessonSlug) return lesson;
+
+                                                                        return {
+                                                                                ...lesson,
+                                                                                ...data,               // merge tất cả field mới
+                                                                                is_completed: true,    // đảm bảo trạng thái
+                                                                        };
+                                                                }) ?? [],
+                                                        };
+                                                }),
+                                        };
+                                });
+                               
+                        }
+                } catch (err) {
+                        console.error('Update progress failed:', err);
+                } finally {
+                        setLoadingUpdate(false);
+                }
+        };
 
         useEffect(() => {
                 setLoading(true);
@@ -63,7 +114,7 @@ export default function VideoLesson({ toggleSidebar, course_slug, module_slug, l
                                         setNextLesson(data.next_lesson)
                                 } else {
                                 }
-                                console.log("LessonData" , data.is_completed)
+                                console.log("LessonData", data.is_completed)
                                 setLoading(false);
                         })
                         .catch(error => {
@@ -143,21 +194,33 @@ export default function VideoLesson({ toggleSidebar, course_slug, module_slug, l
                                                                 <span className="material-symbols-outlined text-[20px]">bookmark</span>
                                                                 <span>Lưu</span>
                                                         </button>
+
                                                         <button
                                                                 onClick={updateProgress}
-                                                                className={`flex items-center gap-2 px-5 py-2.5 rounded-lg transition-colors text-white text-sm font-bold shadow-lg ${lessonData.is_completed
-                                                                                ? "bg-green-500 hover:bg-green-600 shadow-green-500/20"
-                                                                                : "bg-primary hover:bg-blue-600 shadow-blue-500/20"
+                                                                disabled={loadingUpdate}
+                                                                className={`flex items-center gap-2 px-5 py-2.5 rounded-lg transition-colors text-white text-sm font-bold shadow-lg disabled:opacity-70 disabled:cursor-not-allowed ${lessonData.is_completed
+                                                                        ? "bg-green-500 hover:bg-green-600 shadow-green-500/20"
+                                                                        : "bg-primary hover:bg-blue-600 shadow-blue-500/20"
                                                                         }`}
                                                         >
-                                                                <span className="material-symbols-outlined text-[20px]">
-                                                                        {lessonData.is_completed ? "check_circle" : "check_circle"}
-                                                                </span>
+                                                                {loadingUpdate ? (
+                                                                        // 🔄 Đang loading: icon quay
+                                                                        <span className="material-symbols-outlined text-[20px] animate-spin">
+                                                                                progress_activity
+                                                                        </span>
+                                                                ) : (
+                                                                        // ✅ Không loading: hiển thị như bình thường
+                                                                        <span className="material-symbols-outlined text-[20px]">
+                                                                                {lessonData.is_completed ? "check_circle" : "check_circle"}
+                                                                        </span>
+                                                                )}
 
                                                                 <span>
-                                                                        {lessonData.is_completed
-                                                                                ? "Đã hoàn thành"
-                                                                                : "Đánh dấu hoàn thành"}
+                                                                        {loadingUpdate
+                                                                                ? "Đang lưu..."
+                                                                                : lessonData.is_completed
+                                                                                        ? "Đã hoàn thành"
+                                                                                        : "Đánh dấu hoàn thành"}
                                                                 </span>
                                                         </button>
                                                 </div>

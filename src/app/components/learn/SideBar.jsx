@@ -7,8 +7,9 @@ import { usePathname } from 'next/navigation';
 import Logo from '../Logo';
 import { useAuth } from '../../context/AuthContext';
 import Cookies from 'js-cookie';
+import { useCourse } from '../../context/CourseContext';
 
-export default function Sidebar({ isOpen, onClose, course_slug, toggleSidebar }) {
+export default function Sidebar({ isOpen, onClose,  toggleSidebar, course_slug }) {
         const [openModule, setOpenModule] = useState(1);
         const [isMobile, setIsMobile] = useState(false);
         const [activeLessonSlug, setActiveLessonSlug] = useState('');
@@ -17,40 +18,14 @@ export default function Sidebar({ isOpen, onClose, course_slug, toggleSidebar })
         const sidebarRef = useRef(null);
         const pathname = usePathname();
         const [modules, setModules] = useState([]);
-        const [modulesLoading, setModulesLoading] = useState(true); 
         const {API_URL} = useAuth()
-        const [courseData, setCourseData] = useState({
-                "title": "Khoá học tiếng Trung Quốc"
-        })
-        useEffect(() => {
-                // Fetch modules data from API
-                setModulesLoading(true); // Bắt đầu loading
-                
-                const fetchModules = async () => {
-                        try {
-                                const accessToken = Cookies.get('access')
-                                const response = await fetch(
-                                        `${API_URL}api/courses/${course_slug}`,
-                                        {
-                                                headers: {
-                                                        "Authorization": `Bearer ${accessToken}`,
-                                                        "Content-Type": "application/json",
-                                                },
-                                        }
-                                );
-                                const data = await response.json();
-                                setCourseData(data)
-                                setModules(data.modules || []);
-                        } catch (error) {
-                                console.error('Error fetching modules:', error);
-                        } finally {
-                                setModulesLoading(false); // Kết thúc loading
-                        }
-                };
-                
-                fetchModules();
-        }, []);
+        
+        const {courseData}= useCourse();
 
+        useEffect(() => {
+                setModules(courseData.modules);
+        }, [courseData])
+        
         // Kiểm tra kích thước màn hình
         useEffect(() => {
                 const checkMobile = () => {
@@ -235,21 +210,7 @@ export default function Sidebar({ isOpen, onClose, course_slug, toggleSidebar })
                                 {/* Modules Accordion - Container chính */}
                                 <div className="flex flex-col p-4 gap-2 flex-1 ">
                                         {/* Loading Spinner */}
-                                        {modulesLoading ? (
-                                                <div className="flex flex-col items-center justify-center h-full gap-4">
-                                                        <div className="relative">
-                                                                {/* Spinner chính */}
-                                                                <div className="w-12 h-12 border-4 border-gray-200 dark:border-gray-700 rounded-full animate-spin border-t-primary"></div>
-                                                                {/* Inner dot */}
-                                                                <div className="absolute inset-0 flex items-center justify-center">
-                                                                        <div className="w-3 h-3 bg-primary rounded-full animate-pulse" />
-                                                                </div>
-                                                        </div>
-                                                        <p className="text-sm text-gray-500 dark:text-gray-400 animate-pulse">
-                                                                Đang tải bài học...
-                                                        </p>
-                                                </div>
-                                        ) : modules.length === 0 ? (
+                                       { modules.length === 0 ? (
                                                 <div className="flex flex-col items-center justify-center h-full gap-2 text-gray-500">
                                                         <span className="material-symbols-outlined text-4xl">folder_open</span>
                                                         <p className="text-sm">Không có bài học nào</p>

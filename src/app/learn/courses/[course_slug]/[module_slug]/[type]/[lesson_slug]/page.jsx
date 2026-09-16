@@ -8,6 +8,7 @@ import DictationLesson from "../../../../../../components/learn/DictationLesson"
 import VideoLesson from "../../../../../../components/learn/VideoLesson";
 import PracticeLesson from "../../../../../../components/learn/PracticeLesson";
 import PracticeSelect from "../../../../../../components/learn/PracticeSelect";
+import { useCourse } from "../../../../../../context/CourseContext";
 
 
 export default function LessonItemPage() {
@@ -17,11 +18,13 @@ export default function LessonItemPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-
+  const {courseData, setCourseData} = useCourse()
   
   switch (type) {
     case "video":
-      return <VideoLesson data={data} course_slug={course_slug} module_slug={module_slug} lesson_slug={lesson_slug} />
+      return <VideoLesson data={data} course_slug={course_slug} module_slug={module_slug} 
+      lesson_slug={lesson_slug} 
+      />
     case "reading":
       return <ReadingLesson data={data} />
     case "vocabulary":
