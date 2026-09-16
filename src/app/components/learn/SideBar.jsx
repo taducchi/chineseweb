@@ -235,7 +235,7 @@ export default function Sidebar({ isOpen, onClose,  toggleSidebar, course_slug }
                                                                                         ${module.is_locked ? 'bg-gray-100 text-gray-500' : 'bg-primary/10 text-primary'}
                                                                                 `}>
                                                                                         <span className="material-symbols-outlined text-[12px]">
-                                                                                                {module.is_completed ? 'check_circle' : 'radio_button_unchecked'}
+                                                                                                {module.is_completed ? 'done_all' : 'radio_button_unchecked'}
                                                                                                
                                                                                         </span>
                                                                                 </div>

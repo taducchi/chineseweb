@@ -3,6 +3,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import Cookies from 'js-cookie'
+import { useAuth } from '../../context/AuthContext';
+import { useCourse } from '../../context/CourseContext';
 
 /* ============================================================
    DATA
@@ -250,10 +253,67 @@ export default function PracticeSelect({ course_slug, module_slug, lesson_slug }
 			: GAMES.filter((g) => g.category === activeFilter);
 
 	const practiceHref = `/learn/courses/${course_slug}/${module_slug}/practice/${lesson_slug}`;
-
+const [lessonData, setLessonData] = useState({});
+	
+		  const [nextLesson, setNextLesson] = useState({})
+  
+		  const { API_URL } = useAuth()
+		  const accessToken = Cookies.get('access')
+		  const [loadingUpdate, setLoadingUpdate] = useState(false);
+		  const { courseData, setCourseData } = useCourse()
 	return (
 		<main className="relative z-10 w-full flex flex-col justify-start max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-12 overflow-y-auto">
 			{/* Ambient Glow */}
+			  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border-light dark:border-border-dark pb-6">
+															<div>
+																	<h1 className="text-3xl md:text-4xl font-black leading-tight tracking-tight text-text-main-light dark:text-text-main-dark mb-2">
+																			{lessonData.title || 'Bài học'}
+																	</h1>
+																	<p className="text-text-sub-light dark:text-text-sub-dark">{lessonData.module_title || ''}</p>
+															</div>
+															<div className="flex gap-3">
+																	<button className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-text-main-light dark:text-text-main-dark">
+																			<span className="material-symbols-outlined text-[20px]">bookmark</span>
+																			<span>Lưu</span>
+																	</button>
+			
+																	<button
+																			onClick={() => {
+																					updateProgress(
+																							lessonData, setLessonData, nextLesson, setNextLesson,
+																							courseData, setCourseData, setLoadingUpdate, 
+																					API_URL, 
+																			lesson_slug)
+			
+																			}}
+																			disabled={loadingUpdate}
+																			className={`flex items-center gap-2 px-5 py-2.5 rounded-lg transition-colors text-white text-sm font-bold shadow-lg disabled:opacity-70 disabled:cursor-not-allowed ${lessonData.is_completed
+																					? "bg-green-500 hover:bg-green-600 shadow-green-500/20"
+																					: "bg-primary hover:bg-blue-600 shadow-blue-500/20"
+																					}`}
+																	>
+																			{loadingUpdate ? (
+																					// 🔄 Đang loading: icon quay
+																					<span className="material-symbols-outlined text-[20px] animate-spin">
+																							progress_activity
+																					</span>
+																			) : (
+																					// ✅ Không loading: hiển thị như bình thường
+																					<span className="material-symbols-outlined text-[20px]">
+																							{lessonData.is_completed ? "check_circle" : "check_circle"}
+																					</span>
+																			)}
+			
+																			<span>
+																					{loadingUpdate
+																							? "Đang lưu..."
+																							: lessonData.is_completed
+																									? "Đã hoàn thành"
+																									: "Đánh dấu hoàn thành"}
+																			</span>
+																	</button>
+															</div>
+													</div>
 			<div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
 				<div className="absolute -top-36 left-1/2 -translate-x-1/2 w-[700px] sm:w-[1000px] h-[350px] sm:h-[450px] bg-primary/10 blur-[130px] rounded-full" />
 				<div className="absolute top-96 -left-32 w-72 sm:w-96 h-72 sm:h-96 bg-secondary/10 blur-[120px] rounded-full" />
