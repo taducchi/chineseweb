@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useCourse } from '../../context/CourseContext';
 import { useAuth } from '../../context/AuthContext';
 import Cookies from 'js-cookie';
-
+import { updateProgress } from './progress/UpdateProgress';
 // ─── MOCK DATA ────────────────────────────────────────────────
 const MOCK_INTRO_LESSON = {
     content: {
@@ -126,30 +126,6 @@ const LessonHeader = ({
           
         </div>
 
-        <div className="flex items-center gap-3 flex-shrink-0">
-            <button
-                type="button"
-                onClick={onBookmark}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-700 font-bold text-xs hover:bg-slate-50 hover:border-slate-300 hover:shadow-sm active:scale-95 transition"
-            >
-                <Icon name="bookmark" className="w-4 h-4 text-slate-500" />
-                <span>Lưu</span>
-            </button>
-
-            <button
-                type="button"
-                onClick={onComplete}
-                disabled={isCompleted}
-                className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs transition shadow-md active:scale-95 ${
-                    isCompleted
-                        ? 'bg-emerald-500 text-white shadow-emerald-500/30 cursor-default'
-                        : 'bg-blue-600 hover:bg-blue-700 text-white shadow-blue-500/30'
-                }`}
-            >
-                <Icon name="check" className="w-4 h-4 stroke-[2.5]" />
-                <span>{isCompleted ? 'Đã hoàn thành' : 'Đánh dấu hoàn thành'}</span>
-            </button>
-        </div>
     </div>
 );
 
@@ -281,7 +257,7 @@ export default function IntroLesson({ course_slug, module_slug, lesson_slug }) {
     const { API_URL } = useAuth();
     const accessToken = Cookies.get('access');
     const { courseData, setCourseData } = useCourse();
-
+    
     useEffect(() => {
         setLoading(true);
         fetch(`${API_URL}api/courses/${course_slug}/lessons/${lesson_slug}/`, {
@@ -459,35 +435,88 @@ export default function IntroLesson({ course_slug, module_slug, lesson_slug }) {
                 />
 
                 {/* ─── NAVIGATION ─── */}
-                <div className="mt-6 flex justify-end">
-                    {nextLesson ? (
-                        <Link
-                            href={`/learn/courses/${course_slug}/${module_slug}/${nextLesson.lesson_type}/${nextLesson.slug}`}
-                            className="px-6 py-2.5 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95 flex items-center gap-2"
-                        >
-                            <span>Bài tiếp theo</span>
-                            <svg
-                                className="w-4 h-4"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M9 5l7 7-7 7"
-                                />
-                            </svg>
-                        </Link>
-                    ) : (
-                        <button
-                            disabled
-                            className="px-6 py-2.5 bg-slate-100 text-slate-400 text-sm font-medium rounded-lg cursor-not-allowed border border-slate-200"
-                        >
-                            Đã hết bài
-                        </button>
-                    )}
+                <div className="mt-6 flex justify-end items-center gap-3">
+                  <button
+    onClick={() => {
+        updateProgress(
+            lessonData,
+            setLessonData,
+            nextLesson,
+            setNextLesson,
+            courseData,
+            setCourseData,
+            setLoadingUpdate,
+            API_URL,
+            lesson_slug
+        );
+    }}
+    disabled={loadingUpdate || lessonData.is_completed}
+    className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-bold border transition-colors disabled:opacity-70 disabled:cursor-not-allowed ${
+        lessonData.is_completed
+            ? "bg-emerald-50 text-emerald-700 border-emerald-200 cursor-not-allowed"
+            : "bg-primary hover:bg-blue-600 text-white border-transparent shadow-lg shadow-blue-500/20"
+    }`}
+>
+    {loadingUpdate ? (
+        <span className="material-symbols-outlined text-[20px] animate-spin">
+            progress_activity
+        </span>
+    ) : (
+        <span className="material-symbols-outlined text-[20px]">
+            check_circle
+        </span>
+    )}
+
+    <span>
+        {loadingUpdate
+            ? "Đang lưu..."
+            : lessonData.is_completed
+            ? "Đã hoàn thành"
+            : "Đánh dấu hoàn thành"}
+    </span>
+</button>
+          {nextLesson ? (
+    <Link
+        href={
+            lessonData.is_completed
+                ? `/learn/courses/${course_slug}/${module_slug}/${nextLesson.lesson_type}/${nextLesson.slug}`
+                : "#"
+        }
+        onClick={(e) => {
+            if (!lessonData.is_completed) {
+                e.preventDefault();
+            }
+        }}
+        aria-disabled={!lessonData.is_completed}
+        className={`px-6 py-2.5 text-sm font-medium rounded-lg flex items-center gap-2 transition-all duration-300 ${
+            lessonData.is_completed
+                ? "bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:scale-95"
+                : "bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200 pointer-events-auto"
+        }`}
+    >
+        <span>Bài tiếp theo</span>
+        <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+        >
+            <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+            />
+        </svg>
+    </Link>
+) : (
+    <button
+        disabled
+        className="px-6 py-2.5 bg-slate-100 text-slate-400 text-sm font-medium rounded-lg cursor-not-allowed border border-slate-200"
+    >
+        Đã hết bài
+    </button>
+)}
                 </div>
 
                 {/* Padding bottom để không bị Footer che */}

@@ -9,7 +9,7 @@ import { useCourse } from '../../context/CourseContext';
 import { updateProgress } from './progress/UpdateProgress';
 
 export default function VideoLesson({ toggleSidebar, course_slug, module_slug, lesson_slug }) {
-        
+
         const [activeTab, setActiveTab] = useState('vocabulary');
         const [error, setError] = useState(null);
         const [words, setWords] = useState({})
@@ -131,47 +131,7 @@ export default function VideoLesson({ toggleSidebar, course_slug, module_slug, l
                                                                 <span>Lưu</span>
                                                         </button>
 
-                                                       <button
-    onClick={() => {
-        updateProgress(
-            lessonData,
-            setLessonData,
-            nextLesson,
-            setNextLesson,
-            courseData,
-            setCourseData,
-            setLoadingUpdate,
-            API_URL,
-            lesson_slug
-        );
-    }}
-    disabled={loadingUpdate || lessonData.is_completed}
-    className={`flex items-center gap-2 px-5 py-2.5 rounded-lg transition-colors text-white text-sm font-bold shadow-lg disabled:opacity-70 disabled:cursor-not-allowed ${
-        lessonData.is_completed
-            ? "bg-green-500 hover:bg-green-600 shadow-green-500/20 cursor-not-allowed"
-            : "bg-primary hover:bg-blue-600 shadow-blue-500/20"
-    }`}
->
-    {loadingUpdate ? (
-        // 🔄 Đang loading: icon quay
-        <span className="material-symbols-outlined text-[20px] animate-spin">
-            progress_activity
-        </span>
-    ) : (
-        // ✅ Không loading: hiển thị như bình thường
-        <span className="material-symbols-outlined text-[20px]">
-            check_circle
-        </span>
-    )}
 
-    <span>
-        {loadingUpdate
-            ? "Đang lưu..."
-            : lessonData.is_completed
-            ? "Đã hoàn thành"
-            : "Đánh dấu hoàn thành"}
-    </span>
-</button>
                                                 </div>
                                         </div>
 
@@ -206,16 +166,88 @@ export default function VideoLesson({ toggleSidebar, course_slug, module_slug, l
                                         </div>
 
                                         {/* Content Tabs */}
-                                        <div className="mt-6 flex justify-end">
-                                                <Link
-                                                        href={`/learn/courses/${course_slug}/${module_slug}/${nextLesson.lesson_type}/${nextLesson.slug}`}
-                                                        className="px-6 py-2.5 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95 flex items-center gap-2"
+                                        <div className="mt-6 flex justify-end items-center gap-3">
+                                                {/* Nút đánh dấu hoàn thành */}
+                                                <button
+                                                        onClick={() => {
+                                                                updateProgress(
+                                                                        lessonData,
+                                                                        setLessonData,
+                                                                        nextLesson,
+                                                                        setNextLesson,
+                                                                        courseData,
+                                                                        setCourseData,
+                                                                        setLoadingUpdate,
+                                                                        API_URL,
+                                                                        lesson_slug
+                                                                );
+                                                        }}
+                                                        disabled={loadingUpdate || lessonData.is_completed}
+                                                        className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-bold border transition-colors disabled:opacity-70 disabled:cursor-not-allowed ${lessonData.is_completed
+                                                                        ? "bg-emerald-50 text-emerald-700 border-emerald-200 cursor-not-allowed"
+                                                                        : "bg-primary hover:bg-blue-600 text-white border-transparent shadow-lg shadow-blue-500/20"
+                                                                }`}
                                                 >
-                                                        <span>Bài tiếp theo</span>
-                                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                                        </svg>
-                                                </Link>
+                                                        {loadingUpdate ? (
+                                                                <span className="material-symbols-outlined text-[20px] animate-spin">
+                                                                        progress_activity
+                                                                </span>
+                                                        ) : (
+                                                                <span className="material-symbols-outlined text-[20px]">
+                                                                        check_circle
+                                                                </span>
+                                                        )}
+                                                        <span>
+                                                                {loadingUpdate
+                                                                        ? "Đang lưu..."
+                                                                        : lessonData.is_completed
+                                                                                ? "Đã hoàn thành"
+                                                                                : "Đánh dấu hoàn thành"}
+                                                        </span>
+                                                </button>
+
+                                                {/* Nút bài tiếp theo */}
+                                                {nextLesson ? (
+                                                        lessonData.is_completed ? (
+                                                                <Link
+                                                                        href={`/learn/courses/${course_slug}/${module_slug}/${nextLesson.lesson_type}/${nextLesson.slug}`}
+                                                                        className="px-6 py-2.5 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95 flex items-center gap-2"
+                                                                >
+                                                                        <span>Bài tiếp theo</span>
+                                                                        <svg
+                                                                                className="w-4 h-4"
+                                                                                fill="none"
+                                                                                stroke="currentColor"
+                                                                                viewBox="0 0 24 24"
+                                                                        >
+                                                                                <path
+                                                                                        strokeLinecap="round"
+                                                                                        strokeLinejoin="round"
+                                                                                        strokeWidth={2}
+                                                                                        d="M9 5l7 7-7 7"
+                                                                                />
+                                                                        </svg>
+                                                                </Link>
+                                                        ) : (
+                                                                <button
+                                                                        disabled
+                                                                        title="Bạn cần hoàn thành bài hiện tại trước"
+                                                                        className="px-6 py-2.5 bg-slate-100 text-slate-400 text-sm font-medium rounded-lg cursor-not-allowed border border-slate-200 flex items-center gap-2"
+                                                                >
+                                                                        <span>Bài tiếp theo</span>
+                                                                        <span className="material-symbols-outlined text-base">
+                                                                                lock
+                                                                        </span>
+                                                                </button>
+                                                        )
+                                                ) : (
+                                                        <button
+                                                                disabled
+                                                                className="px-6 py-2.5 bg-slate-100 text-slate-400 text-sm font-medium rounded-lg cursor-not-allowed border border-slate-200"
+                                                        >
+                                                                Đã hết bài
+                                                        </button>
+                                                )}
                                         </div>
                                         <div className="flex flex-col bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm">
                                                 {/* Tab Headers - Grid 2x2 trên mobile, scroll ngang trên desktop */}

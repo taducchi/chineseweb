@@ -128,7 +128,8 @@ export default function Sidebar({ isOpen, onClose,  toggleSidebar, course_slug }
                         'vocabulary': 'menu_book',
                         'grammar': 'text_fields',
                         'reading': 'chrome_reader_mode',
-                        'practice': 'quiz',
+                        'overview-practice': 'ink_pen',
+                        'practice': 'ink_pen',
                         'dictation': 'edit_note',
                         'speaking': 'record_voice_over',
                         'quiz': 'assignment',
@@ -138,7 +139,9 @@ export default function Sidebar({ isOpen, onClose,  toggleSidebar, course_slug }
                         'pronunciation': 'mic',
                         'conversation': 'forum',
                         'review': 'refresh',
-                        'project': 'assignment_turned_in'
+                        'project': 'assignment_turned_in',
+                        'introduction' : 'book_2',
+                        'summary':'book_2'
                 };
 
                 return iconMap[lessonType] || 'article';
