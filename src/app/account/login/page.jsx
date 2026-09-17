@@ -190,143 +190,166 @@ export default function LoginPage() {
                                                 </div>
 
                                                 {/* Right Side: Login Form */}
-                                                <div className="flex flex-col justify-center px-6 py-10 md:px-12 lg:px-16 w-full">
-                                                        <div className="w-full max-w-md mx-auto">
-                                                                <div className="mb-8 text-center lg:text-left">
-                                                                        <h1 className="text-3xl font-black text-text-main dark:text-white mb-2">
-                                                                                Chào mừng trở lại!
-                                                                        </h1>
-                                                                        <p className="text-text-sub dark:text-slate-400 text-base">
-                                                                                Tiếp tục hành trình chinh phục tiếng Trung của bạn.
-                                                                        </p>
-                                                                </div>
+                                              <div className="flex flex-col justify-center items-center px-6 py-10 md:px-12 lg:px-16 w-full min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="w-full max-w-md">
 
-                                                                <form onSubmit={handleSubmit} autoComplete='true' className="flex flex-col gap-5" method="POST">
-                                                                        {/* Email Field */}
-                                                                        <div className="flex flex-col gap-2">
-                                                                                <label className="text-text-main dark:text-slate-200 text-sm font-medium">
-                                                                                        Email hoặc Tên đăng nhập *
-                                                                                </label>
-                                                                                <div className="relative flex items-center">
-                                                                                        <span className="absolute left-4 text-text-sub dark:text-slate-500 material-symbols-outlined text-[20px]">
-                                                                                                person
-                                                                                        </span>
-                                                                                        <input
-                                                                                                autoComplete="email"
-                                                                                                name="email"
-                                                                                                className={`w-full rounded-lg border ${errors.email ? 'border-red-500' : 'border-slate-200 dark:border-slate-600'
-                                                                                                        } bg-slate-50 dark:bg-slate-800 text-text-main dark:text-white h-12 pl-11 pr-4 placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-base`}
-                                                                                                placeholder="user@example.com"
-                                                                                                type="text"
-                                                                                                value={formData.email}
-                                                                                                onChange={handleChange}
-                                                                                                disabled={loadingLogin}
-                                                                                        />
-                                                                                </div>
-                                                                                {errors.email && (
-                                                                                        <p className="text-red-500 text-sm">{errors.email}</p>
-                                                                                )}
-                                                                        </div>
+        {/* ─── HEADER ─── */}
+        <div className="mb-8 text-center lg:text-left">
+            <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">
+                Chào mừng trở lại!
+            </h1>
+            <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base">
+                Tiếp tục hành trình chinh phục tiếng Trung của bạn.
+            </p>
+        </div>
 
-                                                                        {/* Password Field */}
-                                                                        <div className="flex flex-col gap-2">
-                                                                                <div className="flex justify-between items-center">
-                                                                                        <label className="text-text-main dark:text-slate-200 text-sm font-medium">
-                                                                                                Mật khẩu *
-                                                                                        </label>
-                                                                                        <Link className="text-primary hover:text-primary-dark text-sm font-medium transition-colors" href="/account/pwreset">
-                                                                                                Quên mật khẩu?
-                                                                                        </Link>
-                                                                                </div>
-                                                                                <div className="relative flex items-center">
-                                                                                        <span className="absolute left-4 text-text-sub dark:text-slate-500 material-symbols-outlined text-[20px]">
-                                                                                                lock
-                                                                                        </span>
-                                                                                        <input
-                                                                                                autoComplete='password'
-                                                                                                name="password"
-                                                                                                className={`w-full rounded-lg border ${errors.password ? 'border-red-500' : 'border-slate-200 dark:border-slate-600'
-                                                                                                        } bg-slate-50 dark:bg-slate-800 text-text-main dark:text-white h-12 pl-11 pr-11 placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-base`}
-                                                                                                placeholder="••••••••"
-                                                                                                type={showPassword ? "text" : "password"}
-                                                                                                value={formData.password}
-                                                                                                onChange={handleChange}
-                                                                                                disabled={loadingLogin}
-                                                                                        />
-                                                                                        <button
-                                                                                                type="button"
-                                                                                                className="absolute right-0 h-full px-3 flex items-center justify-center text-text-sub dark:text-slate-400 hover:text-text-main dark:hover:text-slate-300 transition-colors"
-                                                                                                onClick={() => setShowPassword(!showPassword)}
-                                                                                                disabled={loadingLogin}
-                                                                                        >
-                                                                                                <span className="material-symbols-outlined text-[20px]">
-                                                                                                        {showPassword ? "visibility_off" : "visibility"}
-                                                                                                </span>
-                                                                                        </button>
-                                                                                </div>
-                                                                                {errors.password && (
-                                                                                        <p className="text-red-500 text-sm">{errors.password}</p>
-                                                                                )}
-                                                                        </div>
+        {/* ─── FORM ─── */}
+        <form
+            onSubmit={handleSubmit}
+            autoComplete="on"
+            method="POST"
+            className="flex flex-col gap-5"
+        >
+            {/* Email */}
+            <div className="flex flex-col gap-2">
+                <label
+                    htmlFor="email"
+                    className="text-slate-700 dark:text-slate-200 text-sm font-medium"
+                >
+                    Email hoặc Tên đăng nhập
+                </label>
+                <div className="relative">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 material-symbols-outlined text-[20px] pointer-events-none">
+                        person
+                    </span>
+                    <input
+                        id="email"
+                        autoComplete="email"
+                        name="email"
+                        type="text"
+                        placeholder="user@example.com"
+                        value={formData.email}
+                        onChange={handleChange}
+                        disabled={loadingLogin}
+                        className={`w-full h-12 rounded-lg border bg-white dark:bg-slate-800 text-slate-900 dark:text-white pl-11 pr-4 text-base placeholder:text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary disabled:opacity-60 disabled:cursor-not-allowed ${
+                            errors.email
+                                ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20'
+                                : 'border-slate-200 dark:border-slate-700'
+                        }`}
+                    />
+                </div>
+                {errors.email && (
+                    <p className="text-red-500 text-xs font-medium">{errors.email}</p>
+                )}
+            </div>
 
-                                                                        {/* Login Error Message */}
-                                                                        {loginError && (
-                                                                                <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-                                                                                        <p className="text-red-600 dark:text-red-400 text-sm">{loginError}</p>
-                                                                                </div>
-                                                                        )}
+            {/* Password */}
+            <div className="flex flex-col gap-2">
+                <div className="flex justify-between items-center">
+                    <label
+                        htmlFor="password"
+                        className="text-slate-700 dark:text-slate-200 text-sm font-medium"
+                    >
+                        Mật khẩu
+                    </label>
+                    <Link
+                        href="/account/pwreset"
+                        className="text-primary hover:text-primary-dark text-xs sm:text-sm font-medium transition-colors"
+                    >
+                        Quên mật khẩu?
+                    </Link>
+                </div>
+                <div className="relative">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 material-symbols-outlined text-[20px] pointer-events-none">
+                        lock
+                    </span>
+                    <input
+                        id="password"
+                        autoComplete="current-password"
+                        name="password"
+                        type={showPassword ? 'text' : 'password'}
+                        placeholder="••••••••"
+                        value={formData.password}
+                        onChange={handleChange}
+                        disabled={loadingLogin}
+                        className={`w-full h-12 rounded-lg border bg-white dark:bg-slate-800 text-slate-900 dark:text-white pl-11 pr-11 text-base placeholder:text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary disabled:opacity-60 disabled:cursor-not-allowed ${
+                            errors.password
+                                ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20'
+                                : 'border-slate-200 dark:border-slate-700'
+                        }`}
+                    />
+                    <button
+                        type="button"
+                        onClick={() => setShowPassword((v) => !v)}
+                        disabled={loadingLogin}
+                        aria-label={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 flex items-center justify-center rounded-md text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors disabled:opacity-60"
+                    >
+                        <span className="material-symbols-outlined text-[20px]">
+                            {showPassword ? 'visibility_off' : 'visibility'}
+                        </span>
+                    </button>
+                </div>
+                {errors.password && (
+                    <p className="text-red-500 text-xs font-medium">{errors.password}</p>
+                )}
+            </div>
 
-                                                                        {/* Submit Button */}
-                                                                        <button
-                                                                                type="submit"
-                                                                                disabled={loadingLogin}
-                                                                                className="mt-2 w-full flex items-center justify-center rounded-lg h-12 px-6 bg-primary hover:bg-primary-dark text-white text-base font-bold transition-all shadow-sm hover:shadow-md disabled:opacity-70 disabled:cursor-not-allowed relative"
-                                                                        >
-                                                                                {(loadingCount > 0) ? (
-                                                                                        <>
-                                                                                                <span className="opacity-0">Đăng nhập</span>
-                                                                                                <div className="absolute inset-0 flex items-center justify-center">
-                                                                                                        <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                                                                                </div>
-                                                                                        </>
-                                                                                ) : (
-                                                                                        'Đăng nhập'
-                                                                                )}
-                                                                        </button>
-                                                                </form>
+            {/* Login Error */}
+            {loginError && (
+                <div className="flex items-start gap-2.5 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                    <span className="material-symbols-outlined text-red-500 text-[20px] flex-shrink-0">
+                        error
+                    </span>
+                    <p className="text-red-600 dark:text-red-400 text-sm">{loginError}</p>
+                </div>
+            )}
 
-                                                                {/* Divider */}
-                                                                <div className="relative my-8">
-                                                                        <div className="absolute inset-0 flex items-center">
-                                                                                <div className="w-full border-t border-slate-200 dark:border-slate-700"></div>
-                                                                        </div>
-                                                                        <div className="relative flex justify-center text-sm">
-                                                                                <span className="px-4 bg-white dark:bg-surface-dark text-text-sub dark:text-slate-400">
-                                                                                        Hoặc tiếp tục với
-                                                                                </span>
-                                                                        </div>
-                                                                </div>
+            {/* Submit */}
+            <button
+                type="submit"
+                disabled={loadingLogin}
+                className="mt-2 w-full h-12 inline-flex items-center justify-center rounded-lg bg-primary hover:bg-primary-dark text-white text-base font-bold transition-all shadow-sm hover:shadow-md disabled:opacity-70 disabled:cursor-not-allowed"
+            >
+                {loadingCount > 0 ? (
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                ) : (
+                    'Đăng nhập'
+                )}
+            </button>
+        </form>
 
-                                                                {/* Social Login */}
-                                                                <div className="flex width-full bg-green-500">
-                                                                        <GoogleSignInButton
-                                                                                handleGoogleSignIn={handleGoogleSignIn}
-                                                                                
-                                                                        />
+        {/* ─── DIVIDER ─── */}
+        <div className="relative my-8">
+            <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-slate-200 dark:border-slate-700" />
+            </div>
+            <div className="relative flex justify-center">
+                <span className="px-4 bg-slate-50 dark:bg-slate-950 text-slate-400 text-xs uppercase tracking-wider font-medium">
+                    Hoặc tiếp tục với
+                </span>
+            </div>
+        </div>
 
-                                                                </div>
+        {/* ─── SOCIAL LOGIN ─── */}
+        <div className="w-full flex justify-center">
+            <GoogleSignInButton handleGoogleSignIn={handleGoogleSignIn} />
+        </div>
 
-                                                                {/* Register Link */}
-                                                                <div className="mt-8 text-center">
-                                                                        <p className="text-text-sub dark:text-slate-400 text-sm">
-                                                                                Bạn chưa có tài khoản?{' '}
-                                                                                <Link className="text-primary hover:text-primary-dark font-semibold transition-colors" href="/account/register">
-                                                                                        Đăng ký ngay
-                                                                                </Link>
-                                                                        </p>
-                                                                </div>
-                                                        </div>
-                                                </div>
+        {/* ─── REGISTER LINK ─── */}
+        <div className="mt-8 text-center">
+            <p className="text-slate-500 dark:text-slate-400 text-sm">
+                Bạn chưa có tài khoản?{' '}
+                <Link
+                    href="/account/register"
+                    className="text-primary hover:text-primary-dark font-semibold transition-colors"
+                >
+                    Đăng ký ngay
+                </Link>
+            </p>
+        </div>
+    </div>
+</div>
                                         </div>
                                 </main>
 

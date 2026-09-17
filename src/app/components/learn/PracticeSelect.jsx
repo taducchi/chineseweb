@@ -20,14 +20,14 @@ const FILTER_TABS = [
 
 const GAMES = [
 	{
-		id: 'flashcard-3d',
+		id: 'flashcard',
 		category: 'hanzi',
 		title: 'Flashcard 3D',
 		difficulty: 'Cơ bản',
 		time: '5 phút',
 		xp: '+15 XP',
 		primaryCta: true,
-		thumbnail: '/images/practice/flashcard.png',
+		thumbnail: '/images/practice/flashcard-game.jpg',
 	},
 	{
 		id: 'multiple-choice',
@@ -36,7 +36,7 @@ const GAMES = [
 		difficulty: 'Cơ bản',
 		time: '3 phút',
 		xp: '+20 XP',
-		thumbnail: '/images/practice/multiple-choice.png',
+		thumbnail: '/images/practice/multiple-choice.jpg',
 	},
 	{
 		id: 'matching',
@@ -45,34 +45,26 @@ const GAMES = [
 		difficulty: 'Vừa',
 		time: '4 phút',
 		xp: '+25 XP',
-		thumbnail: '/images/practice/matching.png',
+		thumbnail: '/images/practice/matching.jpg',
 	},
+
 	{
-		id: 'pinyin-tone',
-		category: 'pinyin',
-		title: 'Pinyin & Thanh điệu',
-		difficulty: 'Cơ bản',
-		time: '3 phút',
-		xp: '+20 XP',
-		thumbnail: '/images/practice/pinyin-tone.png',
-	},
-	{
-		id: 'fill-blank',
+		id: 'gap-filling',
 		category: 'sentence',
 		title: 'Điền từ',
 		difficulty: 'Nâng cao',
 		time: '5 phút',
 		xp: '+30 XP',
-		thumbnail: '/images/practice/fill-blank.png',
+		thumbnail: '/images/practice/gap-filling.jpg',
 	},
 	{
-		id: 'listening',
+		id: 'word-dictation',
 		category: 'pinyin',
 		title: 'Nghe & Nhận diện',
 		difficulty: 'Nghe',
 		time: '4 phút',
 		xp: '+25 XP',
-		thumbnail: '/images/practice/listening.png',
+		thumbnail: '/images/practice/listening.jpg',
 	},
 	{
 		id: 'sentence-builder',
@@ -81,26 +73,17 @@ const GAMES = [
 		difficulty: 'Ngữ pháp',
 		time: '6 phút',
 		xp: '+35 XP',
-		thumbnail: '/images/practice/sentence-builder.png',
+		thumbnail: '/images/practice/sort.jpg',
 	},
-	{
-		id: 'speed-quiz',
-		category: 'speed',
-		title: 'Đua tốc độ',
-		difficulty: 'Kịch tính',
-		time: '2 phút',
-		xp: '+40 XP',
-		primaryCta: true,
-		thumbnail: '/images/practice/speed-quiz.png',
-	},
+	
 ];
 
 /* ============================================================
    GAME CARD
    ============================================================ */
-function GameCard({ course_slug, module_slug, game }) {
+function GameCard({ course_slug, module_slug, game, lesson_slug }) {
 	return (
-		<div className="flex flex-col rounded-xl bg-white p-4 border border-slate-200 hover:border-primary/40 hover:shadow-md transition-all">
+		<div className="flex flex-col rounded-xl fg-white p-4 border border-slate-200 hover:border-primary/40 hover:shadow-md transition-all">
 			<div className="relative h-36 rounded-lg bg-slate-100 overflow-hidden mb-3">
 				{game.thumbnail ? (
 					<Image
@@ -131,7 +114,7 @@ function GameCard({ course_slug, module_slug, game }) {
 					{game.xp}
 				</span>
 				<Link
-					href={`/learn/courses/${course_slug}/${module_slug}/${game.id}`}
+					href={`/learn/courses/${course_slug}/${module_slug}/${game.id}/${lesson_slug}`}
 					className="px-3 py-1.5 rounded-lg text-xs font-bold bg-primary text-white hover:bg-blue-600 transition-colors"
 				>
 					Bắt đầu
@@ -161,6 +144,8 @@ export default function PracticeSelect({ course_slug, module_slug, lesson_slug }
 	const [loadingUpdate, setLoadingUpdate] = useState(false);
 	const { courseData, setCourseData } = useCourse();
 
+
+
 	return (
 		<main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-y-auto">
 			<div className="flex flex-col gap-10">
@@ -168,7 +153,7 @@ export default function PracticeSelect({ course_slug, module_slug, lesson_slug }
 				<div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
 					<div>
 						<h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-1">
-							{lessonData.title || 'Bài học'}
+							{lessonData.title || 'Luyện tập'}
 						</h1>
 						<p className="text-slate-500 text-sm">
 							{lessonData.module_title || ''}
@@ -275,6 +260,7 @@ export default function PracticeSelect({ course_slug, module_slug, lesson_slug }
 								game={game}
 								course_slug={course_slug}
 								module_slug={module_slug}
+								lesson_slug={lesson_slug}
 							/>
 						))}
 					</div>

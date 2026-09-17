@@ -37,19 +37,19 @@ export default function Header({ toggleSidebar }) {
           <span className="material-symbols-outlined">menu</span>
         </button>
 
-        
+
       </div>
 
       {/* Center - Desktop Navigation */}
       <div className="hidden md:flex items-center gap-9 flex-1 justify-center">
-        <Link 
-          className="text-sm font-medium leading-normal hover:text-primary transition-colors text-slate-600 dark:text-slate-300" 
+        <Link
+          className="text-sm font-medium leading-normal hover:text-primary transition-colors text-slate-600 dark:text-slate-300"
           href="/dashboard"
         >
           Dashboard
         </Link>
-        <Link 
-          className="text-sm font-medium leading-normal text-primary hover:text-primary/80 transition-colors" 
+        <Link
+          className="text-sm font-medium leading-normal text-primary hover:text-primary/80 transition-colors"
           href="/dashboard/courses"
         >
           Khoá học

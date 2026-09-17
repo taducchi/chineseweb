@@ -7,17 +7,21 @@ import DashboardHeader from '../components/dashboard/DashboardHeader';
 import Breadcrumb from '../components/courses/Breadcrumb';
 import { useAuth } from '../context/AuthContext';
 import GlobalLoadingOverlay from '../components/GlobalLoadingOverlay';
+import LoginAlert from '../account/login/LoginAlert';
 
 
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const {loadingCount} = useAuth()
+  const {loadingCount, user} = useAuth()
 
 
   return (
     <div className="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen overflow-hidden">
       {loadingCount > 0 && <GlobalLoadingOverlay />}
-      <div className="flex h-screen w-full">
+      {loadingCount === 0 && user === null && <LoginAlert />}
+      
+      { !loadingCount === 0 && !user === null &&
+        <div className="flex h-screen w-full">
         {/* Mobile Sidebar Overlay */}
         {sidebarOpen && (
           <div 
@@ -38,6 +42,7 @@ export default function DashboardLayout({ children }) {
           {children}
         </div>
       </div>
+      }
     </div>
   );
 }

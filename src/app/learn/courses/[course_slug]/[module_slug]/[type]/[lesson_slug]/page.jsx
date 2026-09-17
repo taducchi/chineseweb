@@ -13,6 +13,11 @@ import { useAuth } from "../../../../../../context/AuthContext";
 import Cookies from 'js-cookie'
 import IntroLesson from "../../../../../../components/learn/IntroLesson";
 import SummaryLesson from "../../../../../../components/learn/SummaryLesson";
+import MatchingGame from "../../../../../../components/learn/MatchingGame";
+import WordDictation from "../../../../../../components/learn/WordDictation";
+import GapFilling from "../../../../../../components/learn/GapFilling";
+import MultipleChoice from "../../../../../../components/learn/MultiplceChoice";
+import SentenceBuild from "../../../../../../components/learn/SentenceBuild";
 
 export default function LessonItemPage() {
   const params = useParams();
@@ -38,7 +43,7 @@ export default function LessonItemPage() {
       return <ReadingLesson data={data} course_slug={course_slug} module_slug={module_slug} 
       lesson_slug={lesson_slug}
       />
-    case "vocabulary":
+    case "flashcard":
       return <FlashcardLesson data={data} course_slug={course_slug} module_slug={module_slug} lesson_slug={lesson_slug}  />
     case "dictation":
       return <DictationLesson />
@@ -46,12 +51,22 @@ export default function LessonItemPage() {
       return <PracticeLesson data={data} course_slug={course_slug} module_slug={module_slug} 
       lesson_slug={lesson_slug}
      />
-    case "overview-practice":
+    case "vocabulary":
       return <PracticeSelect course_slug={course_slug} module_slug={module_slug} lesson_slug={lesson_slug}  />
     case "introduction":
       return <IntroLesson course_slug={course_slug} module_slug={module_slug} lesson_slug={lesson_slug}  />
+       case "matching":
+      return <MatchingGame course_slug={course_slug} module_slug={module_slug} lesson_slug={lesson_slug}  />
     case "summary":
       return <SummaryLesson course_slug={course_slug} module_slug={module_slug} lesson_slug={lesson_slug}  />
+    case "word-dictation":
+      return <WordDictation course_slug={course_slug} module_slug={module_slug} lesson_slug={lesson_slug}  />
+    case "gap-filling":
+      return <GapFilling course_slug={course_slug} module_slug={module_slug} lesson_slug={lesson_slug}  />
+    case "multiple-choice":
+      return <MultipleChoice course_slug={course_slug} module_slug={module_slug} lesson_slug={lesson_slug}  />
+    case "sentence-builder":
+      return <SentenceBuild course_slug={course_slug} module_slug={module_slug} lesson_slug={lesson_slug}  />
     
       default:
       return <div>Lesson type not supported</div>
