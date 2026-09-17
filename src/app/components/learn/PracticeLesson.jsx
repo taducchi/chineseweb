@@ -765,7 +765,7 @@ export default function PracticeLesson({ course_slug, module_slug, lesson_slug }
                 <div id="youtube-background-player" style={{ position: 'fixed', width: '0', height: '0', opacity: 0, pointerEvents: 'none' }} />
                 <div id="youtube-countdown-player" style={{ position: 'fixed', width: '0', height: '0', opacity: 0, pointerEvents: 'none' }} />
                 <Link
-                    href={`/learn/courses/${course_slug}/${module_slug}/overview-practice/${lesson_slug}`}
+                    href={`/learn/courses/${course_slug}/${module_slug}/vocabulary/${lesson_slug}`}
                     className="bg-white text-[#091d2e] px-8 py-4 rounded-2xl font-bold text-lg shadow-[0_4px_0_#c9dcf3] hover:bg-[#edf4ff] transition-colors flex items-center justify-center gap-2 border-2 border-[#d1e4fb]"
                 >
                     <span className="material-symbols-outlined text-sm">arrow_back</span>
