@@ -54,26 +54,26 @@ export default function DashboardSidebar({
       label: 'Khóa Học',
       href: '/dashboard/courses',
     },
-    {
-      icon: 'match_word',
-      label: 'Luyện từ vựng',
-      href: '/dashboard/vocabulary',
-    },
-    {
-      icon: 'videocam',
-      label: 'Xem video',
-      href: '/dashboard/video',
-    },
-    {
-      icon: 'auto_stories',
-      label: 'Luyện đọc',
-      href: '/dashboard/reading',
-    },
-    {
-      icon: 'edit',
-      label: 'Chép chính tả',
-      href: '/dashboard/notetaking',
-    },
+    // {
+    //   icon: 'match_word',
+    //   label: 'Luyện từ vựng',
+    //   href: '/dashboard/vocabulary',
+    // },
+    // {
+    //   icon: 'videocam',
+    //   label: 'Xem video',
+    //   href: '/dashboard/video',
+    // },
+    // {
+    //   icon: 'auto_stories',
+    //   label: 'Luyện đọc',
+    //   href: '/dashboard/reading',
+    // },
+    // {
+    //   icon: 'edit',
+    //   label: 'Chép chính tả',
+    //   href: '/dashboard/notetaking',
+    // },
   ];
 
   // Nhóm nav phía dưới
