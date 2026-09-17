@@ -20,7 +20,7 @@ export default function DashboardLayout({ children }) {
       {loadingCount > 0 && <GlobalLoadingOverlay />}
       {loadingCount === 0 && user === null && <LoginAlert />}
       
-      { !loadingCount === 0 && !user === null &&
+      { loadingCount === 0 && !user === null &&
         <div className="flex h-screen w-full">
         {/* Mobile Sidebar Overlay */}
         {sidebarOpen && (
