@@ -3,9 +3,10 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useAuth } from '../../context/AuthContext';
 
-export default function FlashcardLesson({ data, course_slug, lesson_slug, item_slug }) {
+export default function FlashcardLesson({ data, course_slug, module_slug, lesson_slug, lesson_course, item_slug }) {
         const router = useRouter();
         const { API_URL } = useAuth();
 
@@ -218,6 +219,13 @@ export default function FlashcardLesson({ data, course_slug, lesson_slug, item_s
                 <main className="flex-1 flex flex-col min-h-screen bg-background-light dark:bg-background-dark">
                         <div className="flex-1 flex flex-col p-4 md:p-6 lg:p-8 max-w-4xl mx-auto w-full">
                                 {/* Progress & Timer */}
+                                <Link
+                                                                href={`/learn/courses/${course_slug}/${module_slug}/vocabulary/${lesson_slug}`}
+                                                                className="w-full bg-white text-[#091d2e] px-8 py-4 rounded-2xl font-bold text-lg shadow-[0_4px_0_#c9dcf3] hover:bg-[#edf4ff] transition-colors flex items-center justify-center gap-2 border-2 border-[#d1e4fb]"
+                                                            >
+                                                                <span className="material-symbols-outlined text-sm">apps</span>
+                                                                Chọn chế độ luyện tập khác
+                                                            </Link>
                                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4 md:mb-6">
                                         <div className="flex-1 w-full">
                                                 <div className="flex justify-between text-xs sm:text-sm mb-1.5">
@@ -449,6 +457,17 @@ export default function FlashcardLesson({ data, course_slug, lesson_slug, item_s
                                                 <span className="hidden xs:inline">Sau</span>
                                                 <span className="material-symbols-outlined text-lg sm:text-xl">chevron_right</span>
                                         </button>
+                                </div>
+
+                                {/* Link chuyển sang chế độ Vocabulary */}
+                                <div className="flex justify-center mt-4">
+                                        <Link
+                                                href={`/learn/courses/${course_slug}/${module_slug}/vocabulary/${lesson_course}`}
+                                                className="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-medium bg-slate-100 dark:bg-slate-800 text-text-main dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95"
+                                        >
+                                                <span className="material-symbols-outlined text-lg sm:text-xl">menu_book</span>
+                                                Chọn chế độ luyện tập khác
+                                        </Link>
                                 </div>
 
                                 {/* Keyboard Shortcuts - Tiếng Việt */}
