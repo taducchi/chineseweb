@@ -215,13 +215,26 @@ export default function SummaryLesson({ course_slug, module_slug, lesson_slug })
             });
     }, []);
 
-    if (loading) {
-        return (
-            <div className="flex-1 flex items-center justify-center">
-                <div className="text-slate-400 text-sm">Đang tải bài học...</div>
-            </div>
-        );
-    }
+       if (loading) {
+                return (
+                        <main className="flex-1 flex flex-col overflow-hidden bg-background-light dark:bg-background-dark relative">
+                                <div className="flex-1 flex items-center justify-center p-6">
+                                        <div className="flex flex-col items-center gap-4">
+                                                {/* Spinner chính */}
+                                                <div className="relative">
+                                                        <div className="w-16 h-16 border-4 border-gray-200 dark:border-gray-700 rounded-full animate-spin border-t-blue-500"></div>
+                                                        <div className="absolute inset-0 flex items-center justify-center">
+                                                                <div className="w-4 h-4 bg-blue-500 rounded-full animate-pulse"></div>
+                                                        </div>
+                                                </div>
+                                                <p className="text-gray-500 dark:text-gray-400 animate-pulse">
+                                                        Đang tải bài học...
+                                                </p>
+                                        </div>
+                                </div>
+                        </main>
+                );
+        }
 
     if (error) {
         return (

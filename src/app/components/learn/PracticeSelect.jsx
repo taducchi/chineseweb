@@ -6,6 +6,8 @@ import { useState } from 'react';
 import Cookies from 'js-cookie';
 import { useAuth } from '../../context/AuthContext';
 import { useCourse } from '../../context/CourseContext';
+import { useEffect } from 'react';
+import { updateProgress } from './progress/UpdateProgress';
 
 /* ============================================================
    DATA
@@ -136,7 +138,7 @@ export default function PracticeSelect({ course_slug, module_slug, lesson_slug }
 			: GAMES.filter((g) => g.category === activeFilter);
 
 	const practiceHref = `/learn/courses/${course_slug}/${module_slug}/practice/${lesson_slug}`;
-
+	const [loading, setLoading] = useState(false)
 	const [lessonData, setLessonData] = useState({});
 	const [nextLesson, setNextLesson] = useState({});
 	const { API_URL } = useAuth();
@@ -144,7 +146,54 @@ export default function PracticeSelect({ course_slug, module_slug, lesson_slug }
 	const [loadingUpdate, setLoadingUpdate] = useState(false);
 	const { courseData, setCourseData } = useCourse();
 
-
+	useEffect(() => {
+					setLoading(true);
+					fetch(`${API_URL}api/courses/${course_slug}/lessons/${lesson_slug}/`, {
+							headers: {
+									'Content-Type': 'application/json',
+									'Authorization': `Bearer ${accessToken}`,
+							},
+					})
+							.then(response => {
+									if (!response.ok) {
+											throw new Error('Failed to fetch lesson data');
+									}
+									return response.json();
+							})
+							.then(data => {
+									setLessonData(data);							
+									if (data?.next_lesson) {
+											setNextLesson(data.next_lesson)
+									} else {
+									}
+									setLoading(false);
+							})
+							.catch(error => {
+									setError(error.message);
+									setLoading(false);
+							});
+			}, []);
+	
+   if (loading) {
+                return (
+                        <main className="flex-1 flex flex-col overflow-hidden bg-background-light dark:bg-background-dark relative">
+                                <div className="flex-1 flex items-center justify-center p-6">
+                                        <div className="flex flex-col items-center gap-4">
+                                                {/* Spinner chính */}
+                                                <div className="relative">
+                                                        <div className="w-16 h-16 border-4 border-gray-200 dark:border-gray-700 rounded-full animate-spin border-t-blue-500"></div>
+                                                        <div className="absolute inset-0 flex items-center justify-center">
+                                                                <div className="w-4 h-4 bg-blue-500 rounded-full animate-pulse"></div>
+                                                        </div>
+                                                </div>
+                                                <p className="text-gray-500 dark:text-gray-400 animate-pulse">
+                                                        Đang tải bài học...
+                                                </p>
+                                        </div>
+                                </div>
+                        </main>
+                );
+        }
 
 	return (
 		<main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-y-auto">
